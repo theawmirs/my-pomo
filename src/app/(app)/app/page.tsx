@@ -6,29 +6,46 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AppPage = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-dvh">
-      <Card className="max-w-sm">
-        <CardHeader>
-          <CardTitle>
-            <h2 className="text-center text-3xl text-gray-600">Pomodoro</h2>
+    <div className="flex flex-col justify-center items-center min-h-dvh bg-gradient-to-b from-background to-muted/30 p-4">
+      <Card className="w-full max-w-md border-2 shadow-lg">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-2xl font-bold text-center text-primary">
+            My Pomodoro Timer
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="pomodoro">
-            <TabsList>
-              <TabsTrigger value="pomodoro">Pomodoro</TabsTrigger>
-              <TabsTrigger value="short-break">Short break</TabsTrigger>
-              <TabsTrigger value="long-break">Long break</TabsTrigger>
+        <CardContent className="pt-4">
+          <Tabs defaultValue="pomodoro" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-6">
+              <TabsTrigger
+                value="pomodoro"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                Pomodoro
+              </TabsTrigger>
+              <TabsTrigger
+                value="short-break"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                Short Break
+              </TabsTrigger>
+              <TabsTrigger
+                value="long-break"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                Long Break
+              </TabsTrigger>
             </TabsList>
-            <TabsContent value="pomodoro">
-              <PomodoroTimer />
-            </TabsContent>
-            <TabsContent value="short-break">
-              <ShortBreak />
-            </TabsContent>
-            <TabsContent value="long-break">
-              <LongBreak />
-            </TabsContent>
+            <div className="rounded-lg overflow-hidden p-4 bg-card/50">
+              <TabsContent value="pomodoro" className="mt-0">
+                <PomodoroTimer />
+              </TabsContent>
+              <TabsContent value="short-break" className="mt-0">
+                <ShortBreak />
+              </TabsContent>
+              <TabsContent value="long-break" className="mt-0">
+                <LongBreak />
+              </TabsContent>
+            </div>
           </Tabs>
         </CardContent>
       </Card>
