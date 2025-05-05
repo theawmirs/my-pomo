@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 const RealTimeClock = () => {
   const [time, setTime] = useState(() => {
     const now = new Date();
-    return now.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    });
+    return now
+      .toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true, // Change to 12-hour format
+      })
+      .replace(/ (AM|PM)$/i, ""); // Remove AM/PM from display
   });
 
   const [amPm, setAmPm] = useState(() => {
@@ -21,12 +23,14 @@ const RealTimeClock = () => {
     const interval = setInterval(() => {
       const now = new Date();
       setTime(
-        now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        })
+        now
+          .toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true, // 12-hour format
+          })
+          .replace(/ (AM|PM)$/i, "") // Remove AM/PM from display
       );
       setAmPm(now.getHours() >= 12 ? "PM" : "AM");
     }, 1000);
