@@ -12,38 +12,38 @@ const AppPage = () => {
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center bg-gradient-to-b from-background to-muted/30 p-4">
       <Card className="max-w-md md:max-w-md lg:max-w-lg border-2 shadow-lg">
-        <CardHeader className="pb-2">
+        <CardHeader>
           <CardTitle className="text-2xl font-bold text-center text-primary">
-            My Pomodoro Timer
+            Start focusing on your tasks
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-4">
-          <Tabs defaultValue="pomodoro" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+          <Tabs defaultValue="focus" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger
                 disabled={isCountdownActive}
-                value="pomodoro"
-                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                value="focus"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-3xl"
               >
-                Pomodoro
+                Focus
               </TabsTrigger>
               <TabsTrigger
                 disabled={isCountdownActive}
                 value="short-break"
-                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-3xl"
               >
                 Short Break
               </TabsTrigger>
               <TabsTrigger
                 disabled={isCountdownActive}
                 value="long-break"
-                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className="font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-3xl"
               >
                 Long Break
               </TabsTrigger>
             </TabsList>
             <div className="rounded-lg overflow-hidden p-4 bg-card/50">
-              <TabsContent value="pomodoro" className="mt-0">
+              <TabsContent value="focus" className="mt-0">
                 <PomodoroTimer />
               </TabsContent>
               <TabsContent value="short-break" className="mt-0">
