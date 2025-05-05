@@ -10,8 +10,8 @@ import { useStore } from "@/store/store";
 const AppPage = () => {
   const { isCountdownActive } = useStore();
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-b from-background to-muted/30 p-4">
-      <Card className="w-full max-w-md md:max-w-md lg:max-w-lg border-2 shadow-lg mt-40">
+    <div className="flex flex-col justify-center h-[90vh] items-center bg-gradient-to-b from-background to-muted/30 p-4">
+      <Card className="max-w-md md:max-w-md lg:max-w-lg border-2 shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-2xl font-bold text-center text-primary">
             My Pomodoro Timer

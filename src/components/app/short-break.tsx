@@ -55,7 +55,7 @@ const ShortBreak = () => {
 
   return (
     <div>
-      <h2 className="text-8xl font-bold mb-8 text-center">
+      <h2 className="text-9xl font-bold mb-8 text-center">
         {formatTime(timeLeft)}
       </h2>
       <div className="flex gap-2 w-full">
