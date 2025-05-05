@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
+import PomodoroTimer from "@/components/app/pomodoro";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Pause, Play, RotateCcw, StopCircle } from "lucide-react";
 
 const AppPage = () => {
   return (
@@ -12,20 +11,7 @@ const AppPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <h2 className="text-8xl font-bold mb-8 text-center">25:00</h2>
-          <div className="flex gap-4 justify-center">
-            <Button className="text-xl">
-              <Play />
-              START
-            </Button>
-            <Button className="text-xl" variant="outline">
-              <Pause />
-              STOP
-            </Button>
-            <Button>
-              <RotateCcw />
-            </Button>
-          </div>
+          <PomodoroTimer />
         </CardContent>
       </Card>
     </div>
