@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const AppPage = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-dvh bg-gradient-to-b from-background to-muted/30 p-4">
-      <Card className="w-full max-w-md border-2 shadow-lg">
+      <Card className="w-full max-w-md md:max-w-md lg:max-w-lg border-2 shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-2xl font-bold text-center text-primary">
             My Pomodoro Timer

@@ -57,24 +57,28 @@ const PomodoroTimer = () => {
       <h2 className="text-8xl font-bold mb-8 text-center">
         {formatTime(timeLeft)}
       </h2>
-      <div className="flex gap-4 justify-between">
+      <div className="flex gap-2 w-full">
         {!isActive && !isPaused ? (
-          <Button className="text-xl" onClick={handleStart}>
+          <Button className="text-xl flex-1 py-6" onClick={handleStart}>
             <Play className="mr-2" />
             START
           </Button>
         ) : isPaused ? (
-          <Button className="text-xl" onClick={handleResume}>
+          <Button className="text-xl flex-1 py-6" onClick={handleResume}>
             <StepForward className="mr-2" />
             RESUME
           </Button>
         ) : (
-          <Button className="text-xl" variant="outline" onClick={handlePause}>
+          <Button
+            className="text-xl flex-1 py-6"
+            variant="outline"
+            onClick={handlePause}
+          >
             <Pause className="mr-2" />
             STOP
           </Button>
         )}
-        <Button onClick={handleReset}>
+        <Button className="py-6 w-12" onClick={handleReset}>
           <RotateCcw />
         </Button>
       </div>
