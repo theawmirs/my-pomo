@@ -2,21 +2,22 @@
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/store/store";
 
 const LongBreak = () => {
   const [timeLeft, setTimeLeft] = useState(10 * 60);
-  const [isActive, setIsActive] = useState(false);
+  const { isCountdownActive, setCountdownStatus } = useStore();
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
-    if (isActive && !isPaused && timeLeft > 0) {
+    if (isCountdownActive && !isPaused && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
     } else if (timeLeft === 0) {
-      setIsActive(false);
+      setCountdownStatus(false);
       setIsPaused(false);
     } else if (interval) {
       clearInterval(interval);
@@ -25,7 +26,7 @@ const LongBreak = () => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isActive, isPaused, timeLeft]);
+  }, [isCountdownActive, isPaused, timeLeft]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -34,7 +35,7 @@ const LongBreak = () => {
   };
 
   const handleStart = () => {
-    setIsActive(true);
+    setCountdownStatus(true);
     setIsPaused(false);
   };
 
@@ -47,8 +48,8 @@ const LongBreak = () => {
   };
 
   const handleReset = () => {
-    setTimeLeft(25 * 60);
-    setIsActive(false);
+    setTimeLeft(10 * 60);
+    setCountdownStatus(false);
     setIsPaused(false);
   };
 
@@ -58,7 +59,7 @@ const LongBreak = () => {
         {formatTime(timeLeft)}
       </h2>
       <div className="flex gap-2 w-full">
-        {!isActive && !isPaused ? (
+        {!isCountdownActive && !isPaused ? (
           <Button className="text-xl flex-1 py-6" onClick={handleStart}>
             <Play className="mr-2" />
             START
