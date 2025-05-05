@@ -7,6 +7,7 @@ const RealTimeClock = () => {
     return now.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
+      second: "2-digit",
       hour12: false,
     });
   });
@@ -23,6 +24,7 @@ const RealTimeClock = () => {
         now.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
+          second: "2-digit",
           hour12: false,
         })
       );
@@ -34,7 +36,7 @@ const RealTimeClock = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center p-4 max-w-sm mx-auto">
       <span className="text-4xl font-bold m-0">{amPm}</span>
-      <h2 className="text-9xl font-bold text-center">{time}</h2>
+      <h2 className="text-8xl lg:text-9xl font-bold text-center">{time}</h2>
     </div>
   );
 };

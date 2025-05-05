@@ -5,6 +5,7 @@ import PomodoroTimer from "@/components/app/pomodoro";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { Clock, Maximize, Timer } from "lucide-react";
+import { useState } from "react";
 
 const AppPage = () => {
   const {
@@ -15,6 +16,7 @@ const AppPage = () => {
     isCountdownActive,
   } = useStore();
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
       {activeMode === "pomodoro" && (
@@ -57,12 +59,14 @@ const AppPage = () => {
       {activeMode === "clock" && <RealTimeClock />}
       <div className="flex justify-start w-full mt-4 gap-2">
         <Button
-          variant="outline"
+          variant={isFullScreen ? "default" : "outline"}
           onClick={() => {
             if (!document.fullscreenElement) {
               document.documentElement.requestFullscreen();
+              setIsFullScreen(true);
             } else {
               document.exitFullscreen();
+              setIsFullScreen(false);
             }
           }}
         >
