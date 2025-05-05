@@ -19,6 +19,14 @@ const RealTimeClock = () => {
     return now.getHours() >= 12 ? "PM" : "AM";
   });
 
+  const [day, setDay] = useState(() => {
+    return new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+  });
+
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -33,6 +41,13 @@ const RealTimeClock = () => {
           .replace(/ (AM|PM)$/i, "") // Remove AM/PM from display
       );
       setAmPm(now.getHours() >= 12 ? "PM" : "AM");
+      setDay(
+        now.toLocaleDateString("en-US", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        })
+      );
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -41,6 +56,7 @@ const RealTimeClock = () => {
     <div className="w-full flex flex-col justify-center items-center p-4 max-w-sm mx-auto">
       <span className="text-4xl font-bold m-0">{amPm}</span>
       <h2 className="text-8xl lg:text-9xl font-bold text-center">{time}</h2>
+      <span className="text-4xl font-bold m-0">{day}</span>
     </div>
   );
 };
