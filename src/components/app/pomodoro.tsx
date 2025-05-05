@@ -1,19 +1,13 @@
 "use client";
-import {
-  Fullscreen,
-  Maximize,
-  Pause,
-  Play,
-  RotateCcw,
-  StepForward,
-} from "lucide-react";
+import { Maximize, Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 
 const PomodoroTimer = () => {
+  const { timer } = useStore();
   const { isCountdownActive, setCountdownStatus } = useStore();
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
+  const [timeLeft, setTimeLeft] = useState(timer);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
@@ -35,6 +29,10 @@ const PomodoroTimer = () => {
     };
   }, [isCountdownActive, isPaused, timeLeft]);
 
+  useEffect(() => {
+    setTimeLeft(timer);
+  }, [timer]);
+
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -55,14 +53,14 @@ const PomodoroTimer = () => {
   };
 
   const handleReset = () => {
-    setTimeLeft(25 * 60);
+    setTimeLeft(timer);
     setCountdownStatus(false);
     setIsPaused(false);
   };
 
   return (
-    <div>
-      <h2 className="text-9xl font-bold mb-8 text-center">
+    <div className="w-full">
+      <h2 className="text-9xl font-bold my-8 text-center">
         {formatTime(timeLeft)}
       </h2>
       <div className="flex gap-2 w-full">
@@ -88,19 +86,6 @@ const PomodoroTimer = () => {
         )}
         <Button className="py-6 w-12" onClick={handleReset}>
           <RotateCcw />
-        </Button>
-        <Button
-          variant="outline"
-          className="py-6 w-12"
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen();
-            } else {
-              document.exitFullscreen();
-            }
-          }}
-        >
-          <Maximize />
         </Button>
       </div>
     </div>
