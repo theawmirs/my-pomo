@@ -1,5 +1,12 @@
 "use client";
-import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
+import {
+  Fullscreen,
+  Maximize,
+  Pause,
+  Play,
+  RotateCcw,
+  StepForward,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
@@ -81,6 +88,19 @@ const PomodoroTimer = () => {
         )}
         <Button className="py-6 w-12" onClick={handleReset}>
           <RotateCcw />
+        </Button>
+        <Button
+          variant="outline"
+          className="py-6 w-12"
+          onClick={() => {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+            } else {
+              document.exitFullscreen();
+            }
+          }}
+        >
+          <Maximize />
         </Button>
       </div>
     </div>
