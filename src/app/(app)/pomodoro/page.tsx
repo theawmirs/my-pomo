@@ -37,44 +37,46 @@ const AppPage = () => {
 
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
-      {activeMode === "pomodoro" && (
-        <>
-          <div className="flex w-full justify-between gap-4">
-            <Button
-              disabled={isCountdownActive}
-              onClick={() => {
-                setActiveTab("focus");
-              }}
-              className="rounded-3xl flex-1"
-              variant={activeTab === "focus" ? "default" : "outline"}
-            >
-              Focus
-            </Button>
-            <Button
-              disabled={isCountdownActive}
-              onClick={() => {
-                setActiveTab("shortBreak");
-              }}
-              className="rounded-3xl flex-1"
-              variant={activeTab === "shortBreak" ? "default" : "outline"}
-            >
-              Short Break
-            </Button>
-            <Button
-              disabled={isCountdownActive}
-              onClick={() => {
-                setActiveTab("longBreak");
-              }}
-              className="rounded-3xl flex-1"
-              variant={activeTab === "longBreak" ? "default" : "outline"}
-            >
-              Long Break
-            </Button>
-          </div>
-          <PomodoroTimer setIsFinished={setIsFinished} />
-        </>
-      )}
-      {activeMode === "clock" && <RealTimeClock />}
+      <div
+        className={`flex w-full justify-between gap-4 ${activeMode === "clock" ? "hidden" : "block"}`}
+      >
+        <Button
+          disabled={isCountdownActive}
+          onClick={() => {
+            setActiveTab("focus");
+          }}
+          className="rounded-3xl flex-1"
+          variant={activeTab === "focus" ? "default" : "outline"}
+        >
+          Focus
+        </Button>
+        <Button
+          disabled={isCountdownActive}
+          onClick={() => {
+            setActiveTab("shortBreak");
+          }}
+          className="rounded-3xl flex-1"
+          variant={activeTab === "shortBreak" ? "default" : "outline"}
+        >
+          Short Break
+        </Button>
+        <Button
+          disabled={isCountdownActive}
+          onClick={() => {
+            setActiveTab("longBreak");
+          }}
+          className="rounded-3xl flex-1"
+          variant={activeTab === "longBreak" ? "default" : "outline"}
+        >
+          Long Break
+        </Button>
+      </div>
+      <div className={`${activeMode === "clock" ? "hidden" : "block"}`}>
+        <PomodoroTimer setIsFinished={setIsFinished} />
+      </div>
+      <div className={`${activeMode === "clock" ? "block" : "hidden"}`}>
+        <RealTimeClock />
+      </div>
       <div className="flex justify-center items-center w-full mt-4 gap-2">
         <TooltipProvider>
           <Tooltip>
@@ -92,7 +94,6 @@ const AppPage = () => {
                 }}
               >
                 <Maximize />
-                {/* <span>Full Screen</span> */}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
@@ -111,7 +112,6 @@ const AppPage = () => {
                 variant={activeMode === "clock" ? "default" : "outline"}
               >
                 <Clock />
-                {/* <span>Real Time Clock</span> */}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
@@ -130,16 +130,6 @@ const AppPage = () => {
                 variant={activeMode === "pomodoro" ? "default" : "outline"}
               >
                 <Timer />
-                {/* <span
-          // className="ml-2 transition-all duration-300 ease-in-out overflow-hidden"
-          // style={{
-          //   maxWidth: mouseHover === "pomodoro" ? "130px" : "0",
-          //   opacity: mouseHover === "pomodoro" ? 1 : 0,
-          //   whiteSpace: "nowrap",
-          // }}
-          >
-            Pomodoro Timer
-          </span> */}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
