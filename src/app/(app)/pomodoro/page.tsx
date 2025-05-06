@@ -1,7 +1,7 @@
 "use client";
 
-import RealTimeClock from "@/components/app/clock";
-import PomodoroTimer from "@/components/app/pomodoro";
+import RealTimeClock from "@/components/pomodoro/clock";
+import PomodoroTimer from "@/components/pomodoro/pomodoro";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
