@@ -1,21 +1,26 @@
 "use client";
-import { Maximize, Pause, Play, RotateCcw, StepForward } from "lucide-react";
+import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 
 const PomodoroTimer = () => {
-  const { timer } = useStore();
-  const { isCountdownActive, setCountdownStatus } = useStore();
-  const [timeLeft, setTimeLeft] = useState(timer);
+  const {
+    isCountdownActive,
+    setCountdownStatus,
+    sessionDuration,
+    setTimeLeft,
+    timeLeft,
+  } = useStore();
   const [isPaused, setIsPaused] = useState(false);
 
+  // Update time left based on each second
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
     if (isCountdownActive && !isPaused && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
+        setTimeLeft(timeLeft - 1);
       }, 1000);
     } else if (timeLeft === 0) {
       setCountdownStatus(false);
@@ -29,9 +34,10 @@ const PomodoroTimer = () => {
     };
   }, [isCountdownActive, isPaused, timeLeft]);
 
+  // For changing the timer when changing the time mode from focus to break
   useEffect(() => {
-    setTimeLeft(timer);
-  }, [timer]);
+    setTimeLeft(sessionDuration);
+  }, [sessionDuration]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -53,7 +59,7 @@ const PomodoroTimer = () => {
   };
 
   const handleReset = () => {
-    setTimeLeft(timer);
+    setTimeLeft(sessionDuration);
     setCountdownStatus(false);
     setIsPaused(false);
   };
