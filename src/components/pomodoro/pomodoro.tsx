@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
@@ -20,57 +20,55 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     setIsPaused,
   } = useStore();
 
-  const lastTickRef = useRef<number | null>(null);
+  // Store the absolute end time of the timer
+  const [endTime, setEndTime] = useState<number | null>(null);
 
-  // Update time left based on each second
+  // Initial timer setup effect
   useEffect(() => {
-    let requestId: number | null = null;
+    setTimeLeft(sessionDuration);
+  }, [sessionDuration, setTimeLeft]);
 
-    const updateTimer = (timestamp: number) => {
-      if (!lastTickRef.current) {
-        lastTickRef.current = timestamp;
+  // Main timer logic
+  useEffect(() => {
+    let timerId: number | undefined;
+
+    // If timer is active and not paused
+    if (isCountdownActive && !isPaused) {
+      // Set the end time when starting/resuming the timer
+      if (endTime === null) {
+        setEndTime(Date.now() + timeLeft * 1000);
       }
 
-      // Calculate elapsed time in milliseconds
-      const elapsed = timestamp - lastTickRef.current;
-
-      // Update timer every second (1000ms)
-      if (elapsed >= 1000) {
-        // Calculate how many seconds have passed (could be multiple if tab was inactive)
-        const secondsPassed = Math.floor(elapsed / 1000);
+      // Update timer every 100ms to ensure smooth updates
+      timerId = window.setInterval(() => {
+        const now = Date.now();
+        const remaining = Math.max(0, Math.ceil((endTime! - now) / 1000));
 
         // Update the time left
-        const newTimeLeft = Math.max(0, timeLeft - secondsPassed);
-        setTimeLeft(newTimeLeft);
+        setTimeLeft(remaining);
 
-        // Reset the last tick time
-        lastTickRef.current = timestamp;
-      }
-
-      // Continue animation loop if active
-      if (isCountdownActive && !isPaused && timeLeft > 0) {
-        requestId = requestAnimationFrame(updateTimer);
-      }
-    };
-
-    if (isCountdownActive && !isPaused && timeLeft > 0) {
-      requestId = requestAnimationFrame(updateTimer);
-    } else if (timeLeft === 0) {
-      setCountdownStatus(false);
-      setIsPaused(false);
-      // Changing the active tab based on the finished status
-      setIsFinished(true);
-      setTimeout(() => {
-        setIsFinished(false); 
-      }, 1000);
+        // Handle timer completion
+        if (remaining <= 0) {
+          clearInterval(timerId);
+          setEndTime(null);
+          setCountdownStatus(false);
+          setIsPaused(false);
+          setIsFinished(true);
+          setTimeout(() => {
+            setIsFinished(false);
+          }, 1000);
+        }
+      }, 100);
     }
 
+    // Cleanup function
     return () => {
-      if (requestId) cancelAnimationFrame(requestId);
+      if (timerId) clearInterval(timerId);
     };
   }, [
     isCountdownActive,
     isPaused,
+    endTime,
     timeLeft,
     setTimeLeft,
     setCountdownStatus,
@@ -78,27 +76,26 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     setIsFinished,
   ]);
 
-  // For changing the timer when changing the time mode from focus to break
-  useEffect(() => {
-    setTimeLeft(sessionDuration);
-  }, [sessionDuration, setTimeLeft]);
-
   const handleStart = () => {
-    lastTickRef.current = null; // Reset reference when starting
+    setEndTime(Date.now() + timeLeft * 1000);
     setCountdownStatus(true);
     setIsPaused(false);
   };
 
   const handlePause = () => {
+    // When pausing, remove end time and store remaining time
+    setEndTime(null);
     setIsPaused(true);
   };
 
   const handleResume = () => {
-    lastTickRef.current = null; // Reset reference when resuming
+    // Calculate new end time from current remaining time
+    setEndTime(Date.now() + timeLeft * 1000);
     setIsPaused(false);
   };
 
   const handleReset = () => {
+    setEndTime(null);
     setTimeLeft(sessionDuration);
     setCountdownStatus(false);
     setIsPaused(false);

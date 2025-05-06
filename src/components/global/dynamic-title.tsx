@@ -1,78 +1,88 @@
 "use client";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export default function DynamicTitle() {
   const { activeTab, timeLeft, isPaused, isCountdownActive } = useStore();
-  const lastUpdateTimeRef = useRef<number | null>(null);
-  const currentTimeLeftRef = useRef(timeLeft);
-  const lastVisibleTimeRef = useRef(timeLeft);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [initialTime, setInitialTime] = useState<number>(0);
 
-  // Update local reference when props change
+  // Set up title updater effect
   useEffect(() => {
-    currentTimeLeftRef.current = timeLeft;
-    if (!document.hidden) {
-      // Only update last update time when document is visible
-      lastUpdateTimeRef.current = Date.now();
-      lastVisibleTimeRef.current = timeLeft;
-    }
-  }, [timeLeft]);
+    // Create tab label based on current state
+    const getTabLabel = () => {
+      if (activeTab === "focus") return isPaused ? "(Paused) Focus" : "Focus";
+      if (activeTab === "shortBreak")
+        return isPaused ? "(Paused) Short Break" : "Short Break";
+      return isPaused ? "(Paused) Long Break" : "Long Break";
+    };
 
-  // Handle visibility changes
-  useEffect(() => {
+    // Update the document title
     const updateTitle = () => {
-      let tabLabel = "";
-      if (activeTab === "focus")
-        tabLabel = isPaused ? "(Paused) Focus" : "Focus";
-      else if (activeTab === "shortBreak")
-        tabLabel = isPaused ? "(Paused) Short Break" : "Short Break";
-      else if (activeTab === "longBreak")
-        tabLabel = isPaused ? "(Paused) Long Break" : "Long Break";
+      // If timer is active and not paused, calculate time from start time
+      let displayTime = timeLeft;
 
-      // Calculate current time if tab is hidden but timer is running
-      let displayTime = currentTimeLeftRef.current;
+      // When the document is hidden, calculate time based on elapsed time since start
       if (
         document.hidden &&
         isCountdownActive &&
         !isPaused &&
-        lastUpdateTimeRef.current
+        startTime !== null
       ) {
-        const elapsedMs = Date.now() - lastUpdateTimeRef.current;
-        const elapsedSeconds = Math.floor(elapsedMs / 1000);
-        displayTime = Math.max(0, lastVisibleTimeRef.current - elapsedSeconds);
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        displayTime = Math.max(0, initialTime - elapsed);
       }
 
-      document.title = `${tabLabel} - ${formatTime(displayTime)} | MyPomo`;
+      document.title = `${getTabLabel()} - ${formatTime(displayTime)} | MyPomo`;
     };
+
+    // Track start time when timer becomes active (or when dependencies change)
+    if (isCountdownActive && !isPaused) {
+      if (startTime === null) {
+        setStartTime(Date.now());
+        setInitialTime(timeLeft);
+      }
+    } else {
+      // Reset tracking when timer is paused or inactive
+      setStartTime(null);
+    }
 
     // Update title immediately
     updateTitle();
 
-    // Set up interval for when page is hidden
+    // Set up interval to update title when page is hidden
     const intervalId = setInterval(() => {
       if (document.hidden && isCountdownActive && !isPaused) {
         updateTitle();
       }
     }, 1000);
 
-    // Listen for visibility changes
+    // Handle tab visibility changes
     const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        // When tab becomes visible again, sync the last update time
-        lastUpdateTimeRef.current = Date.now();
-        lastVisibleTimeRef.current = currentTimeLeftRef.current;
+      if (!document.hidden && isCountdownActive && !isPaused) {
+        // When becoming visible, restart the time tracking with the current timeLeft
+        setStartTime(Date.now());
+        setInitialTime(timeLeft);
       }
       updateTitle();
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
+    // Cleanup
     return () => {
       clearInterval(intervalId);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [activeTab, timeLeft, isPaused, isCountdownActive]);
+  }, [
+    activeTab,
+    timeLeft,
+    isPaused,
+    isCountdownActive,
+    startTime,
+    initialTime,
+  ]);
 
   return null;
 }
