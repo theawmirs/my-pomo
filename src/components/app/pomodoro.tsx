@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 
-const PomodoroTimer = () => {
+interface Props {
+  setIsFinished: (status: boolean) => void;
+}
+
+const PomodoroTimer = ({ setIsFinished }: Props) => {
   const {
     isCountdownActive,
     setCountdownStatus,
@@ -25,6 +29,11 @@ const PomodoroTimer = () => {
     } else if (timeLeft === 0) {
       setCountdownStatus(false);
       setIsPaused(false);
+      // Chaning the active tab based on the finished status
+      setIsFinished(true);
+      setTimeout(() => {
+        setIsFinished(false);
+      }, 1000);
     } else if (interval) {
       clearInterval(interval);
     }

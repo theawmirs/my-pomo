@@ -11,7 +11,7 @@ import {
 import { useStore } from "@/store/store";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Clock, Maximize, Timer } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AppPage = () => {
   const {
@@ -23,6 +23,16 @@ const AppPage = () => {
   } = useStore();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === "focus") {
+      setActiveTab(isFinished ? "shortBreak" : "focus");
+    } else {
+      setActiveTab(isFinished ? "focus" : activeTab);
+    }
+  }, [isFinished]);
+
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
       {activeMode === "pomodoro" && (
@@ -59,7 +69,7 @@ const AppPage = () => {
               Long Break
             </Button>
           </div>
-          <PomodoroTimer />
+          <PomodoroTimer setIsFinished={setIsFinished} />
         </>
       )}
       {activeMode === "clock" && <RealTimeClock />}
