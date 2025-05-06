@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
@@ -20,37 +20,71 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     setIsPaused,
   } = useStore();
 
+  const lastTickRef = useRef<number | null>(null);
+
   // Update time left based on each second
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    let requestId: number | null = null;
+
+    const updateTimer = (timestamp: number) => {
+      if (!lastTickRef.current) {
+        lastTickRef.current = timestamp;
+      }
+
+      // Calculate elapsed time in milliseconds
+      const elapsed = timestamp - lastTickRef.current;
+
+      // Update timer every second (1000ms)
+      if (elapsed >= 1000) {
+        // Calculate how many seconds have passed (could be multiple if tab was inactive)
+        const secondsPassed = Math.floor(elapsed / 1000);
+
+        // Update the time left
+        const newTimeLeft = Math.max(0, timeLeft - secondsPassed);
+        setTimeLeft(newTimeLeft);
+
+        // Reset the last tick time
+        lastTickRef.current = timestamp;
+      }
+
+      // Continue animation loop if active
+      if (isCountdownActive && !isPaused && timeLeft > 0) {
+        requestId = requestAnimationFrame(updateTimer);
+      }
+    };
 
     if (isCountdownActive && !isPaused && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
+      requestId = requestAnimationFrame(updateTimer);
     } else if (timeLeft === 0) {
       setCountdownStatus(false);
       setIsPaused(false);
-      // Chaning the active tab based on the finished status
+      // Changing the active tab based on the finished status
       setIsFinished(true);
       setTimeout(() => {
-        setIsFinished(false);
+        setIsFinished(false); 
       }, 1000);
-    } else if (interval) {
-      clearInterval(interval);
     }
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (requestId) cancelAnimationFrame(requestId);
     };
-  }, [isCountdownActive, isPaused, timeLeft]);
+  }, [
+    isCountdownActive,
+    isPaused,
+    timeLeft,
+    setTimeLeft,
+    setCountdownStatus,
+    setIsPaused,
+    setIsFinished,
+  ]);
 
   // For changing the timer when changing the time mode from focus to break
   useEffect(() => {
     setTimeLeft(sessionDuration);
-  }, [sessionDuration]);
+  }, [sessionDuration, setTimeLeft]);
 
   const handleStart = () => {
+    lastTickRef.current = null; // Reset reference when starting
     setCountdownStatus(true);
     setIsPaused(false);
   };
@@ -60,6 +94,7 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
   };
 
   const handleResume = () => {
+    lastTickRef.current = null; // Reset reference when resuming
     setIsPaused(false);
   };
 
