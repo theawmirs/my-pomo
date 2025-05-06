@@ -1,7 +1,7 @@
 "use client";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function DynamicTitle() {
   const { activeTab, timeLeft, isPaused } = useStore();

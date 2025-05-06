@@ -33,7 +33,7 @@ const AppPage = () => {
     } else {
       setActiveTab("focus");
     }
-  }, [isFinished]);
+  }, [isFinished, activeTab, setActiveTab]);
 
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
