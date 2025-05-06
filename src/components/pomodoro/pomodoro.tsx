@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
+import FocusTask from "./focus-task";
 
 interface Props {
   setIsFinished: (status: boolean) => void;
@@ -103,7 +104,8 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
 
   return (
     <div className="w-full">
-      <h2 className="text-9xl font-bold my-8 text-center">
+      <FocusTask />
+      <h2 className="text-9xl font-bold text-center leading-42">
         {formatTime(timeLeft)}
       </h2>
       <div className="flex gap-2 w-full">
