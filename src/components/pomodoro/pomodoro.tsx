@@ -49,12 +49,21 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isCountdownActive, isPaused, timeLeft, sessionDuration]);
+  }, [
+    isCountdownActive,
+    isPaused,
+    timeLeft,
+    sessionDuration,
+    setCountdownStatus,
+    setIsPaused,
+    setIsFinished,
+    setTimeLeft,
+  ]);
 
   // For changing the timer when changing the time mode from focus to break
   useEffect(() => {
     setTimeLeft(sessionDuration);
-  }, [sessionDuration]);
+  }, [sessionDuration, setTimeLeft]);
 
   const handleStart = () => {
     setCountdownStatus(true);
