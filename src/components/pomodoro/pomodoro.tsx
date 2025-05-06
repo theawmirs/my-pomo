@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
