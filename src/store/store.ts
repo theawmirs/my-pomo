@@ -20,6 +20,7 @@ export const useStore = create<StoreState>((set) => ({
   sessionDuration: 25 * 60,
   timeLeft: 25 * 60,
   activeMode: "pomodoro",
+
   isPaused: false,
   setCountdownStatus: (status: boolean) => set({ isCountdownActive: status }),
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") =>
