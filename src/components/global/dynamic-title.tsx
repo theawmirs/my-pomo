@@ -1,23 +1,18 @@
 "use client";
 import { useStore } from "@/store/store";
-import { useEffect } from "react";
-
-function formatTime(seconds: number) {
-  const m = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const s = (seconds % 60).toString().padStart(2, "0");
-  return `${m}:${s}`;
-}
+import { formatTime } from "@/utils/formatTime";
+import { useEffect, useState } from "react";
 
 export default function DynamicTitle() {
-  const { activeTab, timeLeft } = useStore();
+  const { activeTab, timeLeft, isPaused } = useStore();
   useEffect(() => {
     let tabLabel = "";
-    if (activeTab === "focus") tabLabel = "Focus";
-    else if (activeTab === "shortBreak") tabLabel = "Short Break";
-    else if (activeTab === "longBreak") tabLabel = "Long Break";
-    document.title = `${tabLabel} - ${formatTime(timeLeft)}`;
-  }, [activeTab, timeLeft]);
+    if (activeTab === "focus") tabLabel = isPaused ? "(Paused) Focus" : "Focus";
+    else if (activeTab === "shortBreak")
+      tabLabel = isPaused ? "(Paused) Short Break" : "Short Break";
+    else if (activeTab === "longBreak")
+      tabLabel = isPaused ? "(Paused) Long Break" : "Long Break";
+    document.title = `${tabLabel} - ${formatTime(timeLeft)} | MyPomo`;
+  }, [activeTab, timeLeft, isPaused]);
   return null;
 }

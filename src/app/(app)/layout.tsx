@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const metadata = {
-  title: "Focus - 25:00",
+  title: "Focus - 25:00 | MyPomo",
 };
 
 const AppLayout = ({ children }: Props) => {

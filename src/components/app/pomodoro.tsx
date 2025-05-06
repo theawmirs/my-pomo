@@ -1,8 +1,9 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
+import { formatTime } from "@/utils/formatTime";
 
 interface Props {
   setIsFinished: (status: boolean) => void;
@@ -15,8 +16,9 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     sessionDuration,
     setTimeLeft,
     timeLeft,
+    isPaused,
+    setIsPaused,
   } = useStore();
-  const [isPaused, setIsPaused] = useState(false);
 
   // Update time left based on each second
   useEffect(() => {
@@ -47,12 +49,6 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
   useEffect(() => {
     setTimeLeft(sessionDuration);
   }, [sessionDuration]);
-
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
 
   const handleStart = () => {
     setCountdownStatus(true);

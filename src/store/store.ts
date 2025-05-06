@@ -6,10 +6,12 @@ type StoreState = {
   sessionDuration: number;
   timeLeft: number;
   activeMode: "pomodoro" | "clock";
+  isPaused: boolean;
   setCountdownStatus: (status: boolean) => void;
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") => void;
   setActiveMode: (mode: "pomodoro" | "clock") => void;
   setTimeLeft: (time: number) => void;
+  setIsPaused: (status: boolean) => void;
 };
 
 export const useStore = create<StoreState>((set) => ({
@@ -18,6 +20,7 @@ export const useStore = create<StoreState>((set) => ({
   sessionDuration: 25 * 60,
   timeLeft: 25 * 60,
   activeMode: "pomodoro",
+  isPaused: false,
   setCountdownStatus: (status: boolean) => set({ isCountdownActive: status }),
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") =>
     set({
@@ -29,4 +32,5 @@ export const useStore = create<StoreState>((set) => ({
     }),
   setActiveMode: (mode: "pomodoro" | "clock") => set({ activeMode: mode }),
   setTimeLeft: (time: number) => set({ timeLeft: time }),
+  setIsPaused: (status: boolean) => set({ isPaused: status }),
 }));
