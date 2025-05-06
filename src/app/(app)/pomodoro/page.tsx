@@ -26,10 +26,12 @@ const AppPage = () => {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
+    setIsFinished(false);
+    if (!isFinished) return;
     if (activeTab === "focus") {
-      setActiveTab(isFinished ? "shortBreak" : "focus");
+      setActiveTab("shortBreak");
     } else {
-      setActiveTab(isFinished ? "focus" : activeTab);
+      setActiveTab("focus");
     }
   }, [isFinished]);
 
