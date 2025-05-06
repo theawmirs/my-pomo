@@ -2,6 +2,7 @@
 
 import RealTimeClock from "@/components/pomodoro/clock";
 import PomodoroTimer from "@/components/pomodoro/pomodoro";
+import PomodoroTabButtons from "@/components/pomodoro/pomodoro-tab-buttons";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -37,40 +38,7 @@ const AppPage = () => {
 
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
-      <div
-        className={`flex w-full justify-between gap-4 ${activeMode === "clock" ? "hidden" : "block"}`}
-      >
-        <Button
-          disabled={isCountdownActive}
-          onClick={() => {
-            setActiveTab("focus");
-          }}
-          className="rounded-3xl flex-1"
-          variant={activeTab === "focus" ? "default" : "outline"}
-        >
-          Focus
-        </Button>
-        <Button
-          disabled={isCountdownActive}
-          onClick={() => {
-            setActiveTab("shortBreak");
-          }}
-          className="rounded-3xl flex-1"
-          variant={activeTab === "shortBreak" ? "default" : "outline"}
-        >
-          Short Break
-        </Button>
-        <Button
-          disabled={isCountdownActive}
-          onClick={() => {
-            setActiveTab("longBreak");
-          }}
-          className="rounded-3xl flex-1"
-          variant={activeTab === "longBreak" ? "default" : "outline"}
-        >
-          Long Break
-        </Button>
-      </div>
+      <PomodoroTabButtons />
       <div className={`${activeMode === "clock" ? "hidden" : "block"}`}>
         <PomodoroTimer setIsFinished={setIsFinished} />
       </div>
