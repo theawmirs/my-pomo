@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
@@ -20,28 +20,22 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     setIsPaused,
   } = useStore();
 
-  const startTimeRef = useRef<number | null>(null);
-
   // Update time left based on each second
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
     if (isCountdownActive && !isPaused && timeLeft > 0) {
-      if (!startTimeRef.current) {
-        startTimeRef.current = Date.now();
-      }
       interval = setInterval(() => {
-        const now = Date.now();
-        const elapsed = Math.floor((now - startTimeRef.current!) / 1000);
-        const newTimeLeft = sessionDuration - elapsed;
-        setTimeLeft(newTimeLeft > 0 ? newTimeLeft : 0);
+        setTimeLeft(timeLeft - 1);
       }, 1000);
     } else if (timeLeft === 0) {
       setCountdownStatus(false);
       setIsPaused(false);
+      // Chaning the active tab based on the finished status
       setIsFinished(true);
-      setTimeout(() => setIsFinished(false), 1000);
-      startTimeRef.current = null;
+      setTimeout(() => {
+        setIsFinished(false);
+      }, 1000);
     } else if (interval) {
       clearInterval(interval);
     }
@@ -49,7 +43,7 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isCountdownActive, isPaused, timeLeft, sessionDuration]);
+  }, [isCountdownActive, isPaused, timeLeft]);
 
   // For changing the timer when changing the time mode from focus to break
   useEffect(() => {
