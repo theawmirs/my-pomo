@@ -1,10 +1,10 @@
 "use client";
-import { useStore } from "@/store/store";
+import { pomodoroStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
 import { useEffect, useState } from "react";
 
 export default function DynamicTitle() {
-  const { activeTab, timeLeft, isPaused, isCountdownActive } = useStore();
+  const { activeTab, timeLeft, isPaused, isCountdownActive } = pomodoroStore();
   const [startTime, setStartTime] = useState<number | null>(null);
   const [initialTime, setInitialTime] = useState<number>(0);
 

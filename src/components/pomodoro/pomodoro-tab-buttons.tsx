@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { useStore } from "@/store/store";
+import { pomodoroStore } from "@/store/store";
 
 const PomodoroTabButtons = () => {
-  const { isCountdownActive, setActiveTab, activeTab, activeMode } = useStore();
+  const { isCountdownActive, setActiveTab, activeTab, activeMode } =
+    pomodoroStore();
 
   return (
     <div

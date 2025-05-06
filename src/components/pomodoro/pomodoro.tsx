@@ -2,7 +2,7 @@
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useStore } from "@/store/store";
+import { pomodoroStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
 import FocusTask from "./focus-task";
 
@@ -19,7 +19,7 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     timeLeft,
     isPaused,
     setIsPaused,
-  } = useStore();
+  } = pomodoroStore();
 
   // Store the absolute end time of the timer
   const [endTime, setEndTime] = useState<number | null>(null);

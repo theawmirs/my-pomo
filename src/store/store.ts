@@ -14,7 +14,7 @@ type StoreState = {
   setIsPaused: (status: boolean) => void;
 };
 
-export const useStore = create<StoreState>((set) => ({
+export const pomodoroStore = create<StoreState>((set) => ({
   isCountdownActive: false,
   activeTab: "focus",
   sessionDuration: 25 * 60,

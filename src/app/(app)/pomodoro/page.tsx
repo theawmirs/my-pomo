@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { useStore } from "@/store/store";
+import { pomodoroStore } from "@/store/store";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Clock, Maximize, Timer } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ const AppPage = () => {
     activeMode,
     setActiveMode,
     isCountdownActive,
-  } = useStore();
+  } = pomodoroStore();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
