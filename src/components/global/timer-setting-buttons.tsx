@@ -2,26 +2,14 @@
 
 import { Clock, Maximize, Timer } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { useEffect, useState } from "react";
 import { pomodoroStore } from "@/store/store";
 
 const TimerSettingButtons = () => {
-  const {
-    isTimerFinished,
-    setIsTimerFinished,
-    activeTab,
-    setActiveTab,
-    activeMode,
-    setActiveMode,
-  } = pomodoroStore();
-
+  const { isTimerFinished, setIsTimerFinished, activeTab, setActiveTab, activeMode, setActiveMode } = pomodoroStore();
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
 
   useEffect(() => {
     setIsTimerFinished(false);
@@ -35,7 +23,6 @@ const TimerSettingButtons = () => {
 
   return (
     <>
-      {" "}
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -59,12 +46,14 @@ const TimerSettingButtons = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip open={activeButton === "clock"}>
           <TooltipTrigger asChild>
             <Button
               onClick={() => {
                 setActiveMode("clock");
+                setActiveButton("clock");
               }}
               variant={activeMode === "clock" ? "default" : "outline"}
             >
@@ -76,12 +65,14 @@ const TimerSettingButtons = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip open={activeButton === "pomodoro"}>
           <TooltipTrigger asChild>
             <Button
               onClick={() => {
                 setActiveMode("pomodoro");
+                setActiveButton("pomodoro");
               }}
               variant={activeMode === "pomodoro" ? "default" : "outline"}
             >
