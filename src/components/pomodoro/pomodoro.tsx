@@ -6,11 +6,7 @@ import { pomodoroStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
 import FocusTask from "./focus-task";
 
-interface Props {
-  setIsFinished: (status: boolean) => void;
-}
-
-const PomodoroTimer = ({ setIsFinished }: Props) => {
+const PomodoroTimer = () => {
   const {
     isCountdownActive,
     setCountdownStatus,
@@ -19,6 +15,8 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     timeLeft,
     isPaused,
     setIsPaused,
+    activeMode,
+    setIsTimerFinished,
   } = pomodoroStore();
 
   // Store the absolute end time of the timer
@@ -54,9 +52,9 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
           setEndTime(null);
           setCountdownStatus(false);
           setIsPaused(false);
-          setIsFinished(true);
+          setIsTimerFinished(true);
           setTimeout(() => {
-            setIsFinished(false);
+            setIsTimerFinished(false);
           }, 1000);
         }
       }, 100);
@@ -74,7 +72,7 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
     setTimeLeft,
     setCountdownStatus,
     setIsPaused,
-    setIsFinished,
+    setIsTimerFinished,
   ]);
 
   const handleStart = () => {
@@ -103,7 +101,7 @@ const PomodoroTimer = ({ setIsFinished }: Props) => {
   };
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${activeMode === "clock" ? "hidden" : "block"}`}>
       <FocusTask />
       <h2 className="text-9xl font-bold text-center leading-42">
         {formatTime(timeLeft)}
