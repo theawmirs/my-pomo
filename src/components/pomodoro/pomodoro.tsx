@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { pomodoroStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
@@ -21,6 +21,13 @@ const PomodoroTimer = () => {
 
   // Store the absolute end time of the timer
   const [endTime, setEndTime] = useState<number | null>(null);
+  // Audio reference for notification sound
+  const notificationSound = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio on component mount
+  useEffect(() => {
+    notificationSound.current = new Audio("/sounds/notification.wav");
+  }, []);
 
   // Initial timer setup effect
   useEffect(() => {
@@ -53,6 +60,14 @@ const PomodoroTimer = () => {
           setCountdownStatus(false);
           setIsPaused(false);
           setIsTimerFinished(true);
+
+          // Play notification sound when timer finishes
+          if (notificationSound.current) {
+            notificationSound.current.play().catch((error) => {
+              console.error("Failed to play notification sound:", error);
+            });
+          }
+
           setTimeout(() => {
             setIsTimerFinished(false);
           }, 1000);
@@ -103,9 +118,7 @@ const PomodoroTimer = () => {
   return (
     <div className={`w-full ${activeMode === "clock" ? "hidden" : "block"}`}>
       <FocusTask />
-      <h2 className="text-9xl font-bold text-center leading-42">
-        {formatTime(timeLeft)}
-      </h2>
+      <h2 className="text-9xl font-bold text-center leading-42">{formatTime(timeLeft)}</h2>
       <div className="flex gap-2 w-full">
         {!isCountdownActive && !isPaused ? (
           <Button className="text-xl flex-1 py-6" onClick={handleStart}>
@@ -118,11 +131,7 @@ const PomodoroTimer = () => {
             RESUME
           </Button>
         ) : (
-          <Button
-            className="text-xl flex-1 py-6"
-            variant="outline"
-            onClick={handlePause}
-          >
+          <Button className="text-xl flex-1 py-6" variant="outline" onClick={handlePause}>
             <Pause className="mr-2" />
             STOP
           </Button>

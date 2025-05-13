@@ -28,10 +28,8 @@ export const pomodoroStore = create<StoreState>((set) => ({
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") =>
     set({
       activeTab: tab,
-      sessionDuration:
-        tab === "focus" ? 25 * 60 : tab === "shortBreak" ? 5 * 60 : 10 * 60,
-      timeLeft:
-        tab === "focus" ? 25 * 60 : tab === "shortBreak" ? 5 * 60 : 10 * 60,
+      sessionDuration: tab === "focus" ? 25 * 60 : tab === "shortBreak" ? 5 * 60 : 10 * 60,
+      timeLeft: tab === "focus" ? 25 * 60 : tab === "shortBreak" ? 5 * 60 : 10 * 60,
     }),
   setActiveMode: (mode: "pomodoro" | "clock") => set({ activeMode: mode }),
   setTimeLeft: (time: number) => set({ timeLeft: time }),
