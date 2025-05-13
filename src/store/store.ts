@@ -8,12 +8,15 @@ type StoreState = {
   activeMode: "pomodoro" | "clock";
   isPaused: boolean;
   isTimerFinished: boolean;
+  completedCycles: number;
   setCountdownStatus: (status: boolean) => void;
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") => void;
   setActiveMode: (mode: "pomodoro" | "clock") => void;
   setTimeLeft: (time: number) => void;
   setIsPaused: (status: boolean) => void;
   setIsTimerFinished: (status: boolean) => void;
+  incrementCompletedCycles: () => void;
+  resetCompletedCycles: () => void;
 };
 
 export const pomodoroStore = create<StoreState>((set) => ({
@@ -24,6 +27,7 @@ export const pomodoroStore = create<StoreState>((set) => ({
   activeMode: "pomodoro",
   isPaused: false,
   isTimerFinished: false,
+  completedCycles: 0,
   setCountdownStatus: (status: boolean) => set({ isCountdownActive: status }),
   setActiveTab: (tab: "focus" | "shortBreak" | "longBreak") =>
     set({
@@ -35,4 +39,6 @@ export const pomodoroStore = create<StoreState>((set) => ({
   setTimeLeft: (time: number) => set({ timeLeft: time }),
   setIsPaused: (status: boolean) => set({ isPaused: status }),
   setIsTimerFinished: (status: boolean) => set({ isTimerFinished: status }),
+  incrementCompletedCycles: () => set((state) => ({ completedCycles: state.completedCycles + 1 })),
+  resetCompletedCycles: () => set({ completedCycles: 0 }),
 }));

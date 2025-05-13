@@ -7,7 +7,17 @@ import { useEffect, useState } from "react";
 import { pomodoroStore } from "@/store/store";
 
 const TimerSettingButtons = () => {
-  const { isTimerFinished, setIsTimerFinished, activeTab, setActiveTab, activeMode, setActiveMode } = pomodoroStore();
+  const {
+    isTimerFinished,
+    setIsTimerFinished,
+    activeTab,
+    setActiveTab,
+    activeMode,
+    setActiveMode,
+    incrementCompletedCycles,
+    completedCycles,
+    resetCompletedCycles,
+  } = pomodoroStore();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
 
@@ -15,7 +25,13 @@ const TimerSettingButtons = () => {
     setIsTimerFinished(false);
     if (!isTimerFinished) return;
     if (activeTab === "focus") {
-      setActiveTab("shortBreak");
+      if (completedCycles === 3) {
+        setActiveTab("longBreak");
+        resetCompletedCycles();
+      } else {
+        setActiveTab("shortBreak");
+        incrementCompletedCycles();
+      }
     } else {
       setActiveTab("focus");
     }
