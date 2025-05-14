@@ -9,7 +9,7 @@ const CompletedCycles = () => {
   return (
     <div className="flex items-center justify-center mt-2 mb-4">
       <Badge variant="outline" className="py-1 px-2">
-        <span className="text-sm">Completed Cycles: {completedCycles}</span>
+        <span className="text-sm">Completed Pomodoros: {completedCycles}</span>
       </Badge>
     </div>
   );
