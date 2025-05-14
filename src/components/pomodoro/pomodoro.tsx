@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { pomodoroStore } from "@/store/store";
 import { formatTime } from "@/utils/formatTime";
 import FocusTask from "./focus-task";
+import CompletedCycles from "./completed-cycles";
 
 const PomodoroTimer = () => {
   const {
@@ -119,6 +120,7 @@ const PomodoroTimer = () => {
     <div className={`w-full ${activeMode === "clock" ? "hidden" : "block"}`}>
       <FocusTask />
       <h2 className="text-9xl font-bold text-center leading-42">{formatTime(timeLeft)}</h2>
+      <CompletedCycles />
       <div className="flex gap-2 w-full">
         {!isCountdownActive && !isPaused ? (
           <Button className="text-xl flex-1 py-6" onClick={handleStart}>
