@@ -4,8 +4,20 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-
+import { useActionState, useEffect } from "react";
+import { signUp } from "@/actions/auth.action";
+import { toast } from "sonner";
 const RegisterForm = () => {
+  const [state, formAction, isPending] = useActionState(signUp, null);
+
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.message);
+    }
+    if (state?.errors) {
+      toast.error(state.message);
+    }
+  }, [state]);
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
@@ -13,33 +25,48 @@ const RegisterForm = () => {
         <CardDescription className="text-center">Enter your information to create an account</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium">
-            Full Name
-          </label>
-          <Input id="name" placeholder="Full name" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">
-            Email
-          </label>
-          <Input id="email" type="email" placeholder="Email address" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium">
-            Password
-          </label>
-          <Input id="password" type="password" placeholder="Create a password" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="confirmPassword" className="text-sm font-medium">
-            Confirm Password
-          </label>
-          <Input id="confirmPassword" type="password" placeholder="Confirm your password" />
-        </div>
+        <form action={formAction} className="space-y-4">
+          <div className="space-y-2">
+            <label htmlFor="firstName" className="text-sm font-medium">
+              First Name
+            </label>
+            <Input id="firstName" name="firstName" placeholder="First name" />
+            {state?.errors?.firstName && <p className="text-red-500">{state.errors.firstName}</p>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="lastName" className="text-sm font-medium">
+              Last Name
+            </label>
+            <Input id="lastName" name="lastName" placeholder="Last name" />
+            {state?.errors?.lastName && <p className="text-red-500">{state.errors.lastName}</p>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium">
+              Email
+            </label>
+            <Input id="email" name="email" type="email" placeholder="Email address" />
+            {state?.errors?.email && <p className="text-red-500">{state.errors.email}</p>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="password" className="text-sm font-medium">
+              Password
+            </label>
+            <Input id="password" name="password" type="password" placeholder="Create a password" />
+            {state?.errors?.password && <p className="text-red-500">{state.errors.password}</p>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="confirmPassword" className="text-sm font-medium">
+              Confirm Password
+            </label>
+            <Input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" />
+            {state?.errors?.confirmPassword && <p className="text-red-500">{state.errors.confirmPassword}</p>}
+          </div>
+          <Button className="w-full" type="submit" disabled={isPending}>
+            {isPending ? "Creating account..." : "Create account"}
+          </Button>
+        </form>
       </CardContent>
       <CardFooter className="flex flex-col space-y-4">
-        <Button className="w-full">Create account</Button>
         <div className="text-center text-sm">
           Already have an account?{" "}
           <Link href="/auth/login" className="hover:underline">
