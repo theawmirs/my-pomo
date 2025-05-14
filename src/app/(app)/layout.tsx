@@ -9,7 +9,7 @@ export const metadata = {
   title: "Focus - 25:00 | MyPomo",
 };
 
-const AppLayout = ({ children }: Props) => {
+const AppLayout = async ({ children }: Props) => {
   return (
     <div>
       <DynamicTitle />

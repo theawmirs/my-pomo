@@ -7,12 +7,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useActionState, useEffect } from "react";
 import { signUp } from "@/actions/auth.action";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const RegisterForm = () => {
   const [state, formAction, isPending] = useActionState(signUp, null);
+  const router = useRouter();
 
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message);
+      router.push("/auth/login");
     }
     if (state?.errors) {
       toast.error(state.message);

@@ -7,13 +7,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useActionState, useEffect } from "react";
 import { signIn } from "@/actions/auth.action";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, null);
+  const router = useRouter();
 
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message);
+      router.push("/pomodoro");
     }
     // if (state?.success === false) {
     //   toast.error(state.message);
