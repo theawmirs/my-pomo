@@ -16,7 +16,6 @@ type StoreState = {
   setIsPaused: (status: boolean) => void;
   setIsTimerFinished: (status: boolean) => void;
   incrementCompletedCycles: () => void;
-  resetCompletedCycles: () => void;
 };
 
 export const pomodoroStore = create<StoreState>((set) => ({
@@ -40,5 +39,4 @@ export const pomodoroStore = create<StoreState>((set) => ({
   setIsPaused: (status: boolean) => set({ isPaused: status }),
   setIsTimerFinished: (status: boolean) => set({ isTimerFinished: status }),
   incrementCompletedCycles: () => set((state) => ({ completedCycles: state.completedCycles + 1 })),
-  resetCompletedCycles: () => set({ completedCycles: 0 }),
 }));

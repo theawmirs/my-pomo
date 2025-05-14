@@ -16,7 +16,6 @@ const TimerSettingButtons = () => {
     setActiveMode,
     incrementCompletedCycles,
     completedCycles,
-    resetCompletedCycles,
   } = pomodoroStore();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
@@ -25,13 +24,12 @@ const TimerSettingButtons = () => {
     setIsTimerFinished(false);
     if (!isTimerFinished) return;
     if (activeTab === "focus") {
-      if (completedCycles === 3) {
+      if ((completedCycles + 1) % 4 === 0) {
         setActiveTab("longBreak");
-        resetCompletedCycles();
       } else {
         setActiveTab("shortBreak");
-        incrementCompletedCycles();
       }
+      incrementCompletedCycles();
     } else {
       setActiveTab("focus");
     }

@@ -1,6 +1,9 @@
+"use client";
+import { pomodoroStore } from "@/store/store";
 import DarkmodeToggle from "./theme-toggle";
 
 const AppNavbar = () => {
+  const { completedCycles } = pomodoroStore();
   return (
     <div className="flex justify-between w-full px-8 py-4">
       <h2 className="text-2xl font-bold tracking-wide text-primary">
