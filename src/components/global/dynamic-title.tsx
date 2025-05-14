@@ -1,5 +1,5 @@
 "use client";
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 import { formatTime } from "@/utils/formatTime";
 import { useEffect, useState } from "react";
 
@@ -13,8 +13,7 @@ export default function DynamicTitle() {
     // Create tab label based on current state
     const getTabLabel = () => {
       if (activeTab === "focus") return isPaused ? "(Paused) Focus" : "Focus";
-      if (activeTab === "shortBreak")
-        return isPaused ? "(Paused) Short Break" : "Short Break";
+      if (activeTab === "shortBreak") return isPaused ? "(Paused) Short Break" : "Short Break";
       return isPaused ? "(Paused) Long Break" : "Long Break";
     };
 
@@ -24,12 +23,7 @@ export default function DynamicTitle() {
       let displayTime = timeLeft;
 
       // When the document is hidden, calculate time based on elapsed time since start
-      if (
-        document.hidden &&
-        isCountdownActive &&
-        !isPaused &&
-        startTime !== null
-      ) {
+      if (document.hidden && isCountdownActive && !isPaused && startTime !== null) {
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
         displayTime = Math.max(0, initialTime - elapsed);
       }
@@ -75,14 +69,7 @@ export default function DynamicTitle() {
       clearInterval(intervalId);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [
-    activeTab,
-    timeLeft,
-    isPaused,
-    isCountdownActive,
-    startTime,
-    initialTime,
-  ]);
+  }, [activeTab, timeLeft, isPaused, isCountdownActive, startTime, initialTime]);
 
   return null;
 }

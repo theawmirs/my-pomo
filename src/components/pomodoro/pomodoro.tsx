@@ -2,7 +2,7 @@
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 import { formatTime } from "@/utils/formatTime";
 import FocusTask from "./focus-task";
 import CompletedCycles from "./completed-cycles";

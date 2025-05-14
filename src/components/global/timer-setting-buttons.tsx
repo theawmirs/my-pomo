@@ -4,7 +4,7 @@ import { Clock, Maximize, Timer } from "lucide-react";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { useEffect, useState } from "react";
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 
 const TimerSettingButtons = () => {
   const {

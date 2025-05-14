@@ -1,6 +1,6 @@
 "use client";
 
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 import { Badge } from "../../components/ui/badge";
 
 const CompletedCycles = () => {

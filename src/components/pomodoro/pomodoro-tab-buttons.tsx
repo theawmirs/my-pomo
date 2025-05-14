@@ -1,16 +1,13 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 
 const PomodoroTabButtons = () => {
-  const { isCountdownActive, setActiveTab, activeTab, activeMode } =
-    pomodoroStore();
+  const { isCountdownActive, setActiveTab, activeTab, activeMode } = pomodoroStore();
 
   return (
-    <div
-      className={`flex w-full justify-between gap-4 ${activeMode === "clock" ? "hidden" : "block"}`}
-    >
+    <div className={`flex w-full justify-between gap-4 ${activeMode === "clock" ? "hidden" : "block"}`}>
       <Button
         disabled={isCountdownActive}
         onClick={() => {

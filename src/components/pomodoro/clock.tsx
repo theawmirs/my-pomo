@@ -1,5 +1,5 @@
 "use client";
-import { pomodoroStore } from "@/store/store";
+import { pomodoroStore } from "@/store/pomodoro";
 import { useEffect, useState } from "react";
 
 const RealTimeClock = () => {
