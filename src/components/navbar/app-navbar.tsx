@@ -1,5 +1,4 @@
 "use client";
-import { pomodoroStore } from "@/store/store";
 import DarkmodeToggle from "./theme-toggle";
 
 const AppNavbar = () => {
