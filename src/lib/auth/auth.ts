@@ -1,15 +1,34 @@
-import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { saltAndHashPassword, verifyPassword } from "@/utils/password";
+import { getUserFromDb } from "../db/actions/user/user.actions";
 
-import { PrismaClient } from "@/lib/generated/prisma";
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Credentials({
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        const { email, password } = credentials;
 
-const prisma = new PrismaClient();
+        let user = null;
 
-export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "postgresql",
-  }),
-  emailAndPassword: {
-    enabled: true,
-  },
+        user = await getUserFromDb(email as string);
+
+        if (!user) {
+          throw new Error("User not found.");
+        }
+
+        const isPasswordValid = await verifyPassword(password as string, user.password);
+
+        if (!isPasswordValid) {
+          throw new Error("Invalid password.");
+        }
+
+        return user;
+      },
+    }),
+  ],
 });

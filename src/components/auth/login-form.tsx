@@ -8,21 +8,19 @@ import { useActionState, useEffect } from "react";
 import { signIn } from "@/actions/auth.action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth/auth-client";
 
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, null);
   const router = useRouter();
-  const { data: session } = useSession();
   useEffect(() => {
     if (state?.success) {
-      toast.success(`Welcome back ${session?.user.name}`);
+      toast.success(`Welcome back`);
       router.push("/pomodoro");
     }
-    // if (state?.success === false) {
-    //   toast.error(state.message);
-    // }
-  }, [state?.success, state?.error]);
+    if (!state?.success && state?.message) {
+      toast.error(state.message);
+    }
+  }, [state?.success, state]);
 
   return (
     <Card className="w-full max-w-md shadow-md">
