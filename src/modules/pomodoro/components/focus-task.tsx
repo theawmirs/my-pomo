@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "../ui/input";
+import { Input } from "../../ui-components/shadcn/ui/input";
 
 const FocusTask = () => {
   const [taskText, setTaskText] = useState("What do you want to focus on?");
@@ -28,10 +28,7 @@ const FocusTask = () => {
           />
         </>
       ) : (
-        <h2
-          onClick={() => setIsEditing(true)}
-          className="text-2xl font-bold whitespace-nowrap cursor-pointer"
-        >
+        <h2 onClick={() => setIsEditing(true)} className="text-2xl font-bold whitespace-nowrap cursor-pointer">
           {taskText}
         </h2>
       )}

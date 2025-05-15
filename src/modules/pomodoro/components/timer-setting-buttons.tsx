@@ -1,10 +1,10 @@
 "use client";
 
 import { Clock, Maximize, Timer } from "lucide-react";
-import { Button } from "../ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Button } from "../../ui-components/shadcn/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui-components/shadcn/ui/tooltip";
 import { useEffect, useState } from "react";
-import { pomodoroStore } from "@/store/pomodoro";
+import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 
 const TimerSettingButtons = () => {
   const {

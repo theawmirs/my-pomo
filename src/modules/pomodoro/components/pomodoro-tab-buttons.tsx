@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Button } from "../ui/button";
-import { pomodoroStore } from "@/store/pomodoro";
+import { Button } from "../../ui-components/shadcn/ui/button";
+import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 
 const PomodoroTabButtons = () => {
   const { isCountdownActive, setActiveTab, activeTab, activeMode } = pomodoroStore();

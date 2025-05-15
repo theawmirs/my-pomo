@@ -1,7 +1,7 @@
 "use client";
 
-import { pomodoroStore } from "@/store/pomodoro";
-import { Badge } from "../../components/ui/badge";
+import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
+import { Badge } from "../../ui-components/shadcn/ui/badge";
 
 const CompletedCycles = () => {
   const completedCycles = pomodoroStore().completedCycles;

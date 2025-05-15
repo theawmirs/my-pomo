@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/modules/global/components/theme-provider";
 import { Toaster } from "sonner";
 interface Props {
   children: React.ReactNode;

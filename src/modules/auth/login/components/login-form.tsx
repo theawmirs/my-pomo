@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Input } from "@/modules/ui-components/shadcn/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/modules/ui-components/shadcn/ui/card";
 import { useActionState, useEffect } from "react";
 import { signIn } from "@/actions/auth.action";
 import { toast } from "sonner";

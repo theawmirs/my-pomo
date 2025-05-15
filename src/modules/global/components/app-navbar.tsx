@@ -1,4 +1,5 @@
 "use client";
+
 import DarkmodeToggle from "./theme-toggle";
 
 const AppNavbar = () => {
