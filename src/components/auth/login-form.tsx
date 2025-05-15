@@ -20,7 +20,7 @@ const LoginForm = () => {
     if (!state?.success && state?.message) {
       toast.error(state.message);
     }
-  }, [state?.success, state]);
+  }, [state?.success, state, router]);
 
   return (
     <Card className="w-full max-w-md shadow-md">

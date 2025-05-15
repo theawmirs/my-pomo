@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { saltAndHashPassword, verifyPassword } from "@/utils/password";
+import { verifyPassword } from "@/utils/password";
 import { getUserFromDb } from "../db/actions/user/user.actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({

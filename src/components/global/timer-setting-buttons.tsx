@@ -33,7 +33,7 @@ const TimerSettingButtons = () => {
     } else {
       setActiveTab("focus");
     }
-  }, [isTimerFinished, activeTab, setActiveTab]);
+  }, [isTimerFinished, activeTab, setActiveTab, completedCycles, incrementCompletedCycles, setIsTimerFinished]);
 
   return (
     <>

@@ -20,7 +20,7 @@ const RegisterForm = () => {
     if (state?.errors) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [state, router]);
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
