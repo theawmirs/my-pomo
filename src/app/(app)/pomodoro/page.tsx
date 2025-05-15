@@ -1,7 +1,4 @@
-import TimerSettingButtons from "@/modules/pomodoro/components/timer-setting-buttons";
-import RealTimeClock from "@/modules/pomodoro/components/clock";
-import PomodoroTimer from "@/modules/pomodoro/components/pomodoro";
-import PomodoroTabButtons from "@/modules/pomodoro/components/pomodoro-tab-buttons";
+import { PomodoroTabButtons, PomodoroTimer, RealTimeClock, TimerSettingButtons } from "@/modules/pomodoro/components";
 
 const AppPage = () => {
   return (
