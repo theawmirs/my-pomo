@@ -13,6 +13,7 @@ import DarkmodeToggle from "./theme-toggle";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
 import { signOut } from "@/lib/auth/auth";
+import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
 const AccountDropdown = async () => {
   const session = await auth();
   return (
@@ -39,7 +40,10 @@ const AccountDropdown = async () => {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col space-y-0.5">
-                  <p className="text-sm font-medium">{session.user?.name || "User"}</p>
+                  <p className="text-sm font-medium whitespace-nowrap">
+                    {session.user?.name || "User"}
+                    {/* <Badge className="bg-red-500 p-1">Pro</Badge> */}
+                  </p>
                   <p className="text-xs text-muted-foreground truncate">{session.user?.email || ""}</p>
                 </div>
               </div>
