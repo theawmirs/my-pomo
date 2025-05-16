@@ -32,17 +32,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
+      // Pass the user id to the token
       if (user) {
-        token.id = user.id;
+        return { ...token, id: user.id };
       }
       return token;
     },
-    session({ session, token }) {
-      if (session.user && token.id) {
-        session.user.id = token.id as string;
-      }
-      return session;
+    async session({ session, token }) {
+      // Pass the user id to the session
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id as string,
+        },
+      };
     },
   },
 });
