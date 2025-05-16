@@ -5,6 +5,7 @@ import { Button } from "../../ui-components/shadcn/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui-components/shadcn/ui/tooltip";
 import { useEffect, useState } from "react";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
+import { toast } from "sonner";
 
 const TimerSettingButtons = () => {
   const {
@@ -30,6 +31,7 @@ const TimerSettingButtons = () => {
         setActiveTab("shortBreak");
       }
       incrementCompletedCycles();
+      toast.success("Pomodoro completed");
     } else {
       setActiveTab("focus");
     }
