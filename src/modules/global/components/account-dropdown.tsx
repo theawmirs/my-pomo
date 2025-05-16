@@ -51,7 +51,7 @@ const AccountDropdown = async () => {
               <DropdownMenuSeparator />
 
               <DropdownMenuLabel className="text-xs font-medium">Account</DropdownMenuLabel>
-              <Link href="/profile">
+              <Link href={`/user/${session.user?.id}`}>
                 <DropdownMenuItem className="cursor-pointer flex items-center gap-2">
                   <User className="h-4 w-4" />
                   <span>Profile</span>

@@ -1,6 +1,3 @@
-import { handlers } from "@/lib/auth/auth"; // Referring to the auth.ts we just created
+import { handlers } from "@/lib/auth/auth";
 
-export const runtime = "nodejs";
-
-export const GET = handlers.GET;
-export const POST = handlers.POST;
+export const { GET, POST } = handlers;
