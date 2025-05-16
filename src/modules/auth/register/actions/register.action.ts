@@ -1,6 +1,6 @@
 "use server";
 
-import { createUser } from "@/lib/db/actions/user/user.actions";
+import { createUser, getUserFromDb } from "@/lib/db/actions/user/user.actions";
 import { saltAndHashPassword } from "@/utils/password";
 import { signUpSchema } from "../schemas/register.schema";
 
@@ -26,6 +26,14 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
   const name = `${firstName} ${lastName}`;
   const pwHash = await saltAndHashPassword(password);
 
+  const existingUser = await getUserFromDb(email);
+
+  if (existingUser) {
+    return {
+      success: false,
+      message: "User already exists",
+    };
+  }
   try {
     await createUser(email, name, pwHash.hash);
 

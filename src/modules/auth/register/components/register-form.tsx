@@ -26,7 +26,7 @@ const RegisterForm = () => {
       toast.success(state.message);
       router.push("/auth/login");
     }
-    if (state?.errors) {
+    if (!state?.success && state?.message) {
       toast.error(state.message);
     }
   }, [state, router]);

@@ -85,7 +85,7 @@ const AccountDropdown = async () => {
                 className="cursor-pointer flex items-center gap-2 text-destructive focus:text-destructive"
               >
                 <LogOut className="h-4 w-4" />
-                <button type="submit" className="w-full text-left">
+                <button type="submit" className="w-full text-left cursor-pointer">
                   Sign out
                 </button>
               </DropdownMenuItem>

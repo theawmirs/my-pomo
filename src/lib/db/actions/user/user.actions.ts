@@ -17,12 +17,6 @@ export const getUserFromDb = async (email: string) => {
 };
 
 export const createUser = async (email: string, name: string, password: string) => {
-  const existingUser = await getUserFromDb(email);
-
-  if (existingUser) {
-    throw new Error("User already exists.");
-  }
-
   const user = await prisma.user.create({
     data: {
       email,
