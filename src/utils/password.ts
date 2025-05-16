@@ -1,3 +1,4 @@
+"use server";
 import bcrypt from "bcryptjs";
 
 export const saltAndHashPassword = async (password: string): Promise<{ hash: string }> => {
