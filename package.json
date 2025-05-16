@@ -6,7 +6,8 @@
     "dev": "prisma generate && next dev --turbopack",
     "build": "prisma generate && prisma db push && prisma db seed && next build",
     "start": "prisma generate && next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
