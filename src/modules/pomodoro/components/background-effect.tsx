@@ -20,7 +20,7 @@ const BackgroundEffect = () => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen overflow-hidden pointer-events-none z-[-1]">
-      {/* Focus tab effect - Warm/Red tones */}
+      {/* Focus tab effect - Red tones */}
       <div
         className={cn(
           "absolute inset-0 w-full h-full transition-opacity duration-1500",
@@ -28,10 +28,10 @@ const BackgroundEffect = () => {
         )}
       >
         {/* Mobile-optimized positioning */}
-        <div className="absolute top-[5%] right-[5%] md:top-[15%] md:right-[20%] w-[50vw] md:w-[35vw] h-[50vw] md:h-[35vw] bg-primary/15 rounded-full blur-3xl" />
-        <div className="absolute top-[10%] left-[5%] md:top-[10%] md:left-[10%] w-[35vw] md:w-[20vw] h-[35vw] md:h-[20vw] bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute top-[40%] left-[10%] md:top-[45%] md:left-[20%] w-[40vw] md:w-[28vw] h-[40vw] md:h-[28vw] bg-primary/12 rounded-full blur-3xl" />
-        <div className="absolute bottom-[25%] right-[5%] md:bottom-[15%] md:right-[15%] w-[45vw] md:w-[25vw] h-[45vw] md:h-[25vw] bg-primary/18 rounded-full blur-3xl" />
+        <div className="absolute top-[5%] right-[5%] md:top-[15%] md:right-[20%] w-[50vw] md:w-[35vw] h-[50vw] md:h-[35vw] bg-red-500/15 rounded-full blur-3xl" />
+        <div className="absolute top-[10%] left-[5%] md:top-[10%] md:left-[10%] w-[35vw] md:w-[20vw] h-[35vw] md:h-[20vw] bg-red-600/10 rounded-full blur-3xl" />
+        <div className="absolute top-[40%] left-[10%] md:top-[45%] md:left-[20%] w-[40vw] md:w-[28vw] h-[40vw] md:h-[28vw] bg-red-400/12 rounded-full blur-3xl" />
+        <div className="absolute bottom-[25%] right-[5%] md:bottom-[15%] md:right-[15%] w-[45vw] md:w-[25vw] h-[45vw] md:h-[25vw] bg-red-500/18 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[15%] md:bottom-[10%] md:left-[30%] w-[38vw] md:w-[22vw] h-[38vw] md:h-[22vw] bg-red-400/8 rounded-full blur-3xl" />
       </div>
 
