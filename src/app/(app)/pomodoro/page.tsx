@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import {
   BackgroundEffect,
   PomodoroTabButtons,
@@ -6,7 +7,8 @@ import {
   TimerSettingButtons,
 } from "@/modules/pomodoro/components";
 
-const AppPage = () => {
+const AppPage = async () => {
+  const session = await auth();
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto relative">
       <BackgroundEffect />
@@ -14,7 +16,7 @@ const AppPage = () => {
       <PomodoroTimer />
       <RealTimeClock />
       <div className="flex justify-center items-center w-full mt-4 gap-2">
-        <TimerSettingButtons />
+        <TimerSettingButtons userId={session?.user?.id} />
       </div>
     </div>
   );

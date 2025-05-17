@@ -6,8 +6,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../
 import { useEffect, useState } from "react";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 import { toast } from "sonner";
+import { createPomodoro } from "../services/pomodoro.services";
 
-const TimerSettingButtons = () => {
+interface Props {
+  userId: string | undefined;
+}
+
+const TimerSettingButtons = ({ userId }: Props) => {
   const {
     isTimerFinished,
     setIsTimerFinished,
@@ -17,6 +22,7 @@ const TimerSettingButtons = () => {
     setActiveMode,
     incrementCompletedCycles,
     completedCycles,
+    sessionDuration,
   } = pomodoroStore();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
@@ -31,6 +37,7 @@ const TimerSettingButtons = () => {
         setActiveTab("shortBreak");
       }
       incrementCompletedCycles();
+      createPomodoro(userId, sessionDuration, activeTab);
       toast.success("Pomodoro completed");
     } else {
       setActiveTab("focus");
