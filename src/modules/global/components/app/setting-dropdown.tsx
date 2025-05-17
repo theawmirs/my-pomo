@@ -20,7 +20,7 @@ export default function SettingDropdown() {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="text-xs font-medium">Preferences</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
+        <DropdownMenuItem className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Moon className="h-4 w-4" />
             <span>Theme</span>
