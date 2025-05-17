@@ -1,8 +1,15 @@
-import { PomodoroTabButtons, PomodoroTimer, RealTimeClock, TimerSettingButtons } from "@/modules/pomodoro/components";
+import {
+  BackgroundEffect,
+  PomodoroTabButtons,
+  PomodoroTimer,
+  RealTimeClock,
+  TimerSettingButtons,
+} from "@/modules/pomodoro/components";
 
 const AppPage = () => {
   return (
-    <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto">
+    <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto relative">
+      <BackgroundEffect />
       <PomodoroTabButtons />
       <PomodoroTimer />
       <RealTimeClock />
