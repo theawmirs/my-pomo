@@ -33,11 +33,11 @@ const ContributionGraph = () => {
   const totalWidth = weeks.length * WEEK_WIDTH + 50; // 50px for day labels
 
   return (
-    <div>
+    <div className="w-full h-full">
       {/* GitHub-style contribution graph - REAL horizontal layout */}
-      <div className="space-y-4 overflow-x-auto pb-6">
+      <div className="space-y-4 overflow-x-auto pb-6 w-full">
         {/* Container with fixed width to ensure proper month label spacing */}
-        <div style={{ width: `${totalWidth}px`, position: "relative" }}>
+        <div style={{ width: `${totalWidth}px`, position: "relative", minHeight: "100%" }}>
           {/* Month labels */}
           <div className="flex text-xs text-muted-foreground h-5 pl-10 relative">
             {monthLabels.map((month, i) => (
@@ -48,18 +48,34 @@ const ContributionGraph = () => {
           </div>
 
           {/* Grid with day labels */}
-          <div className="flex">
+          <div className="flex mt-2">
             {/* Day of week labels */}
-            <div className="flex flex-col mr-2 mt-1">
-              {[1, 3, 5].map((dayIndex) => (
-                <div
-                  key={dayIndex}
-                  className="h-[13px] text-xs text-muted-foreground text-right pr-1 mb-[2px]"
-                  style={{ height: `${CELL_SIZE}px`, marginBottom: `${CELL_GAP}px` }}
-                >
-                  {weekdays[dayIndex].substring(0, 3)}
-                </div>
-              ))}
+            <div className="flex flex-col mr-2 mt-1 space-y-[2px]">
+              {weekdays.map((day, dayIndex) =>
+                // Only show Monday, Wednesday, and Friday labels
+                dayIndex === 1 || dayIndex === 3 || dayIndex === 5 ? (
+                  <div
+                    key={dayIndex}
+                    className="text-xs text-muted-foreground text-right pr-1"
+                    style={{
+                      height: `${CELL_SIZE}px`,
+                      lineHeight: `${CELL_SIZE}px`,
+                      marginBottom: `${CELL_GAP}px`,
+                    }}
+                  >
+                    {day.substring(0, 3)}
+                  </div>
+                ) : (
+                  // Empty div for other days to maintain spacing
+                  <div
+                    key={dayIndex}
+                    style={{
+                      height: `${CELL_SIZE}px`,
+                      marginBottom: `${CELL_GAP}px`,
+                    }}
+                  ></div>
+                ),
+              )}
             </div>
 
             {/* Contribution cells grid */}
@@ -89,7 +105,7 @@ const ContributionGraph = () => {
           </div>
 
           {/* Legend */}
-          <div className="flex items-center justify-end gap-2 mt-2 text-xs text-muted-foreground">
+          <div className="flex items-center justify-end gap-2 mt-4 text-xs text-muted-foreground">
             <span>Less</span>
             <div className="w-3 h-3 rounded-sm bg-gray-100 dark:bg-gray-800"></div>
             <div className="w-3 h-3 rounded-sm bg-primary/20"></div>
