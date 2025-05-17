@@ -1,9 +1,9 @@
 import { getUserById } from "@/lib/db/actions/user/user.actions";
 
 interface Props {
-  params: {
+  params: Promise<{
     userId: string;
-  };
+  }>;
 }
 
 const UserProfilePage = async ({ params }: Props) => {
