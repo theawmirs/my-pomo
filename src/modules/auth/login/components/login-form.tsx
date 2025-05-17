@@ -11,24 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/modules/ui-components/shadcn/ui/card";
-import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { signIn } from "../actions/login.action";
 import { LockIcon, MailIcon, LogInIcon } from "lucide-react";
-const LoginForm = () => {
-  const [state, formAction, isPending] = useActionState(signIn, null);
-  const router = useRouter();
+import { useLoginForm } from "../hooks/useLoginForm";
 
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(`Logged in successfully`);
-      router.push("/pomodoro");
-    }
-    if (!state?.success && state?.message) {
-      toast.error(state.message);
-    }
-  }, [state?.success, state, router]);
+const LoginForm = () => {
+  const { state, formAction, isPending } = useLoginForm();
 
   return (
     <Card className="w-full max-w-md shadow-xl border-0 bg-card/50 backdrop-blur-sm">

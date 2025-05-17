@@ -11,25 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/modules/ui-components/shadcn/ui/card";
-import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { signUp } from "../actions/register.action";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-react";
+import { useRegisterForm } from "../hooks/useRegisterForm";
 
 const RegisterForm = () => {
-  const [state, formAction, isPending] = useActionState(signUp, null);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state.message);
-      router.push("/auth/login");
-    }
-    if (!state?.success && state?.message) {
-      toast.error(state.message);
-    }
-  }, [state, router]);
+  const { state, formAction, isPending } = useRegisterForm();
 
   return (
     <Card className="w-full max-w-md shadow-xl border-0 bg-card/50 backdrop-blur-sm">
