@@ -66,17 +66,6 @@ const AccountDropdown = async () => {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuLabel className="text-xs font-medium">Preferences</DropdownMenuLabel>
-              <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Moon className="h-4 w-4" />
-                  <span>Theme</span>
-                </div>
-                <DarkmodeToggle />
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator />
-
               <DropdownMenuItem
                 onClick={async () => {
                   "use server";

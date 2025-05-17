@@ -1,6 +1,8 @@
 import { auth } from "@/lib/auth/auth";
 import AccountDropdown from "./account-dropdown";
 import DarkmodeToggle from "./theme-toggle";
+import SettingDropdown from "../setting-dropdown";
+import { Button } from "@/modules/ui-components/shadcn/ui/button";
 
 const AppNavbar = async () => {
   const session = await auth();
@@ -10,6 +12,7 @@ const AppNavbar = async () => {
         MY <span className="text-stone-700">POMO</span>
       </h2>
       <div className="flex items-center gap-2">
+        <SettingDropdown />
         <AccountDropdown />
         {!session && <DarkmodeToggle />}
       </div>
