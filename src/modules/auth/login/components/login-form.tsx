@@ -15,11 +15,11 @@ import { LockIcon, MailIcon, LogInIcon } from "lucide-react";
 import { useLoginForm } from "../hooks/useLoginForm";
 
 const LoginForm = () => {
-  const { state, formAction, isPending } = useLoginForm();
+  const { state, isPending, register, errors, handleSubmit, formRef } = useLoginForm();
 
   return (
     <Card className="w-full max-w-md shadow-xl border-0 bg-card/50 backdrop-blur-sm">
-      <form action={formAction}>
+      <form ref={formRef} onSubmit={handleSubmit}>
         <CardHeader className="space-y-2 pb-2">
           <div className="mx-auto bg-primary/10 p-3 rounded-full mb-2">
             <LogInIcon className="h-6 w-6 text-primary" />
@@ -33,8 +33,8 @@ const LoginForm = () => {
               <MailIcon className="h-4 w-4 text-muted-foreground" />
               Email
             </label>
-            <Input id="email" name="email" type="email" placeholder="name@example.com" className="bg-background/50" />
-            {state?.errors?.email && <p className="text-destructive text-xs mt-1">{state.errors.email}</p>}
+            <Input {...register("email")} placeholder="name@example.com" className="bg-background/50" />
+            {errors?.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
           </div>
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
@@ -46,34 +46,21 @@ const LoginForm = () => {
                 <span className="line-through">Forgot password?</span>
               </Link>
             </div>
-            <Input id="password" name="password" type="password" placeholder="••••••••" className="bg-background/50" />
-            {state?.errors?.password && <p className="text-destructive text-xs mt-1">{state.errors.password}</p>}
+            <Input {...register("password")} type="password" placeholder="••••••••" className="bg-background/50" />
+            {errors?.password && <p className="text-destructive text-xs mt-1">{errors.password.message}</p>}
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2 pt-2">
-          <Button className="w-full h-11 text-sm" type="submit" disabled={isPending || state?.success}>
+          <Button className="w-full h-11 text-sm" type="submit" disabled={isPending}>
             {isPending ? (
               <span className="flex items-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
                 Signing in...
               </span>
-            ) : state?.success ? (
-              "Signed in"
             ) : (
               "Sign in"
             )}
           </Button>
-          {/* <div className="relative my-4 w-full">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-muted"></div>
-            </div>
-            <div className="relative flex justify-center text-xs">
-              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
-            </div>
-          </div>
-          <Button variant="outline" className="w-full h-11 text-sm bg-background/50" type="button">
-            Continue with Google
-          </Button> */}
           <div className="text-center text-sm text-muted-foreground mt-2">
             Don&apos;t have an account?{" "}
             <Link href="/auth/register" className="text-primary font-medium hover:underline">
