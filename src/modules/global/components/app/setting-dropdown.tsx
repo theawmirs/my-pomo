@@ -4,10 +4,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../ui-components/shadcn/ui/dropdown-menu";
+} from "../../../ui-components/shadcn/ui/dropdown-menu";
 import { Moon, Settings } from "lucide-react";
-import { Button } from "../ui-components/shadcn/ui/button";
-import DarkmodeToggle from "./components/theme-toggle";
+import { Button } from "../../../ui-components/shadcn/ui/button";
+import DarkmodeToggle from "../navbar/theme-toggle";
 
 export default function SettingDropdown() {
   return (

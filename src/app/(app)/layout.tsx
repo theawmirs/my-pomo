@@ -1,5 +1,5 @@
 import DynamicTitle from "@/modules/pomodoro/components/dynamic-title";
-import AppNavbar from "@/modules/global/components/app-navbar";
+import AppNavbar from "@/modules/global/components/navbar/app-navbar";
 
 interface Props {
   children: React.ReactNode;

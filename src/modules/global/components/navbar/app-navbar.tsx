@@ -1,8 +1,7 @@
 import { auth } from "@/lib/auth/auth";
-import AccountDropdown from "./account-dropdown";
+import AccountDropdown from "../../user/account-dropdown";
 import DarkmodeToggle from "./theme-toggle";
-import SettingDropdown from "../setting-dropdown";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import SettingDropdown from "../app/setting-dropdown";
 
 const AppNavbar = async () => {
   const session = await auth();

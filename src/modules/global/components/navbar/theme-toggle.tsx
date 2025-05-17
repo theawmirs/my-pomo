@@ -1,7 +1,7 @@
 "use client";
 import { useTheme } from "next-themes";
-import { Button } from "../../ui-components/shadcn/ui/button";
 import { MoonIcon, Sun } from "lucide-react";
+import { Button } from "@/modules/ui-components/shadcn/ui/button";
 
 const DarkmodeToggle = () => {
   const { setTheme, theme } = useTheme();
