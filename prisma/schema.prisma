@@ -23,37 +23,4 @@ model User {
   role      String   @default("user")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // Relations
-  sessions PomodoroSession[]
-  stats    UserPomodoroStats?
-}
-
-// New models for pomodoro
-model PomodoroSession {
-  id          String    @id @default(uuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type        String // "focus", "shortBreak", "longBreak"
-  duration    Int // Duration in seconds
-  completed   Boolean   @default(true)
-  task        String? // Optional task description
-  startedAt   DateTime  @default(now())
-  completedAt DateTime?
-
-  @@index([userId, startedAt])
-}
-
-model UserPomodoroStats {
-  id                String    @id @default(uuid())
-  userId            String    @unique
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  totalSessions     Int       @default(0)
-  completedSessions Int       @default(0)
-  totalFocusTime    Int       @default(0) // Total focus time in seconds
-  currentStreak     Int       @default(0) // Current streak in days
-  longestStreak     Int       @default(0) // Longest streak in days
-  lastActiveDate    DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
 }
