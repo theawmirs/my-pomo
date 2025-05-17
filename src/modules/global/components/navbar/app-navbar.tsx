@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AccountDropdown from "../../user/account-dropdown";
+import AccountDropdown from "../user/account-dropdown";
 import SettingDropdown from "../app/setting-dropdown";
 
 const AppNavbar = async () => {
