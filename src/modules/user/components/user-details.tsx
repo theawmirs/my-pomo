@@ -4,6 +4,7 @@ import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { User, Mail, Calendar, PenSquare } from "lucide-react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 interface UserDetailsProps {
   user: any;
@@ -11,11 +12,6 @@ interface UserDetailsProps {
 }
 
 const UserDetails = ({ user, isCurrentUser }: UserDetailsProps) => {
-  const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
-  };
-
   return (
     <Card className="md:col-span-1">
       <CardHeader className="pb-2">
@@ -54,7 +50,7 @@ const UserDetails = ({ user, isCurrentUser }: UserDetailsProps) => {
           </div>
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-muted-foreground" />
-            <span>Joined {formatDate(user.createdAt)}</span>
+            <span>Joined {format(new Date(user.createdAt), "MMMM d, yyyy")}</span>
           </div>
         </div>
       </CardContent>
