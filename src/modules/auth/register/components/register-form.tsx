@@ -15,11 +15,11 @@ import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-react";
 import { useRegisterForm } from "../hooks/useRegisterForm";
 
 const RegisterForm = () => {
-  const { state, formAction, isPending } = useRegisterForm();
+  const { state, isPending, register, errors, handleSubmit, formRef } = useRegisterForm();
 
   return (
     <Card className="w-full max-w-md shadow-xl border-0 bg-card/50 backdrop-blur-sm">
-      <form action={formAction}>
+      <form ref={formRef} onSubmit={handleSubmit}>
         <CardHeader className="space-y-2 pb-2">
           <div className="mx-auto bg-primary/10 p-3 rounded-full mb-2">
             <UserPlusIcon className="h-6 w-6 text-primary" />
@@ -35,26 +35,30 @@ const RegisterForm = () => {
                 First Name
               </label>
               <Input
-                id="firstName"
-                name="firstName"
+                {...register("firstName")}
+                // id="firstName"
+                // name="firstName"
                 placeholder="John"
                 className="bg-background/50"
                 defaultValue={state?.inputs?.firstName}
               />
-              {state?.errors?.firstName && <p className="text-destructive text-xs mt-1">{state.errors.firstName}</p>}
+              {/* {state?.errors?.firstName && <p className="text-destructive text-xs mt-1">{state.errors.firstName}</p>} */}
+              {errors?.firstName && <p className="text-destructive text-xs mt-1">{errors.firstName.message}</p>}
             </div>
             <div className="space-y-1.5">
               <label htmlFor="lastName" className="text-sm font-medium">
                 Last Name
               </label>
               <Input
-                id="lastName"
-                name="lastName"
+                {...register("lastName")}
+                // id="lastName"
+                // name="lastName"
                 placeholder="Doe"
                 className="bg-background/50"
                 defaultValue={state?.inputs?.lastName}
               />
-              {state?.errors?.lastName && <p className="text-destructive text-xs mt-1">{state.errors.lastName}</p>}
+              {/* {state?.errors?.lastName && <p className="text-destructive text-xs mt-1">{state.errors.lastName}</p>} */}
+              {errors?.lastName && <p className="text-destructive text-xs mt-1">{errors.lastName.message}</p>}
             </div>
           </div>
 
@@ -64,14 +68,16 @@ const RegisterForm = () => {
               Email
             </label>
             <Input
-              id="email"
-              name="email"
+              {...register("email")}
+              // id="email"
+              // name="email"
               type="email"
               placeholder="name@example.com"
               className="bg-background/50"
               defaultValue={state?.inputs?.email}
             />
-            {state?.errors?.email && <p className="text-destructive text-xs mt-1">{state.errors.email}</p>}
+            {/* {state?.errors?.email && <p className="text-destructive text-xs mt-1">{state.errors.email}</p>} */}
+            {errors?.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-1.5">
@@ -80,14 +86,16 @@ const RegisterForm = () => {
               Password
             </label>
             <Input
-              id="password"
-              name="password"
+              {...register("password")}
+              // id="password"
+              // name="password"
               type="password"
               placeholder="••••••••"
               className="bg-background/50"
               defaultValue={state?.inputs?.password}
             />
-            {state?.errors?.password && <p className="text-destructive text-xs mt-1">{state.errors.password}</p>}
+            {/* {state?.errors?.password && <p className="text-destructive text-xs mt-1">{state.errors.password}</p>} */}
+            {errors?.password && <p className="text-destructive text-xs mt-1">{errors.password.message}</p>}
           </div>
 
           <div className="space-y-1.5">
@@ -96,15 +104,19 @@ const RegisterForm = () => {
               Confirm Password
             </label>
             <Input
-              id="confirmPassword"
-              name="confirmPassword"
+              {...register("confirmPassword")}
+              // id="confirmPassword"
+              // name="confirmPassword"
               type="password"
               placeholder="••••••••"
               className="bg-background/50"
               defaultValue={state?.inputs?.confirmPassword}
             />
-            {state?.errors?.confirmPassword && (
+            {/* {state?.errors?.confirmPassword && (
               <p className="text-destructive text-xs mt-1">{state.errors.confirmPassword}</p>
+            )} */}
+            {errors?.confirmPassword && (
+              <p className="text-destructive text-xs mt-1">{errors.confirmPassword.message}</p>
             )}
           </div>
         </CardContent>
