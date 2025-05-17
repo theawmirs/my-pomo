@@ -16,15 +16,13 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signIn } from "../actions/login.action";
 import { LockIcon, MailIcon, LogInIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, null);
   const router = useRouter();
-  const { data: session } = useSession();
 
   useEffect(() => {
     if (state?.success) {
-      toast.success(`Welcome back ${session?.user?.name}`);
+      toast.success(`Logged in successfully`);
       router.push("/pomodoro");
     }
     if (!state?.success && state?.message) {
@@ -66,12 +64,14 @@ const LoginForm = () => {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2 pt-2">
-          <Button className="w-full h-11 text-sm" type="submit" disabled={isPending}>
+          <Button className="w-full h-11 text-sm" type="submit" disabled={isPending || state?.success}>
             {isPending ? (
               <span className="flex items-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
                 Signing in...
               </span>
+            ) : state?.success ? (
+              "Signed in"
             ) : (
               "Sign in"
             )}
