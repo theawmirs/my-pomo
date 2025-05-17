@@ -26,8 +26,14 @@ const UserProfile = ({ user, isCurrentUser }: UserProfileProps) => {
         {/* Profile Card */}
         <UserDetails user={user} isCurrentUser={isCurrentUser} />
 
-        {/* Pomodoro Stats */}
-        <Card className="md:col-span-2">
+        {/* Pomodoro Stats - Blurred Coming Soon */}
+        <Card className="md:col-span-2 relative overflow-hidden">
+          <div className="backdrop-blur-md absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/30">
+            <h3 className="text-2xl font-bold text-white mb-2">Coming Soon</h3>
+            <p className="text-white/80">Pomodoro Statistics will be available soon</p>
+          </div>
+
+          {/* Pomodoro Stats */}
           <CardHeader>
             <CardTitle>Pomodoro Statistics</CardTitle>
             <CardDescription>Track your productivity journey</CardDescription>
