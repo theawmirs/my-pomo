@@ -3,64 +3,22 @@
 import { Clock, Maximize, Timer } from "lucide-react";
 import { Button } from "../../ui-components/shadcn/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui-components/shadcn/ui/tooltip";
-import { useEffect, useState } from "react";
-import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
-import { toast } from "sonner";
-import { createPomodoro } from "../services/pomodoro.services";
+import { useTimerSettings } from "../hooks/useTimerSettings";
 
 interface Props {
   userId: string | undefined;
 }
 
 const TimerSettingButtons = ({ userId }: Props) => {
-  const {
-    isTimerFinished,
-    setIsTimerFinished,
-    activeTab,
-    setActiveTab,
-    activeMode,
-    setActiveMode,
-    incrementCompletedCycles,
-    completedCycles,
-    sessionDuration,
-  } = pomodoroStore();
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
-
-  useEffect(() => {
-    setIsTimerFinished(false);
-    if (!isTimerFinished) return;
-    if (activeTab === "focus") {
-      if ((completedCycles + 1) % 4 === 0) {
-        setActiveTab("longBreak");
-      } else {
-        setActiveTab("shortBreak");
-      }
-      incrementCompletedCycles();
-      createPomodoro(userId, sessionDuration, activeTab);
-      toast.success("Pomodoro completed");
-    } else {
-      setActiveTab("focus");
-    }
-  }, [isTimerFinished, activeTab, setActiveTab, completedCycles, incrementCompletedCycles, setIsTimerFinished]);
+  const { isFullScreen, activeMode, activeButton, toggleFullScreen, setClockMode, setPomodoroMode } =
+    useTimerSettings(userId);
 
   return (
     <>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant={isFullScreen ? "default" : "outline"}
-              onClick={() => {
-                if (!document.fullscreenElement) {
-                  document.documentElement.requestFullscreen();
-                  setIsFullScreen(true);
-                } else {
-                  document.exitFullscreen();
-                  setIsFullScreen(false);
-                }
-              }}
-            >
+            <Button variant={isFullScreen ? "default" : "outline"} onClick={toggleFullScreen}>
               <Maximize />
             </Button>
           </TooltipTrigger>
@@ -73,13 +31,7 @@ const TimerSettingButtons = ({ userId }: Props) => {
       <TooltipProvider>
         <Tooltip open={activeButton === "clock"}>
           <TooltipTrigger asChild>
-            <Button
-              onClick={() => {
-                setActiveMode("clock");
-                setActiveButton("clock");
-              }}
-              variant={activeMode === "clock" ? "default" : "outline"}
-            >
+            <Button onClick={setClockMode} variant={activeMode === "clock" ? "default" : "outline"}>
               <Clock />
             </Button>
           </TooltipTrigger>
@@ -92,13 +44,7 @@ const TimerSettingButtons = ({ userId }: Props) => {
       <TooltipProvider>
         <Tooltip open={activeButton === "pomodoro"}>
           <TooltipTrigger asChild>
-            <Button
-              onClick={() => {
-                setActiveMode("pomodoro");
-                setActiveButton("pomodoro");
-              }}
-              variant={activeMode === "pomodoro" ? "default" : "outline"}
-            >
+            <Button onClick={setPomodoroMode} variant={activeMode === "pomodoro" ? "default" : "outline"}>
               <Timer />
             </Button>
           </TooltipTrigger>

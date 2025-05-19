@@ -1,0 +1,76 @@
+import { useEffect, useState } from "react";
+import { pomodoroStore } from "../store/pomodoro";
+import { toast } from "sonner";
+import { createPomodoro } from "../services/pomodoro.services";
+
+export const useTimerSettings = (userId: string | undefined) => {
+  const {
+    isTimerFinished,
+    setIsTimerFinished,
+    activeTab,
+    setActiveTab,
+    activeMode,
+    setActiveMode,
+    incrementCompletedCycles,
+    completedCycles,
+    sessionDuration,
+  } = pomodoroStore();
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
+
+  useEffect(() => {
+    setIsTimerFinished(false);
+    if (!isTimerFinished) return;
+    if (activeTab === "focus") {
+      if ((completedCycles + 1) % 4 === 0) {
+        setActiveTab("longBreak");
+      } else {
+        setActiveTab("shortBreak");
+      }
+      incrementCompletedCycles();
+      createPomodoro(userId, sessionDuration, activeTab);
+      toast.success("Pomodoro completed");
+    } else {
+      setActiveTab("focus");
+    }
+  }, [
+    isTimerFinished,
+    activeTab,
+    setActiveTab,
+    completedCycles,
+    incrementCompletedCycles,
+    setIsTimerFinished,
+    userId,
+    sessionDuration,
+  ]);
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullScreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullScreen(false);
+    }
+  };
+
+  const setClockMode = () => {
+    setActiveMode("clock");
+    setActiveButton("clock");
+  };
+
+  const setPomodoroMode = () => {
+    setActiveMode("pomodoro");
+    setActiveButton("pomodoro");
+  };
+
+  return {
+    isFullScreen,
+    activeMode,
+    activeButton,
+    toggleFullScreen,
+    setClockMode,
+    setPomodoroMode,
+  };
+};
