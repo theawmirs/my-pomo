@@ -17,7 +17,7 @@ export default function UserNotFound() {
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">User Not Found</h1>
         <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-          The user profile you're looking for doesn't exist or has been removed.
+          The user profile you&apos;re looking for doesn&apos;t exist or has been removed.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/" passHref>
