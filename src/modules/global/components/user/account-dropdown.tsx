@@ -8,11 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/modules/ui-components/shadcn/ui/dropdown-menu";
-import { LogIn, User, UserCog, Moon, LogOut } from "lucide-react";
+import { LogIn, User, UserCog, LogOut } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
 import { signOut } from "@/lib/auth/auth";
-// import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
+import SignoutButton from "./signout-button";
 export default async function AccountDropdown() {
   const session = await auth();
   return (
@@ -65,17 +65,8 @@ export default async function AccountDropdown() {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem
-                onClick={async () => {
-                  "use server";
-                  await signOut();
-                }}
-                className="cursor-pointer flex items-center gap-2 text-destructive focus:text-destructive"
-              >
-                <LogOut className="h-4 w-4" />
-                <button type="submit" className="w-full text-left cursor-pointer">
-                  Sign out
-                </button>
+              <DropdownMenuItem>
+                <SignoutButton />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

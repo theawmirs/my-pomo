@@ -1,6 +1,12 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/modules/ui-components/shadcn/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/modules/ui-components/shadcn/ui/dialog";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { User } from "@prisma/client";
@@ -15,6 +21,7 @@ export function EditUserProfileModal({ user }: { user: User }) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
+            <DialogDescription>Edit your profile information</DialogDescription>
           </DialogHeader>
           <div className="p-4">
             <EditUserProfileForm user={user} />

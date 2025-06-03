@@ -7,12 +7,7 @@ import { signInSchema } from "../schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authStore } from "../../stores/auth.store";
 
-/**
- * Custom hook for handling login form logic
- * Manages form state, validation, submission, and success/error handling
- */
 export const useLoginForm = () => {
-  // Initialize form with zod validation
   const {
     register,
     handleSubmit,
@@ -34,6 +29,9 @@ export const useLoginForm = () => {
     if (state?.success) {
       reset();
       setIsAuthenticated(true);
+      setTimeout(() => {
+        setIsAuthenticated(false);
+      }, 1000);
     }
   }, [state, reset]);
 

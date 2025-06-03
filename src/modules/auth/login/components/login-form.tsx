@@ -51,7 +51,7 @@ export function LoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2 pt-2">
-          <Button className="w-full h-11 text-sm" type="submit" disabled={isPending}>
+          <Button className="w-full h-11 text-sm mt-4" type="submit" disabled={isPending}>
             {isPending ? (
               <span className="flex items-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
