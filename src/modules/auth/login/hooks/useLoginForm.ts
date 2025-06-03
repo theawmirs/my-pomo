@@ -46,5 +46,5 @@ export const useLoginForm = () => {
   };
 
   // Return form utilities and state
-  return { state, isPending, register, errors, handleSubmit: handleSubmit(onSubmit as any), formRef };
+  return { state, isPending, register, errors, handleSubmit: handleSubmit(onSubmit), formRef };
 };

@@ -8,11 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/modules/ui-components/shadcn/ui/dropdown-menu";
-import { LogIn, User, UserCog, LogOut } from "lucide-react";
+import { LogIn, User, UserCog } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
-import { signOut } from "@/lib/auth/auth";
 import SignoutButton from "./signout-button";
+
 export default async function AccountDropdown() {
   const session = await auth();
   return (
