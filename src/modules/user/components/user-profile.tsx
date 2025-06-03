@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { ContributionGraph, UserDetails, UserStatistics } from ".";
+import { User } from "@prisma/client";
 
 interface UserProfileProps {
-  user: any;
+  user: User;
   isCurrentUser: boolean;
 }
 

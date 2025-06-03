@@ -3,7 +3,6 @@
 import { AuthError } from "next-auth";
 import { signInSchema } from "../schemas/login.schema";
 import { signIn as signInAuth, signOut } from "@/lib/auth/auth";
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 export const signIn = async (prevState: unknown, formData: FormData) => {
