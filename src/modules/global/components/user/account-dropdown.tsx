@@ -81,7 +81,7 @@ export default async function AccountDropdown() {
           </DropdownMenu>
         </>
       ) : (
-        <Link href="/auth/login">
+        <Link href="/auth">
           <Button variant="outline" className="flex items-center gap-2">
             <LogIn className="h-4 w-4" />
             <span>Sign in</span>

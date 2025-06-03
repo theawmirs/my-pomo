@@ -15,7 +15,7 @@ import { LockIcon, MailIcon, LogInIcon } from "lucide-react";
 import { useLoginForm } from "../hooks/useLoginForm";
 
 export function LoginForm() {
-  const { state, isPending, register, errors, handleSubmit, formRef } = useLoginForm();
+  const { isPending, register, errors, handleSubmit, formRef } = useLoginForm();
 
   return (
     <Card className="w-full max-w-md shadow-xl border-0 bg-card/50 backdrop-blur-sm">

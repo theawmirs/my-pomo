@@ -15,13 +15,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  authModal,
 }: Readonly<{
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${montserrat.variable} antialiased`}>
-        <Provier>{children}</Provier>
+        <Provier>
+          {children}
+          {authModal}
+        </Provier>
       </body>
     </html>
   );

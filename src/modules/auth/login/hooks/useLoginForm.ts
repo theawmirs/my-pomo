@@ -5,6 +5,7 @@ import { signIn } from "../actions/login.action";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "../schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authStore } from "../../stores/auth.store";
 
 /**
  * Custom hook for handling login form logic
@@ -21,6 +22,7 @@ export const useLoginForm = () => {
     resolver: zodResolver(signInSchema),
     mode: "onBlur", // Validate on blur for better UX
   });
+  const { setIsAuthenticated } = authStore();
 
   // Set up server action state and form reference
   const [state, formAction, isPending] = useActionState(signIn, null);
@@ -31,6 +33,7 @@ export const useLoginForm = () => {
   useEffect(() => {
     if (state?.success) {
       reset();
+      setIsAuthenticated(true);
     }
   }, [state, reset]);
 

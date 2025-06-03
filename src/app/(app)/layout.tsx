@@ -3,13 +3,14 @@ import AppNavbar from "@/modules/global/components/navbar/app-navbar";
 
 interface Props {
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }
 
 export const metadata = {
   title: "Focus - 25:00 | MyPomo",
 };
 
-export default function AppLayout({ children }: Props) {
+export default function AppLayout({ children, authModal }: Props) {
   return (
     <div>
       <DynamicTitle />
@@ -17,6 +18,7 @@ export default function AppLayout({ children }: Props) {
         <AppNavbar />
       </header>
       {children}
+      {authModal}
     </div>
   );
 }
