@@ -14,7 +14,9 @@ import { useEffect } from "react";
 
 export default function AuthModal() {
   const { isAuthenticated } = authStore();
+
   const router = useRouter();
+
   useEffect(() => {
     if (isAuthenticated) {
       router.back();

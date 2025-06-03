@@ -28,23 +28,16 @@ export const useRegisterForm = () => {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Reset form when registration is successful
+  // Reset form when registration is successful and handle navigation
   useEffect(() => {
     if (state?.success) {
       reset();
-    }
-  }, [state, reset]);
-
-  // Handle success/error states and navigation
-  useEffect(() => {
-    if (state?.success) {
       toast.success(state.message);
       router.push("/auth/login");
-    }
-    if (!state?.success && state?.message) {
+    } else if (state?.message) {
       toast.error(state.message);
     }
-  }, [state, router]);
+  }, [state, reset, router]);
 
   // Handle form submission with transition
   const onSubmit = () => {

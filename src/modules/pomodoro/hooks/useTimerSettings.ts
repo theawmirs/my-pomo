@@ -19,9 +19,7 @@ export const useTimerSettings = (userId: string | undefined) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [activeButton, setActiveButton] = useState<"clock" | "pomodoro">(activeMode);
 
-  useEffect(() => {
-    setIsTimerFinished(false);
-    if (!isTimerFinished) return;
+  const handleTimerCompletion = () => {
     if (activeTab === "focus") {
       if ((completedCycles + 1) % 4 === 0) {
         setActiveTab("longBreak");
@@ -34,16 +32,14 @@ export const useTimerSettings = (userId: string | undefined) => {
     } else {
       setActiveTab("focus");
     }
-  }, [
-    isTimerFinished,
-    activeTab,
-    setActiveTab,
-    completedCycles,
-    incrementCompletedCycles,
-    setIsTimerFinished,
-    userId,
-    sessionDuration,
-  ]);
+    setIsTimerFinished(false);
+  };
+
+  useEffect(() => {
+    if (isTimerFinished) {
+      handleTimerCompletion();
+    }
+  }, [isTimerFinished]);
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {

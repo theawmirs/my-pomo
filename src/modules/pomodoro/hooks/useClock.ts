@@ -4,21 +4,17 @@ import { pomodoroStore } from "../store/pomodoro";
 export const useClock = () => {
   const { activeMode } = pomodoroStore();
 
-  // Initialize with empty strings
   const [time, setTime] = useState("");
   const [amPm, setAmPm] = useState("");
   const [day, setDay] = useState("");
 
   useEffect(() => {
-    // Set initial time on client only
     updateTime();
 
-    // Then set up the interval
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Function to update all time-related state
   const updateTime = () => {
     const now = new Date();
     setTime(

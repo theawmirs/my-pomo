@@ -29,22 +29,16 @@ export const useLoginForm = () => {
     if (state?.success) {
       reset();
       setIsAuthenticated(true);
+      toast.success(`Logged in successfully`);
+      router.push("/pomodoro");
+
       setTimeout(() => {
         setIsAuthenticated(false);
       }, 1000);
-    }
-  }, [state, reset]);
-
-  // Handle success/error states and navigation
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(`Logged in successfully`);
-      router.push("/pomodoro");
-    }
-    if (!state?.success && state?.message) {
+    } else if (state?.message) {
       toast.error(state.message);
     }
-  }, [state, router]);
+  }, [state, reset, router]);
 
   // Handle form submission with transition
   const onSubmit = () => {
