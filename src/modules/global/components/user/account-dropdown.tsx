@@ -13,7 +13,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
 import { signOut } from "@/lib/auth/auth";
 // import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
-const AccountDropdown = async () => {
+export default async function AccountDropdown() {
   const session = await auth();
   return (
     <div>
@@ -90,6 +90,4 @@ const AccountDropdown = async () => {
       )}
     </div>
   );
-};
-
-export default AccountDropdown;
+}

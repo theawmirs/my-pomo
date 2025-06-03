@@ -2,7 +2,7 @@ import Link from "next/link";
 import AccountDropdown from "../user/account-dropdown";
 import SettingDropdown from "../app/setting-dropdown";
 
-const AppNavbar = async () => {
+export default async function AppNavbar() {
   return (
     <div className="flex justify-between w-full px-8 py-4">
       <Link href="/pomodoro" className="flex items-center gap-2 cursor-pointer">
@@ -16,6 +16,4 @@ const AppNavbar = async () => {
       </div>
     </div>
   );
-};
-
-export default AppNavbar;
+}

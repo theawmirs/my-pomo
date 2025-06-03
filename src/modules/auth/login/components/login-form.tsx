@@ -14,7 +14,7 @@ import {
 import { LockIcon, MailIcon, LogInIcon } from "lucide-react";
 import { useLoginForm } from "../hooks/useLoginForm";
 
-const LoginForm = () => {
+export function LoginForm() {
   const { state, isPending, register, errors, handleSubmit, formRef } = useLoginForm();
 
   return (
@@ -71,6 +71,4 @@ const LoginForm = () => {
       </form>
     </Card>
   );
-};
-
-export default LoginForm;
+}

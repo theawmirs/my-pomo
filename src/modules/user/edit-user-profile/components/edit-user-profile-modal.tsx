@@ -3,10 +3,10 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/modules/ui-components/shadcn/ui/dialog";
 import { useRouter } from "next/navigation";
 import React from "react";
-import EditUserProfileForm from "./edit-user-profile-form";
 import { User } from "@prisma/client";
+import { EditUserProfileForm } from ".";
 
-export default function EditUserProfileModal({ user }: { user: User }) {
+export function EditUserProfileModal({ user }: { user: User }) {
   const router = useRouter();
 
   return (

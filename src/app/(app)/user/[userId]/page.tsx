@@ -9,7 +9,7 @@ interface Props {
   }>;
 }
 
-const UserProfilePage = async ({ params }: Props) => {
+export default async function UserProfilePage({ params }: Props) {
   const resolvedParams = await params;
   const userId = resolvedParams.userId;
   const user = await getUserById(userId);
@@ -30,6 +30,4 @@ const UserProfilePage = async ({ params }: Props) => {
   }
 
   return <UserProfile user={user} isCurrentUser={isCurrentUser} />;
-};
-
-export default UserProfilePage;
+}

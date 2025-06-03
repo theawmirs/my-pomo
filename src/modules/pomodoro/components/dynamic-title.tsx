@@ -3,7 +3,7 @@ import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 import { formatTime } from "@/utils/formatTime";
 import { useEffect, useState } from "react";
 
-export default function DynamicTitle() {
+export function DynamicTitle() {
   const { activeTab, timeLeft, isPaused, isCountdownActive } = pomodoroStore();
   const [startTime, setStartTime] = useState<number | null>(null);
   const [initialTime, setInitialTime] = useState<number>(0);

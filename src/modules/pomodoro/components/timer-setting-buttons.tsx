@@ -9,7 +9,7 @@ interface Props {
   userId: string | undefined;
 }
 
-const TimerSettingButtons = ({ userId }: Props) => {
+export function TimerSettingButtons({ userId }: Props) {
   const { isFullScreen, activeMode, activeButton, toggleFullScreen, setClockMode, setPomodoroMode } =
     useTimerSettings(userId);
 
@@ -55,6 +55,4 @@ const TimerSettingButtons = ({ userId }: Props) => {
       </TooltipProvider>
     </>
   );
-};
-
-export default TimerSettingButtons;
+}

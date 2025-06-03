@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Input } from "../../ui-components/shadcn/ui/input";
 
-const FocusTask = () => {
+export function FocusTask() {
   const [taskText, setTaskText] = useState("What do you want to focus on?");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -35,5 +35,3 @@ const FocusTask = () => {
     </div>
   );
 };
-
-export default FocusTask;

@@ -11,7 +11,7 @@ interface UserDetailsProps {
   isCurrentUser: boolean;
 }
 
-const UserDetails = ({ user, isCurrentUser }: UserDetailsProps) => {
+export function UserDetails({ user, isCurrentUser }: UserDetailsProps) {
   return (
     <Card className="md:col-span-1">
       <CardHeader className="pb-2">
@@ -56,6 +56,4 @@ const UserDetails = ({ user, isCurrentUser }: UserDetailsProps) => {
       </CardContent>
     </Card>
   );
-};
-
-export default UserDetails;
+}

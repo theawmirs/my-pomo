@@ -7,7 +7,7 @@ import {
   TimerSettingButtons,
 } from "@/modules/pomodoro/components";
 
-const AppPage = async () => {
+export default async function AppPage() {
   const session = await auth();
   return (
     <div className="flex flex-col justify-center h-[90vh] items-center p-4 max-w-sm mx-auto relative">
@@ -20,6 +20,4 @@ const AppPage = async () => {
       </div>
     </div>
   );
-};
-
-export default AppPage;
+}

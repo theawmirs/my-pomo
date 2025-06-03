@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../../ui-components/shadcn/ui/button";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 
-const PomodoroTabButtons = () => {
+export function PomodoroTabButtons() {
   const { isCountdownActive, setActiveTab, activeTab, activeMode } = pomodoroStore();
 
   return (
@@ -40,6 +40,4 @@ const PomodoroTabButtons = () => {
       </Button>
     </div>
   );
-};
-
-export default PomodoroTabButtons;
+}

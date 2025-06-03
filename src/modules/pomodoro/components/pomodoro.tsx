@@ -2,10 +2,10 @@
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { formatTime } from "@/utils/formatTime";
-import FocusTask from "./focus-task";
+import { FocusTask } from "./focus-task";
 import { usePomodoro } from "../hooks/usePomodoro";
 
-const PomodoroTimer = () => {
+export function PomodoroTimer() {
   const { timeLeft, isCountdownActive, isPaused, activeMode, handleStart, handlePause, handleResume, handleReset } =
     usePomodoro();
 
@@ -36,6 +36,4 @@ const PomodoroTimer = () => {
       </div>
     </div>
   );
-};
-
-export default PomodoroTimer;
+}

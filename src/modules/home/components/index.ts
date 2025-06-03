@@ -1,4 +1,4 @@
-export { HeroSection } from "./hero-section";
-export { FeaturesSection } from "./features-section";
-export { BenefitsSection } from "./benefits-section";
-export { CTASection } from "./cta-section";
+export * from "./hero-section";
+export * from "./features-section";
+export * from "./benefits-section";
+export * from "./cta-section";

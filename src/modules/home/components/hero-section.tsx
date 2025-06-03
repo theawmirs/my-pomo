@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Clock, Timer, Sparkles } from "lucide-react";
 
-export function HeroSection() {
+export  function HeroSection() {
   return (
     <div className="text-center mb-24">
       <div className="inline-block animate-float">

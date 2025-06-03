@@ -14,7 +14,7 @@ import {
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-react";
 import { useRegisterForm } from "../hooks/useRegisterForm";
 
-const RegisterForm = () => {
+export function RegisterForm() {
   const { state, isPending, register, errors, handleSubmit, formRef } = useRegisterForm();
 
   return (
@@ -143,6 +143,4 @@ const RegisterForm = () => {
       </form>
     </Card>
   );
-};
-
-export default RegisterForm;
+}

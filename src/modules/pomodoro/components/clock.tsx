@@ -1,7 +1,7 @@
 "use client";
 import { useClock } from "../hooks/useClock";
 
-const RealTimeClock = () => {
+export function RealTimeClock() {
   const { time, amPm, day, activeMode } = useClock();
 
   return (
@@ -15,6 +15,4 @@ const RealTimeClock = () => {
       <span className="text-4xl font-bold m-0">{day}</span>
     </div>
   );
-};
-
-export default RealTimeClock;
+}

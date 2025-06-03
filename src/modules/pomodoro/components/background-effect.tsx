@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 import { cn } from "@/lib/utils";
 
-const BackgroundEffect = () => {
+export function BackgroundEffect() {
   const { activeTab } = pomodoroStore();
   const [showEffect, setShowEffect] = useState(false);
 
@@ -65,5 +65,3 @@ const BackgroundEffect = () => {
     </div>
   );
 };
-
-export default BackgroundEffect;

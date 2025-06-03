@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 
-export default function ContributionGraph() {
+export function ContributionGraph() {
   return (
     <Card>
       <CardHeader>

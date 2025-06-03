@@ -6,7 +6,7 @@ import { Label } from "@/modules/ui-components/shadcn/ui/label";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
-export default function EditUserProfileForm({ user }: { user: User }) {
+export function EditUserProfileForm({ user }: { user: User }) {
   const router = useRouter();
 
   const handleCancelClick = () => {

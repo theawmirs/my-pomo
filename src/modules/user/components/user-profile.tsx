@@ -1,15 +1,13 @@
-import UserDetails from "./user-details";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
-import UserStatistics from "./user-statistics";
-import ContributionGraph from "./contribution-graph";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
+import { ContributionGraph, UserDetails, UserStatistics } from ".";
 
 interface UserProfileProps {
   user: any;
   isCurrentUser: boolean;
 }
 
-const UserProfile = ({ user, isCurrentUser }: UserProfileProps) => {
+export function UserProfile({ user, isCurrentUser }: UserProfileProps) {
   // Mock pomodoro data for visualization
   const mockPomodoroData = {
     today: 4,
@@ -58,6 +56,4 @@ const UserProfile = ({ user, isCurrentUser }: UserProfileProps) => {
       </div>
     </div>
   );
-};
-
-export default UserProfile;
+}

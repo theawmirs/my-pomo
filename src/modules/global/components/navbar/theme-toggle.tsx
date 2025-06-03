@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { MoonIcon, Sun } from "lucide-react";
 import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
 
-const DarkmodeToggle = () => {
+export default function DarkmodeToggle() {
   const { setTheme, theme } = useTheme();
   return (
     <div className="flex items-center space-x-2">
@@ -16,6 +16,4 @@ const DarkmodeToggle = () => {
       <MoonIcon className="h-4 w-4" />
     </div>
   );
-};
-
-export default DarkmodeToggle;
+}
