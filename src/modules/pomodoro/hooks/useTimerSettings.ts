@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { pomodoroStore } from "../store/pomodoro";
 import { toast } from "sonner";
 import { createPomodoro } from "../services/pomodoro.services";
+import { setUserOnline } from "@/lib/db/actions/user/user.actions";
 
-export const useTimerSettings = (userId: string | undefined) => {
+export const useTimerSettings = (userId: string) => {
   const {
     isTimerFinished,
     setIsTimerFinished,
@@ -32,7 +33,13 @@ export const useTimerSettings = (userId: string | undefined) => {
     } else {
       setActiveTab("focus");
     }
+
     setIsTimerFinished(false);
+
+    // Set user offline after 1 minute
+    setTimeout(() => {
+      setUserOnline(userId, false);
+    }, 1 * 60 * 1000);
   };
 
   useEffect(() => {

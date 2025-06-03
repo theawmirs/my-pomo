@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../
 import { useTimerSettings } from "../hooks/useTimerSettings";
 
 interface Props {
-  userId: string | undefined;
+  userId: string;
 }
 
 export function TimerSettingButtons({ userId }: Props) {

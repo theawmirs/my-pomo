@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { pomodoroStore } from "../store/pomodoro";
+import { setUserOnline } from "@/lib/db/actions/user/user.actions";
 
-export const usePomodoro = () => {
+export const usePomodoro = (userId: string) => {
   const {
     isCountdownActive,
     setCountdownStatus,
@@ -89,18 +90,33 @@ export const usePomodoro = () => {
     setEndTime(Date.now() + timeLeft * 1000);
     setCountdownStatus(true);
     setIsPaused(false);
+
+    // Set user online when timer starts
+    if (userId) {
+      setUserOnline(userId, true);
+    }
   };
 
   const handlePause = () => {
     // When pausing, remove end time and store remaining time
     setEndTime(null);
     setIsPaused(true);
+
+    if (userId) {
+      setTimeout(() => {
+        setUserOnline(userId, false);
+      }, 1 * 60 * 1000);
+    }
   };
 
   const handleResume = () => {
     // Calculate new end time from current remaining time
     setEndTime(Date.now() + timeLeft * 1000);
     setIsPaused(false);
+
+    if (userId) {
+      setUserOnline(userId, true);
+    }
   };
 
   const handleReset = () => {
@@ -108,6 +124,12 @@ export const usePomodoro = () => {
     setTimeLeft(sessionDuration);
     setCountdownStatus(false);
     setIsPaused(false);
+
+    if (userId) {
+      setTimeout(() => {
+        setUserOnline(userId, false);
+      }, 1 * 60 * 1000);
+    }
   };
 
   return {

@@ -5,9 +5,9 @@ import { formatTime } from "@/utils/formatTime";
 import { FocusTask } from "./focus-task";
 import { usePomodoro } from "../hooks/usePomodoro";
 
-export function PomodoroTimer() {
+export function PomodoroTimer({ userId }: { userId: string }) {
   const { timeLeft, isCountdownActive, isPaused, activeMode, handleStart, handlePause, handleResume, handleReset } =
-    usePomodoro();
+    usePomodoro(userId);
 
   return (
     <div className={`w-full ${activeMode === "clock" ? "hidden" : "block"}`}>
