@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/modules/ui-component
 import { User, Mail, Calendar, PenSquare } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { User as UserTypes } from "@prisma/client";
 
 interface UserDetailsProps {
-  user: any;
+  user: UserTypes;
   isCurrentUser: boolean;
 }
 
@@ -28,11 +29,20 @@ export function UserDetails({ user, isCurrentUser }: UserDetailsProps) {
         </div>
       </CardHeader>
       <CardContent>
+        {/* AVATAR */}
         <div className="flex flex-col items-center text-center mb-6">
-          <Avatar className="h-24 w-24 mb-4">
-            <AvatarImage src={user.image || ""} alt={user.name} />
-            <AvatarFallback className="bg-primary/10 text-2xl">{user.name[0].toUpperCase()}</AvatarFallback>
-          </Avatar>
+          <div className="relative mb-4">
+            <Avatar className="h-24 w-24">
+              <AvatarImage src={user.image || ""} alt={user.name} />
+              <AvatarFallback className="bg-primary/10 text-2xl">{user.name[0].toUpperCase()}</AvatarFallback>
+            </Avatar>
+            {/* ONLINE STATUS */}
+            <div
+              className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-background ${
+                user.online ? "bg-green-500" : "bg-red-500"
+              }`}
+            />
+          </div>
           <h2 className="text-2xl font-bold">{user.name}</h2>
           <Badge variant="outline" className="mt-2">
             {user.role}
