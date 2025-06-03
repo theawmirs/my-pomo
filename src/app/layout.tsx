@@ -13,14 +13,11 @@ export const metadata: Metadata = {
   description: "Boost your focus with the Pomodoro technique. Custom timer, breaks.",
 };
 
-export default function RootLayout({ children, authModal }: { children: React.ReactNode; authModal: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${montserrat.variable} antialiased`}>
-        <Provier>
-          {children}
-          {authModal}
-        </Provier>
+        <Provier>{children}</Provier>
       </body>
     </html>
   );
