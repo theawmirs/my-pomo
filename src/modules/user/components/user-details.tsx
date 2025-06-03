@@ -18,7 +18,7 @@ const UserDetails = ({ user, isCurrentUser }: UserDetailsProps) => {
         <div className="flex justify-between items-center">
           <CardTitle>Profile</CardTitle>
           {isCurrentUser && (
-            <Link href={`/settings`}>
+            <Link href={`/user/${user.id}/edit`}>
               <Button variant="outline" size="sm" className="flex items-center gap-1">
                 <PenSquare className="h-4 w-4" />
                 <span>Edit</span>

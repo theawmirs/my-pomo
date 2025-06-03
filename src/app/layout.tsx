@@ -10,8 +10,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "MyPomo - Boost Your Focus",
-  description:
-    "Boost your focus with the Pomodoro technique. Custom timer, breaks.",
+  description: "Boost your focus with the Pomodoro technique. Custom timer, breaks.",
 };
 
 export default function RootLayout({
