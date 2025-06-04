@@ -2,22 +2,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-component
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { ContributionGraph, UserDetails, UserStatistics } from ".";
 import { User } from "@prisma/client";
+import { getUserStatistics } from "../services/user-statistics.services";
 
 interface UserProfileProps {
   user: User;
   isCurrentUser: boolean;
 }
 
-export function UserProfile({ user, isCurrentUser }: UserProfileProps) {
-  // Mock pomodoro data for visualization
-  const mockPomodoroData = {
-    today: 4,
-    thisWeek: 23,
-    thisMonth: 87,
-    total: 325,
-    streak: 5,
-    focusTime: "12h 30m",
-  };
+export async function UserProfile({ user, isCurrentUser }: UserProfileProps) {
+  const statistics = await getUserStatistics(user.id);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -25,13 +18,7 @@ export function UserProfile({ user, isCurrentUser }: UserProfileProps) {
         {/* Profile Card */}
         <UserDetails user={user} isCurrentUser={isCurrentUser} />
 
-        {/* Pomodoro Stats - Blurred Coming Soon */}
         <Card className="md:col-span-2 relative overflow-hidden">
-          <div className="backdrop-blur-md absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/30">
-            <h3 className="text-2xl font-bold text-white mb-2">Coming Soon</h3>
-            <p className="text-white/80">Pomodoro Statistics will be available soon</p>
-          </div>
-
           {/* Pomodoro Stats */}
           <CardHeader>
             <CardTitle>Pomodoro Statistics</CardTitle>
@@ -45,7 +32,7 @@ export function UserProfile({ user, isCurrentUser }: UserProfileProps) {
               </TabsList>
 
               <TabsContent value="summary">
-                <UserStatistics data={mockPomodoroData} />
+                <UserStatistics data={statistics} />
               </TabsContent>
 
               <TabsContent value="history">
