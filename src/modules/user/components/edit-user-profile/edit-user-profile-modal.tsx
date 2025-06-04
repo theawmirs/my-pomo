@@ -17,15 +17,13 @@ export function EditUserProfileModal({ user }: { user: User }) {
 
   return (
     <div>
-      <Dialog open onOpenChange={() => router.back()}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Profile</DialogTitle>
-            <DialogDescription>Edit your profile information</DialogDescription>
+      <Dialog open={true} onOpenChange={() => router.back()}>
+        <DialogContent className="max-w-md">
+          <DialogHeader className="space-y-2 mb-2">
+            <DialogTitle className="text-2xl font-semibold">Edit Profile</DialogTitle>
+            <DialogDescription>Manage your profile information and preferences.</DialogDescription>
           </DialogHeader>
-          <div className="p-4">
-            <EditUserProfileForm user={user} />
-          </div>
+          <EditUserProfileForm user={user} />
         </DialogContent>
       </Dialog>
     </div>
