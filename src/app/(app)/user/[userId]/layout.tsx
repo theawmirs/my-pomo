@@ -1,8 +1,8 @@
-export default function UserLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+export default function UserLayout({ children, editModal }: { children: React.ReactNode; editModal: React.ReactNode }) {
   return (
     <div>
       {children}
-      {modal}
+      {editModal}
     </div>
   );
 }
