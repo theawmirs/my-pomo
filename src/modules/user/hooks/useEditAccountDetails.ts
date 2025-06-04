@@ -14,7 +14,7 @@ export const useEditAccountDetails = ({ userId }: { userId: string }) => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(editAccountDetailsSchema),
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const boundAction = (prevState: unknown, formData: FormData) => {
