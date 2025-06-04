@@ -28,7 +28,8 @@ export const useTimerSettings = (userId: string) => {
         setActiveTab("shortBreak");
       }
       incrementCompletedCycles();
-      createPomodoro(userId, sessionDuration, activeTab);
+
+      createPomodoro(userId, sessionDuration / 60, activeTab);
       toast.success("Pomodoro completed");
     } else {
       setActiveTab("focus");

@@ -45,7 +45,6 @@ export function UserStatistics({ data }: UserStatisticsProps) {
       <div className="bg-primary/5 rounded-lg p-4 text-center">
         <h3 className="text-sm font-medium text-muted-foreground">Focus Time</h3>
         <p className="text-3xl font-bold">{data.focusTime}</p>
-        <p className="text-xs text-muted-foreground">hours</p>
       </div>
     </div>
   );
