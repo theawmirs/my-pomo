@@ -8,6 +8,7 @@ import { Label } from "@/modules/ui-components/shadcn/ui/label";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEditAccountDetails } from "../../hooks/useEditAccountDetails";
+import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
 
 interface Props {
   user: User;
@@ -55,6 +56,11 @@ export function EditAccountSettingDialog({ user }: Props) {
                 />
                 {errors?.repeatNewPassword && <p className="text-red-500">{errors?.repeatNewPassword.message}</p>}
               </div>
+            </div>
+
+            <div className="flex justify-between gap-2 mb-4">
+              <Label>Profile Visibility</Label>
+              <Switch disabled className="cursor-pointer" />
             </div>
 
             <div className="flex gap-2 mt-4">

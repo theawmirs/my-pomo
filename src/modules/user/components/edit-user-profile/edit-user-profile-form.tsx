@@ -19,10 +19,6 @@ export function EditUserProfileForm({ user }: { user: User }) {
         <Input defaultValue={user.name} {...register("name")} />
         {errors?.name && <p className="text-red-500">{errors?.name.message}</p>}
       </div>
-      <div className="flex justify-between gap-2 mb-4">
-        <Label>Profile Visibility</Label>
-        <Switch className="cursor-pointer" />
-      </div>
       <div className="flex gap-2 mt-4">
         <Button disabled={isPending} className="flex-1 rounded-sm" type="submit">
           {isPending ? "Saving..." : "Save"}
