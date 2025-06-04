@@ -10,3 +10,7 @@ export const editAccountDetailsSchema = z
     path: ["repeatNewPassword"],
     message: "Passwords do not match",
   });
+
+export const editUserProfileSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+});

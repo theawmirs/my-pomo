@@ -1,9 +1,12 @@
 "use server";
 
-import { editUserAccountDetails } from "@/lib/db/actions/user/user.actions";
+import { editUserAccountDetails, editUserProfile } from "@/lib/db/actions/user/user.actions";
 import { getUserById } from "@/lib/db/actions/user/user.actions";
-import { editAccountDetailsSchema } from "../schemas/user.schemas";
+import { editAccountDetailsSchema, editUserProfileSchema } from "../schemas/user.schemas";
 import { saltAndHashPassword, verifyPassword } from "@/utils/password";
+import { revalidatePath } from "next/cache";
+
+// Edit Account Details
 
 export const editAccountDetailsAction = async (prevState: unknown, formData: FormData, userId: string) => {
   const rawData = {
@@ -35,6 +38,28 @@ export const editAccountDetailsAction = async (prevState: unknown, formData: For
   const { hash: hashedPassword } = await saltAndHashPassword(newPassword);
 
   await editUserAccountDetails(userId, hashedPassword);
+
+  return { success: true, message: "Account details updated successfully" };
+};
+
+// Edit User Profile
+
+export const editUserProfileAction = async (prevState: unknown, formData: FormData, userId: string) => {
+  const rawData = {
+    name: formData.get("name"),
+  };
+
+  const validatedFields = editUserProfileSchema.safeParse(rawData);
+
+  if (!validatedFields.success) {
+    return { success: false, message: "Fix the errors", errors: validatedFields.error.flatten().fieldErrors };
+  }
+
+  const { name } = validatedFields.data;
+
+  await editUserProfile(userId, name);
+
+  revalidatePath("/");
 
   return { success: true, message: "Account details updated successfully" };
 };

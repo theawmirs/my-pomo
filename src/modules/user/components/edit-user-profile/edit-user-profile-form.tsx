@@ -5,28 +5,27 @@ import { Input } from "@/modules/ui-components/shadcn/ui/input";
 import { Label } from "@/modules/ui-components/shadcn/ui/label";
 import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
 import { User } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useEditUserProfile } from "../../hooks/useEditUserProfile";
 
 export function EditUserProfileForm({ user }: { user: User }) {
-  const router = useRouter();
-
-  const handleCancelClick = () => {
-    router.back();
-  };
+  const { register, handleSubmit, errors, isPending, handleCancelClick, formRef } = useEditUserProfile({
+    userId: user.id,
+  });
 
   return (
-    <form>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2 mb-4">
         <Label>Name</Label>
-        <Input defaultValue={user.name} />
+        <Input defaultValue={user.name} {...register("name")} />
+        {errors?.name && <p className="text-red-500">{errors?.name.message}</p>}
       </div>
       <div className="flex justify-between gap-2 mb-4">
         <Label>Profile Visibility</Label>
         <Switch className="cursor-pointer" />
       </div>
       <div className="flex gap-2 mt-4">
-        <Button className="flex-1 rounded-sm" type="submit">
-          Save
+        <Button disabled={isPending} className="flex-1 rounded-sm" type="submit">
+          {isPending ? "Saving..." : "Save"}
         </Button>
         <Button onClick={handleCancelClick} className="flex-1 rounded-sm" variant="destructive" type="button">
           Cancel

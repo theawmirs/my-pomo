@@ -61,3 +61,16 @@ export const editUserAccountDetails = async (userId: string, password: string) =
 
   return user;
 };
+
+export const editUserProfile = async (userId: string, name: string) => {
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      name,
+    },
+  });
+
+  return user;
+};
