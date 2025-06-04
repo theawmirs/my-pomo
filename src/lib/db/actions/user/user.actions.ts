@@ -48,3 +48,16 @@ export const setUserOnline = async (userId: string, online: boolean) => {
 
   return user;
 };
+
+export const editUserAccountDetails = async (userId: string, password: string) => {
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password,
+    },
+  });
+
+  return user;
+};

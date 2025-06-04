@@ -56,7 +56,7 @@ export default async function AccountDropdown() {
                   <span>Profile</span>
                 </DropdownMenuItem>
               </Link>
-              <Link href={`/user/${session.user?.id}/account`}>
+              <Link href={`/account`}>
                 <DropdownMenuItem className="cursor-pointer flex items-center gap-2">
                   <UserCog className="h-4 w-4" />
                   <span>Account settings</span>

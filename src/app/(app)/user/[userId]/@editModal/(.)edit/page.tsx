@@ -1,5 +1,5 @@
 import { getUserById } from "@/lib/db/actions/user/user.actions";
-import { EditUserProfileModal } from "@/modules/user/edit-user-profile/components/edit-user-profile-modal";
+import { EditUserProfileModal } from "@/modules/user/components/edit-user-profile/edit-user-profile-modal";
 
 interface Props {
   params: Promise<{ userId: string }>;
