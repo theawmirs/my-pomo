@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
-import { ContributionGraph, UserDetails, UserStatistics } from ".";
+import { UserDetails, UserStatistics } from ".";
 import { User } from "@prisma/client";
 import { getUserStatistics } from "../services/user-statistics.services";
 
@@ -26,18 +26,20 @@ export async function UserProfile({ user, isCurrentUser }: UserProfileProps) {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="summary" className="w-full">
-              <TabsList className="grid grid-cols-2 mb-6">
-                <TabsTrigger value="summary">Summary</TabsTrigger>
-                <TabsTrigger value="history">History</TabsTrigger>
+              <TabsList className="grid mb-6">
+                <TabsTrigger className="w-full" value="summary">
+                  Summary
+                </TabsTrigger>
+                {/* <TabsTrigger value="history">History</TabsTrigger> */}
               </TabsList>
 
               <TabsContent value="summary">
                 <UserStatistics data={statistics} />
               </TabsContent>
 
-              <TabsContent value="history">
+              {/* <TabsContent value="history">
                 <ContributionGraph />
-              </TabsContent>
+              </TabsContent> */}
             </Tabs>
           </CardContent>
         </Card>

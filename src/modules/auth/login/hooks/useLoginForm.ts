@@ -15,7 +15,7 @@ export const useLoginForm = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signInSchema),
-    mode: "onBlur", // Validate on blur for better UX
+    mode: "onChange",
   });
   const { setIsAuthenticated } = authStore();
 

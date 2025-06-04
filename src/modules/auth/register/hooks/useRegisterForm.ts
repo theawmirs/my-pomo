@@ -15,7 +15,7 @@ export const useRegisterForm = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signUpSchema),
-    mode: "onBlur", // Validate on blur for better UX
+    mode: "onChange",
   });
 
   const [state, formAction, isPending] = useActionState(signUp, null);
