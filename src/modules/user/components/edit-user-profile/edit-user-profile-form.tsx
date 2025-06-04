@@ -3,7 +3,6 @@
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Input } from "@/modules/ui-components/shadcn/ui/input";
 import { Label } from "@/modules/ui-components/shadcn/ui/label";
-import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
 import { User } from "@prisma/client";
 import { useEditUserProfile } from "../../hooks/useEditUserProfile";
 

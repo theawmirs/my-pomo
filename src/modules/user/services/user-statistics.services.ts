@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Pomodoro } from "@prisma/client";
 import { startOfDay, startOfWeek, startOfMonth, subDays, format } from "date-fns";
 
 interface UserStatistics {
@@ -66,7 +67,7 @@ export async function getUserStatistics(userId: string): Promise<UserStatistics>
   };
 }
 
-function calculateStreak(pomodoros: Array<any>): number {
+function calculateStreak(pomodoros: Array<Pomodoro>): number {
   if (pomodoros.length === 0) return 0;
 
   // Group pomodoros by day
