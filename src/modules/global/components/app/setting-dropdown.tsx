@@ -5,9 +5,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../../../ui-components/shadcn/ui/dropdown-menu";
-import { Moon, Settings } from "lucide-react";
+import { Moon, Settings, WallpaperIcon } from "lucide-react";
 import { Button } from "../../../ui-components/shadcn/ui/button";
 import DarkmodeToggle from "../navbar/theme-toggle";
+import Link from "next/link";
 
 export default function SettingDropdown() {
   return (
@@ -17,7 +18,7 @@ export default function SettingDropdown() {
           <Settings />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56 flex flex-col gap-2">
         <DropdownMenuLabel className="text-xs font-medium">Preferences</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center justify-between">
@@ -27,6 +28,15 @@ export default function SettingDropdown() {
           </div>
           <DarkmodeToggle />
         </DropdownMenuItem>
+
+        <Link href="/wallpaper">
+          <DropdownMenuItem className="flex items-center justify-between cursor-pointer">
+            <div className="flex items-center gap-2">
+              <WallpaperIcon />
+              <span>Wallaper</span>
+            </div>
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
