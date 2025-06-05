@@ -1,5 +1,6 @@
 import { DynamicTitle } from "@/modules/pomodoro/components/dynamic-title";
 import AppNavbar from "@/modules/global/components/navbar/app-navbar";
+import Wallpaper from "@/modules/global/components/app/wallpaper";
 
 interface Props {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export const metadata = {
 export default function AppLayout({ children, authModal, accountModal, wallpaperModal }: Props) {
   return (
     <div>
-      {/* <div className="absolute top-0 left-0 z-[-10] w-full h-full bg-red-500" /> */}
+      <Wallpaper />
       <DynamicTitle />
       <header>
         <AppNavbar />
