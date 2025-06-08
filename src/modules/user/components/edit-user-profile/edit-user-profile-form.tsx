@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 import { useEditUserProfile } from "../../hooks/useEditUserProfile";
 import { UserIcon, AtSignIcon, Loader2 } from "lucide-react";
 import UploadImageProfile from "./upload-image-profile";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 export function EditUserProfileForm({ user }: { user: User }) {
   const { register, handleSubmit, errors, isPending, handleCancelClick, formRef } = useEditUserProfile({

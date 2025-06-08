@@ -68,7 +68,9 @@ export const useUploadImageProfile = ({ setIsUploadingImage, setUserImageUrl }: 
         setUserImageUrl("");
         toast.success("Image removed");
       } catch (error) {
-        toast.error("Failed to remove image.");
+        toast.error("Failed to remove image.", {
+          description: (error as Error).message,
+        });
         return;
       } finally {
         setIsDeleting(false);
