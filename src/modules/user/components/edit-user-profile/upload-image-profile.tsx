@@ -7,21 +7,14 @@ import { useUploadImageProfile } from "../../hooks/useUploadImageProfile";
 
 interface Props {
   setUserImageUrl: (url: string) => void;
-  currentImageUrl?: string;
   setIsUploadingImage: (isUploading: boolean) => void;
   isUploadingImage: boolean;
 }
 
-export default function UploadImageProfile({
-  setUserImageUrl,
-  setIsUploadingImage,
-  isUploadingImage,
-  currentImageUrl,
-}: Props) {
+export default function UploadImageProfile({ setUserImageUrl, setIsUploadingImage, isUploadingImage }: Props) {
   const { handleFileChange, handleUpload, resetImage, blob, previewUrl, inputFileRef } = useUploadImageProfile({
     setIsUploadingImage,
     setUserImageUrl,
-    currentImageUrl: currentImageUrl || "",
   });
 
   return (

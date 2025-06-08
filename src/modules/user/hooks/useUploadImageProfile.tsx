@@ -6,14 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   setIsUploadingImage: (isUploading: boolean) => void;
-  currentImageUrl: string;
   setUserImageUrl: (url: string) => void;
 }
 
-export const useUploadImageProfile = ({ setIsUploadingImage, setUserImageUrl, currentImageUrl }: Props) => {
+export const useUploadImageProfile = ({ setIsUploadingImage, setUserImageUrl }: Props) => {
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(currentImageUrl || null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Create a preview before uploading
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,17 +52,33 @@ export const useUploadImageProfile = ({ setIsUploadingImage, setUserImageUrl, cu
     }
   };
 
-  const resetImage = () => {
+  const resetImage = async () => {
+    if (blob) {
+      setIsDeleting(true);
+      try {
+        await fetch("/api/delete", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: blob.url }),
+        });
+
+        setBlob(null);
+        setUserImageUrl("");
+        toast.success("Image removed");
+      } catch (error) {
+        toast.error("Failed to remove image.");
+        return;
+      } finally {
+        setIsDeleting(false);
+      }
+    }
+
     if (inputFileRef.current) {
       inputFileRef.current.value = "";
     }
-    if (previewUrl && previewUrl !== currentImageUrl) {
-      URL.revokeObjectURL(previewUrl);
-    }
-    setPreviewUrl(currentImageUrl || null);
-    if (!currentImageUrl) {
-      setBlob(null);
-    }
+    setPreviewUrl(null);
   };
 
   return {
@@ -72,5 +88,6 @@ export const useUploadImageProfile = ({ setIsUploadingImage, setUserImageUrl, cu
     blob,
     previewUrl,
     inputFileRef,
+    isDeleting,
   };
 };
