@@ -33,7 +33,7 @@ export function UserDetails({ user, isCurrentUser }: UserDetailsProps) {
         <div className="flex flex-col items-center text-center mb-6">
           <div className="relative mb-4">
             <Avatar className="h-24 w-24">
-              <AvatarImage src={user.image || ""} alt={user.name} />
+              <AvatarImage src={user.image || ""} alt={user.name} className="object-cover" />
               <AvatarFallback className="bg-primary/10 text-2xl">{user.name[0].toUpperCase()}</AvatarFallback>
             </Avatar>
             {/* ONLINE STATUS */}

@@ -47,6 +47,7 @@ export const editAccountDetailsAction = async (prevState: unknown, formData: For
 export const editUserProfileAction = async (prevState: unknown, formData: FormData, userId: string) => {
   const rawData = {
     name: formData.get("name"),
+    imageUrl: formData.get("imageUrl"),
   };
 
   const validatedFields = editUserProfileSchema.safeParse(rawData);
@@ -55,9 +56,9 @@ export const editUserProfileAction = async (prevState: unknown, formData: FormDa
     return { success: false, message: "Fix the errors", errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name } = validatedFields.data;
+  const { name, imageUrl } = validatedFields.data;
 
-  await editUserProfile(userId, name);
+  await editUserProfile(userId, name, imageUrl || "");
 
   revalidatePath("/");
 

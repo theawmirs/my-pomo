@@ -4,7 +4,7 @@ import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Input } from "@/modules/ui-components/shadcn/ui/input";
 import { User } from "@prisma/client";
 import { useEditUserProfile } from "../../hooks/useEditUserProfile";
-import { UserIcon, AtSignIcon } from "lucide-react";
+import { UserIcon, AtSignIcon, Loader2 } from "lucide-react";
 import UploadImageProfile from "./upload-image-profile";
 import { useEffect, useState } from "react";
 
@@ -13,10 +13,7 @@ export function EditUserProfileForm({ user }: { user: User }) {
     userId: user.id,
   });
   const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    console.log(userImageUrl);
-  }, [userImageUrl]);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
@@ -42,12 +39,18 @@ export function EditUserProfileForm({ user }: { user: User }) {
       </div>
 
       {/* Profile Image Section - placeholder for future feature */}
-      <UploadImageProfile setUserImageUrl={setUserImageUrl} />
+      <UploadImageProfile
+        setUserImageUrl={setUserImageUrl}
+        setIsUploadingImage={setIsUploadingImage}
+        isUploadingImage={isUploadingImage}
+      />
+      <input type="hidden" {...register("imageUrl")} value={userImageUrl || ""} />
 
       {/* Action Buttons */}
       <div className="flex gap-3 pt-2">
-        <Button disabled={isPending} className="flex-1 rounded-md" type="submit">
-          {isPending ? "Saving..." : "Save Changes"}
+        <Button disabled={isPending || isUploadingImage} className="flex-1 rounded-md" type="submit">
+          {isPending ? "Saving..." : isUploadingImage ? "Uploading..." : "Save Changes"}
+          {isUploadingImage && <Loader2 className="w-4 h-4 ml-2 animate-spin" />}
         </Button>
         <Button onClick={handleCancelClick} className="flex-1 rounded-md" variant="outline" type="button">
           Cancel

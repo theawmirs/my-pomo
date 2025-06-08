@@ -13,4 +13,5 @@ export const editAccountDetailsSchema = z
 
 export const editUserProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  imageUrl: z.string().optional(),
 });
