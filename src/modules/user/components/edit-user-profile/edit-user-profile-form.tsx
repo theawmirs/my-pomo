@@ -2,15 +2,21 @@
 
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Input } from "@/modules/ui-components/shadcn/ui/input";
-import { Label } from "@/modules/ui-components/shadcn/ui/label";
 import { User } from "@prisma/client";
 import { useEditUserProfile } from "../../hooks/useEditUserProfile";
-import { UserIcon, AtSignIcon, CameraIcon } from "lucide-react";
+import { UserIcon, AtSignIcon } from "lucide-react";
+import UploadImageProfile from "./upload-image-profile";
+import { useEffect, useState } from "react";
 
 export function EditUserProfileForm({ user }: { user: User }) {
   const { register, handleSubmit, errors, isPending, handleCancelClick, formRef } = useEditUserProfile({
     userId: user.id,
   });
+  const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log(userImageUrl);
+  }, [userImageUrl]);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
@@ -36,16 +42,7 @@ export function EditUserProfileForm({ user }: { user: User }) {
       </div>
 
       {/* Profile Image Section - placeholder for future feature */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 text-primary">
-          <CameraIcon className="h-4 w-4" />
-          <h3 className="font-medium">Profile Image</h3>
-        </div>
-        <div className="flex items-center justify-between bg-muted/30 p-3 rounded-md">
-          <Label className="text-stone-600 text-sm">Upload profile image</Label>
-          <p className="text-xs text-stone-500">Coming Soon</p>
-        </div>
-      </div>
+      <UploadImageProfile setUserImageUrl={setUserImageUrl} />
 
       {/* Action Buttons */}
       <div className="flex gap-3 pt-2">
