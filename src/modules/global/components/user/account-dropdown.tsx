@@ -12,9 +12,16 @@ import { LogIn, User, UserCog } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
 import SignoutButton from "./signout-button";
+import { getUserById } from "@/lib/db/actions/user/user.actions";
 
 export default async function AccountDropdown() {
   const session = await auth();
+
+  let user;
+  if (session?.user?.id) {
+    user = await getUserById(session?.user?.id);
+  }
+
   return (
     <div>
       {session ? (
@@ -23,7 +30,7 @@ export default async function AccountDropdown() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={session.user?.image || ""} alt="Profile" />
+                  <AvatarImage src={user?.image || ""} alt="Profile" />
                   <AvatarFallback className="bg-primary/10">
                     {session.user?.name?.[0]?.toUpperCase() || "U"}
                   </AvatarFallback>
