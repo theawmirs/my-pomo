@@ -85,3 +85,14 @@ export const deleteUser = async (userId: string) => {
 
   return user;
 };
+
+export const changeProfileVisibility = async (userId: string, isProfilePublic: boolean) => {
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: { isProfilePublic },
+  });
+
+  return user;
+};

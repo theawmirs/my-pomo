@@ -1,6 +1,6 @@
 "use server";
 
-import { editUserAccountDetails, editUserProfile } from "@/lib/db/actions/user/user.actions";
+import { changeProfileVisibility, editUserAccountDetails, editUserProfile } from "@/lib/db/actions/user/user.actions";
 import { getUserById } from "@/lib/db/actions/user/user.actions";
 import { editAccountDetailsSchema, editUserProfileSchema } from "../schemas/user.schemas";
 import { saltAndHashPassword, verifyPassword } from "@/utils/password";
@@ -63,4 +63,18 @@ export const editUserProfileAction = async (prevState: unknown, formData: FormDa
   revalidatePath("/");
 
   return { success: true, message: "Account details updated successfully" };
+};
+
+export const changeProfileVisibilityAction = async (userId: string) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    return { success: false, message: "User not found" };
+  }
+
+  await changeProfileVisibility(userId, !user.isProfilePublic);
+
+  revalidatePath("/");
+
+  return { success: true, message: "Profile visibility changed successfully" };
 };

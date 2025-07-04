@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
-import { UserDetails, UserStatistics } from ".";
+import { UserDetails, UserPrivateProfile, UserStatistics } from ".";
 import { User } from "@prisma/client";
 import { getUserStatistics } from "../services/user-statistics.services";
 
@@ -11,6 +11,10 @@ interface UserProfileProps {
 
 export async function UserProfile({ user, isCurrentUser }: UserProfileProps) {
   const statistics = await getUserStatistics(user.id);
+
+  if (!user.isProfilePublic && !isCurrentUser) {
+    return <UserPrivateProfile />;
+  }
 
   return (
     <div className="container mx-auto py-8 px-4">

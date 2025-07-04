@@ -9,16 +9,17 @@ datasource db {
 
 // Existing models
 model User {
-  id        String     @id @default(uuid())
-  name      String
-  image     String?
-  email     String     @unique
-  password  String
-  role      String     @default("user")
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  online    Boolean    @default(false)
-  Pomodoro  Pomodoro[]
+  id              String     @id @default(uuid())
+  name            String
+  image           String?
+  email           String     @unique
+  password        String
+  role            String     @default("user")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  online          Boolean    @default(false)
+  isProfilePublic Boolean    @default(true)
+  Pomodoro        Pomodoro[]
 }
 
 model Pomodoro {

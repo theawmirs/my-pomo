@@ -9,21 +9,47 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEditAccountDetails } from "../../hooks/useEditAccountDetails";
 import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
-import { LockIcon, MailIcon, EyeIcon, TrashIcon } from "lucide-react";
+import { LockIcon, MailIcon, EyeIcon, TrashIcon, Loader } from "lucide-react";
 import DeleteAccountDialog from "./delete-account-dialog";
 import { useState } from "react";
+import { changeProfileVisibilityAction } from "../../actions/user.actions";
+import { toast } from "sonner";
 interface Props {
   user: User;
 }
 
 export function EditAccountSettingDialog({ user }: Props) {
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPublic, setIsPublic] = useState(user.isProfilePublic);
+
+  const router = useRouter();
+
   const { handleSubmit, formRef, isPending, handleCancelClick, errors, register } = useEditAccountDetails({
     userId: user.id,
   });
 
-  const [open, setOpen] = useState(false);
+  const handleChangeProfileVisibility = async () => {
+    const previousState = isPublic;
+    setIsPublic((prev) => !prev);
+    setIsLoading(true);
 
-  const router = useRouter();
+    try {
+      const res = await changeProfileVisibilityAction(user.id);
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        setIsPublic(previousState);
+        toast.error(res.message);
+      }
+    } catch (error) {
+      setIsPublic(previousState);
+      toast.error("An error occurred while changing profile visibility.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -95,10 +121,16 @@ export function EditAccountSettingDialog({ user }: Props) {
                 <h3 className="font-medium">Profile Visibility</h3>
               </div>
               <div className="flex items-center justify-between bg-muted/30 p-3 rounded-md">
-                <Label className="text-stone-600 text-sm">Make profile public</Label>
+                <Label className="text-stone-600 text-sm">Profile visibility</Label>
                 <div className="flex items-center gap-2">
-                  <Switch disabled className="cursor-not-allowed" />
-                  <p className="text-xs text-stone-500">Coming Soon</p>
+                  <Switch
+                    className="cursor-pointer"
+                    checked={isPublic}
+                    onCheckedChange={() => handleChangeProfileVisibility()}
+                    disabled={isLoading}
+                  />
+                  {!isLoading && <p className="text-sm text-stone-600">{isPublic ? "Public" : "Private"}</p>}
+                  {isLoading && <Loader className="w-4 h-4 animate-spin" />}
                 </div>
               </div>
             </div>
