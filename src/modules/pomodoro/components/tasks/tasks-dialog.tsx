@@ -42,6 +42,7 @@ export function TasksDialog({ userId, tasks }: Props) {
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message);
+      setActiveTab("tasks");
     }
     if (state?.message && !state.success) {
       toast.error(state.message);

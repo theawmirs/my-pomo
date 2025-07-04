@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardDescription } from "@/modules/ui-components/shadcn/ui/card";
 import { CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
@@ -5,12 +7,18 @@ import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
 import { CheckIcon, EditIcon, TrashIcon, CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Task } from "@prisma/client";
+import { pomodoroStore } from "../../store/pomodoro";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props {
   task: Task;
 }
 
 export function SingleTask({ task }: Props) {
+  const { setActiveTask, activeTask } = pomodoroStore();
+  const router = useRouter();
+
   // Format the due date if it exists
   const formattedDueDate = task.dueDate
     ? new Intl.DateTimeFormat("en-US", {
@@ -35,12 +43,30 @@ export function SingleTask({ task }: Props) {
     }
   };
 
+  const handleTaskClick = () => {
+    if (task && !task.completed) {
+      setActiveTask({
+        id: task.id,
+        title: task.title,
+        description: task.description || "",
+        completed: task.completed,
+        dueDate: task.dueDate || null,
+        priority: task.priority,
+      });
+      toast.success(`Task set as active task: ${task.title}`);
+      router.back();
+    }
+  };
+
   return (
     <Card
-      className={cn(
-        "border-l-4 transition-all hover:shadow-md p-3 rounded-sm",
-        task.completed ? "border-l-green-500 opacity-70" : `border-l-${getPriorityColor(task.priority)}`
-      )}
+      className={`
+    
+        border-l-4 transition-all hover:shadow-md p-3 rounded-sm cursor-pointer
+        ${task.completed ? "border-l-green-500 opacity-70" : `border-l-${getPriorityColor(task.priority)}`}
+        ${activeTask?.id === task.id ? "bg-green-900/40" : ""}
+      `}
+      onClick={handleTaskClick}
     >
       <div className="flex justify-between items-start gap-3">
         <div className="flex-1 min-w-0">
