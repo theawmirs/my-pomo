@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Dialog,
@@ -13,12 +13,38 @@ import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Input } from "@/modules/ui-components/shadcn/ui/input";
 import { Label } from "@/modules/ui-components/shadcn/ui/label";
 import { TaskList } from "./task-list";
-import { PlusIcon } from "lucide-react";
+import { Loader2, PlusIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
+import { createTaskAction } from "../../actions/tasks.action";
+import { toast } from "sonner";
 
-export function TasksDialog() {
+interface Props {
+  userId: string;
+}
+
+export function TasksDialog({ userId }: Props) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"tasks" | "add">("tasks");
+  const [priority, setPriority] = useState<string>("");
+
+  const boundAction = (prevState: any, formData: FormData) => {
+    return createTaskAction(prevState, formData, userId);
+  };
+
+  const [state, formAction, isPending] = useActionState(boundAction, null);
+
+  const handlePriorityChange = (priority: string) => {
+    setPriority(priority);
+  };
+
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.message);
+    }
+    if (state?.message && !state.success) {
+      toast.error(state.message);
+    }
+  }, [state]);
 
   return (
     <Dialog open={true} onOpenChange={() => router.back()}>
@@ -38,43 +64,63 @@ export function TasksDialog() {
           </TabsContent>
 
           <TabsContent value="add">
-            <form className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="title">Task Title</Label>
-                <Input id="title" placeholder="Enter task title" required />
+                <Label htmlFor="title">Title</Label>
+                <Input type="text" name="title" id="title" placeholder="Enter task title" />
+                {state?.errors?.title && <p className="text-sm text-red-500">{state.errors.title}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="description">Description (optional)</Label>
-                <Input id="description" placeholder="Enter task description" />
+                <Input type="text" name="description" id="description" placeholder="Enter task description" />
+                {state?.errors?.description && <p className="text-sm text-red-500">{state.errors.description}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="priority">Priority</Label>
                 <div className="flex gap-2 justify-between">
-                  <Button variant="outline" className="flex-1">
+                  <Button
+                    type="button"
+                    variant={priority === "low" ? "default" : "outline"}
+                    className="flex-1"
+                    onClick={() => handlePriorityChange("low")}
+                  >
                     Low
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button
+                    type="button"
+                    variant={priority === "medium" ? "default" : "outline"}
+                    className="flex-1"
+                    onClick={() => handlePriorityChange("medium")}
+                  >
                     Medium
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button
+                    type="button"
+                    variant={priority === "high" ? "default" : "outline"}
+                    className="flex-1"
+                    onClick={() => handlePriorityChange("high")}
+                  >
                     High
                   </Button>
+                  <input type="hidden" name="priority" value={priority} />
                 </div>
+                {state?.errors?.priority && <p className="text-sm text-red-500">{state.errors.priority}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="dueDate">Due Date</Label>
-                <Input id="dueDate" type="date" />
+                <Input type="date" name="dueDate" id="dueDate" />
+                {state?.errors?.dueDate && <p className="text-sm text-red-500">{state.errors.dueDate}</p>}
               </div>
 
               <DialogFooter className="flex justify-end gap-2 pt-4">
                 <Button type="button" variant="outline" onClick={() => setActiveTab("tasks")}>
                   Cancel
                 </Button>
-                <Button type="submit">
-                  <PlusIcon className="h-4 w-4 mr-2" />
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <PlusIcon className="h-4 w-4 mr-2" />}
                   Add Task
                 </Button>
               </DialogFooter>

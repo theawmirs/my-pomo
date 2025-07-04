@@ -37,7 +37,7 @@ model Pomodoro {
 model Task {
   id          String    @id @default(uuid())
   title       String
-  description String?
+  description String
   completed   Boolean   @default(false)
   dueDate     DateTime?
   priority    String    @default("medium")
