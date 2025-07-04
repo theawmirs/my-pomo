@@ -96,3 +96,13 @@ export const changeProfileVisibility = async (userId: string, isProfilePublic: b
 
   return user;
 };
+
+export const getUserTasks = async (userId: string) => {
+  const tasks = await prisma.task.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  return tasks;
+};

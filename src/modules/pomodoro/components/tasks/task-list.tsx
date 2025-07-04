@@ -12,48 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "@/modules/ui-components/shadcn/ui/dropdown-menu";
 import { ChevronDownIcon, ListFilterIcon, SearchIcon } from "lucide-react";
+import { Task } from "@prisma/client";
 
-export function TaskList() {
+interface Props {
+  tasks: Task[];
+}
+
+export function TaskList({ tasks }: Props) {
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("dueDate");
   const [sortLabel, setSortLabel] = useState("Due Date");
-
-  const tasks = [
-    {
-      id: "1",
-      title: "Finish Pomodoro UI",
-      description: "Complete the UI for the Pomodoro timer and task list.",
-      completed: false,
-      dueDate: new Date("2024-06-15T17:00:00Z"),
-      priority: "high",
-      createdAt: new Date("2024-06-10T09:00:00Z"),
-      updatedAt: new Date("2024-06-12T10:00:00Z"),
-      userId: "user-1",
-    },
-    {
-      id: "2",
-      title: "Write documentation",
-      description: "Document the Pomodoro module and its components.",
-      completed: false,
-      dueDate: new Date("2024-06-18T12:00:00Z"),
-      priority: "medium",
-      createdAt: new Date("2024-06-11T11:00:00Z"),
-      updatedAt: new Date("2024-06-12T10:00:00Z"),
-      userId: "user-1",
-    },
-    {
-      id: "3",
-      title: "Refactor task logic",
-      description: null,
-      completed: true,
-      dueDate: null,
-      priority: "low",
-      createdAt: new Date("2024-06-09T08:00:00Z"),
-      updatedAt: new Date("2024-06-10T09:00:00Z"),
-      userId: "user-2",
-    },
-  ];
 
   // Filter tasks based on active tab and search query
   const filteredTasks = tasks

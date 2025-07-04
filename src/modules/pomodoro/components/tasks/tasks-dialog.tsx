@@ -17,12 +17,14 @@ import { Loader2, PlusIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { createTaskAction } from "../../actions/tasks.action";
 import { toast } from "sonner";
+import { Task } from "@prisma/client";
 
 interface Props {
   userId: string;
+  tasks: Task[];
 }
 
-export function TasksDialog({ userId }: Props) {
+export function TasksDialog({ userId, tasks }: Props) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"tasks" | "add">("tasks");
   const [priority, setPriority] = useState<string>("");
@@ -60,7 +62,7 @@ export function TasksDialog({ userId }: Props) {
           </TabsList>
 
           <TabsContent value="tasks" className="space-y-4">
-            <TaskList />
+            <TaskList tasks={tasks} />
           </TabsContent>
 
           <TabsContent value="add">

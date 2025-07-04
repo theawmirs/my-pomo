@@ -1,20 +1,13 @@
-import { Card, CardContent, CardDescription } from "@/modules/ui-components/shadcn/ui/card";
-import { CardHeader } from "@/modules/ui-components/shadcn/ui/card";
+import { Card, CardDescription } from "@/modules/ui-components/shadcn/ui/card";
 import { CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
 import { CheckIcon, EditIcon, TrashIcon, CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Task } from "@prisma/client";
 
 interface Props {
-  task: {
-    id: string;
-    title: string;
-    description: string | null;
-    completed: boolean;
-    dueDate: Date | null;
-    priority: string;
-  };
+  task: Task;
 }
 
 export function SingleTask({ task }: Props) {
@@ -45,48 +38,49 @@ export function SingleTask({ task }: Props) {
   return (
     <Card
       className={cn(
-        "border-l-4 transition-all hover:shadow-md",
+        "border-l-4 transition-all hover:shadow-md p-3 rounded-sm",
         task.completed ? "border-l-green-500 opacity-70" : `border-l-${getPriorityColor(task.priority)}`
       )}
     >
-      <CardHeader className="p-4 pb-2">
-        <CardContent className="flex justify-between items-start p-0">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <CardTitle className={cn(task.completed ? "line-through text-muted-foreground" : "")}>
-                {task.title}
-              </CardTitle>
-              <Badge
-                variant={task.priority === "high" ? "destructive" : task.priority === "medium" ? "default" : "outline"}
-              >
-                {task.priority}
-              </Badge>
-            </div>
-            {task.description && <CardDescription className="mt-1">{task.description}</CardDescription>}
-            {formattedDueDate && (
-              <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
-                <CalendarIcon size={12} />
-                <span>{formattedDueDate}</span>
-              </div>
-            )}
-          </div>
-          <div className="flex gap-1 ml-2">
-            <Button
-              variant={task.completed ? "default" : "outline"}
-              size="icon"
-              className={task.completed ? "bg-green-500 hover:bg-green-600" : ""}
+      <div className="flex justify-between items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <CardTitle className={cn("text-sm", task.completed ? "line-through text-muted-foreground" : "")}>
+              {task.title}
+            </CardTitle>
+            <Badge
+              variant={task.priority === "high" ? "destructive" : task.priority === "medium" ? "default" : "outline"}
+              className="text-xs"
             >
-              <CheckIcon className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon">
-              <EditIcon className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" className="hover:bg-red-100 hover:text-red-600">
-              <TrashIcon className="h-4 w-4" />
-            </Button>
+              {task.priority}
+            </Badge>
           </div>
-        </CardContent>
-      </CardHeader>
+          {task.description && (
+            <CardDescription className="text-xs mt-1 line-clamp-2">{task.description}</CardDescription>
+          )}
+          {formattedDueDate && (
+            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+              <CalendarIcon size={10} />
+              <span>{formattedDueDate}</span>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-1 flex-shrink-0">
+          <Button
+            variant={task.completed ? "default" : "outline"}
+            size="sm"
+            className={cn("h-7 w-7 p-0", task.completed ? "bg-green-500 hover:bg-green-600" : "")}
+          >
+            <CheckIcon className="h-3 w-3" />
+          </Button>
+          <Button variant="outline" size="sm" className="h-7 w-7 p-0">
+            <EditIcon className="h-3 w-3" />
+          </Button>
+          <Button variant="outline" size="sm" className="h-7 w-7 p-0 hover:bg-red-100 hover:text-red-600">
+            <TrashIcon className="h-3 w-3" />
+          </Button>
+        </div>
+      </div>
     </Card>
   );
 }
