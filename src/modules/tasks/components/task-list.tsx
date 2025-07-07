@@ -2,17 +2,11 @@
 
 import { useState } from "react";
 import { SingleTask } from "./single-task";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Input } from "@/modules/ui-components/shadcn/ui/input";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/modules/ui-components/shadcn/ui/dropdown-menu";
-import { ChevronDownIcon, ListFilterIcon, SearchIcon } from "lucide-react";
+import { SearchIcon, ListFilterIcon } from "lucide-react";
 import { Task } from "@prisma/client";
+import { TaskFilterTabs } from "./task-filter-tabs";
+import { TaskSortDropdown } from "./task-sort-dropdown";
 
 interface Props {
   tasks: Task[];
@@ -75,38 +69,11 @@ export function TaskList({ tasks }: Props) {
             className="pl-8"
           />
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-36">
-              <ListFilterIcon className="h-4 w-4 mr-2" />
-              <span>{sortLabel}</span>
-              <ChevronDownIcon className="h-4 w-4 ml-auto" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => handleSortChange("dueDate", "Due Date")}>Due Date</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSortChange("priority", "Priority")}>Priority</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSortChange("title", "Title")}>Title</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <TaskSortDropdown sortLabel={sortLabel} onSortChange={handleSortChange} />
       </div>
 
-      <Tabs defaultValue="all" value={filter} onValueChange={(value) => setFilter(value as any)}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="all">All ({tasks.length})</TabsTrigger>
-          <TabsTrigger value="active">Active ({tasks.filter((t) => !t.completed).length})</TabsTrigger>
-          <TabsTrigger value="completed">Completed ({tasks.filter((t) => t.completed).length})</TabsTrigger>
-        </TabsList>
-        <TabsContent value="all" className="mt-4">
-          {renderTaskList(sortedTasks)}
-        </TabsContent>
-        <TabsContent value="active" className="mt-4">
-          {renderTaskList(sortedTasks)}
-        </TabsContent>
-        <TabsContent value="completed" className="mt-4">
-          {renderTaskList(sortedTasks)}
-        </TabsContent>
-      </Tabs>
+      <TaskFilterTabs tasks={tasks} filter={filter} onValueChange={setFilter} />
+      {renderTaskList(sortedTasks)}
     </div>
   );
 }
