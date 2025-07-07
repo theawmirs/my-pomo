@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/modules/ui-c
 import { TaskList } from "./task-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Task } from "@prisma/client";
-import { useCreateTask } from "../../hooks/useCreateTask";
+import { useCreateTask } from "../hooks/useCreateTask";
 import { CreateTaskForm } from ".";
 
 interface Props {

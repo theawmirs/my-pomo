@@ -1,4 +1,4 @@
-import { TasksDialog } from "@/modules/pomodoro/components/tasks";
+import { TasksDialog } from "@/modules/tasks/components";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import { getUserTasks } from "@/lib/db/actions/user/user.actions";
