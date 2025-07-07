@@ -5,28 +5,34 @@ import { CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
 import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Task } from "@prisma/client";
-import { pomodoroStore } from "../../pomodoro/store/pomodoro";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import CompleteTaskButton from "./complete-task-button";
 import EditTaskButton from "./edit-task-button";
 import DeleteTaskButton from "./delete-task-button";
+import { taskStore } from "../store/task.store";
 
 interface Props {
   task: Task;
 }
 
 export function SingleTask({ task }: Props) {
-  const { setActiveTask, activeTask } = pomodoroStore();
+  const { setActiveTask, activeTask } = taskStore();
   const router = useRouter();
 
   const priorityColor =
     task.priority === "high" ? "bg-red-500" : task.priority === "medium" ? "bg-yellow-500" : "bg-green-500";
 
   const handleSetActiveTask = () => {
+    if (activeTask?.id === task.id) {
+      setActiveTask(null);
+      toast.success(`Task removed as active task: ${task.title}`);
+      router.back();
+      return;
+    }
+
     if (task && !task.completed) {
       setActiveTask({
         id: task.id,
@@ -53,7 +59,7 @@ export function SingleTask({ task }: Props) {
       <div className="flex justify-between items-start gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <CardTitle className={cn("text-sm", task.completed ? "line-through text-muted-foreground" : "")}>
+            <CardTitle className={`text-sm ${task.completed ? "line-through text-muted-foreground" : ""}`}>
               {task.title}
             </CardTitle>
             <Badge

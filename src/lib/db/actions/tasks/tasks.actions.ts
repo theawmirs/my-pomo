@@ -48,3 +48,18 @@ export const deleteTask = async (taskId: string) => {
     where: { id: taskId },
   });
 };
+
+export const editTask = async (taskId: string, title: string, description: string, priority: string, dueDate: Date) => {
+  const task = await prisma.task.findUnique({
+    where: {
+      id: taskId,
+    },
+  });
+
+  if (!task) return;
+
+  await prisma.task.update({
+    where: { id: taskId },
+    data: { title, description, priority, dueDate },
+  });
+};

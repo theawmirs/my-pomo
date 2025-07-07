@@ -4,9 +4,10 @@ import { Edit } from "lucide-react";
 import { Button } from "../../ui-components/shadcn/ui/button";
 import Link from "next/link";
 import { pomodoroStore } from "../store/pomodoro";
+import { taskStore } from "@/modules/tasks/store/task.store";
 
 export function FocusTask() {
-  const { activeTask } = pomodoroStore();
+  const { activeTask } = taskStore();
   const defaultTitle = "What do you want to focus on?";
 
   return (

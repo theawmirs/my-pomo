@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { taskSchema } from "../schema/task.schema";
-import { changeTaskStatus, createTask, deleteTask } from "@/lib/db/actions/tasks/tasks.actions";
+import { changeTaskStatus, createTask, deleteTask, editTask } from "@/lib/db/actions/tasks/tasks.actions";
 
 //Create a new task
 export const createTaskAction = async (prevState: any, formData: FormData, userId: string) => {
@@ -57,5 +57,35 @@ export const deleteTaskAction = async (taskId: string) => {
     return { success: true, message: "Task deleted successfully" };
   } catch (error) {
     return { success: false, message: "Failed to delete task" };
+  }
+};
+
+//Edit a task
+export const editTaskAction = async (prevState: any, formData: FormData, taskId: string) => {
+  const rawData = {
+    title: formData.get("title"),
+    description: formData.get("description"),
+    priority: formData.get("priority"),
+    dueDate: formData.get("dueDate"),
+  };
+
+  const validatedFields = taskSchema.safeParse(rawData);
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      message: "Fix the errors in the form",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const { title, description, priority, dueDate } = validatedFields.data;
+
+  try {
+    await editTask(taskId, title, description, priority, dueDate);
+    revalidatePath("/pomodoro");
+    return { success: true, message: "Task edited successfully" };
+  } catch (error) {
+    return { success: false, message: "Failed to edit task" };
   }
 };

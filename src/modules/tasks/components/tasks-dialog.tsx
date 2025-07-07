@@ -6,7 +6,7 @@ import { TaskList } from "./task-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/modules/ui-components/shadcn/ui/tabs";
 import { Task } from "@prisma/client";
 import { useCreateTask } from "../hooks/useCreateTask";
-import { CreateTaskForm } from ".";
+import { CreateTaskForm } from "./create-task-form";
 
 interface Props {
   userId: string;
