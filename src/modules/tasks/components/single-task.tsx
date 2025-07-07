@@ -4,13 +4,16 @@ import { Card, CardDescription } from "@/modules/ui-components/shadcn/ui/card";
 import { CardTitle } from "@/modules/ui-components/shadcn/ui/card";
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
-import { CheckIcon, EditIcon, TrashIcon, CalendarIcon } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Task } from "@prisma/client";
 import { pomodoroStore } from "../../pomodoro/store/pomodoro";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import CompleteTaskButton from "./complete-task-button";
+import EditTaskButton from "./edit-task-button";
+import DeleteTaskButton from "./delete-task-button";
 
 interface Props {
   task: Task;
@@ -23,7 +26,7 @@ export function SingleTask({ task }: Props) {
   const priorityColor =
     task.priority === "high" ? "bg-red-500" : task.priority === "medium" ? "bg-yellow-500" : "bg-green-500";
 
-  const handleTaskClick = () => {
+  const handleSetActiveTask = () => {
     if (task && !task.completed) {
       setActiveTask({
         id: task.id,
@@ -72,24 +75,14 @@ export function SingleTask({ task }: Props) {
         </div>
         <div className="flex flex-col ">
           <div className="flex gap-1 justify-end">
-            <Button
-              variant={task.completed ? "default" : "outline"}
-              size="sm"
-              className={cn("h-7 w-7 p-0", task.completed ? "bg-green-500 hover:bg-green-600" : "")}
-            >
-              <CheckIcon className="h-3 w-3" />
-            </Button>
-            <Button variant="outline" size="sm" className="h-7 w-7 p-0">
-              <EditIcon className="h-3 w-3" />
-            </Button>
-            <Button variant="outline" size="sm" className="h-7 w-7 p-0 hover:bg-red-100 hover:text-red-600">
-              <TrashIcon className="h-3 w-3" />
-            </Button>
+            <CompleteTaskButton task={task} />
+            <EditTaskButton task={task} />
+            <DeleteTaskButton taskId={task.id} />
           </div>
 
           <div className="mt-2">
             <Button
-              onClick={handleTaskClick}
+              onClick={handleSetActiveTask}
               variant={activeTask?.id === task.id ? "default" : "outline"}
               size="sm"
               className="h-7"
