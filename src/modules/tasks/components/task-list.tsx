@@ -78,7 +78,7 @@ export function TaskList({ tasks }: Props) {
   );
 }
 
-function renderTaskList(tasks: any[]) {
+function renderTaskList(tasks: Task[]) {
   if (tasks.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-8 text-center">

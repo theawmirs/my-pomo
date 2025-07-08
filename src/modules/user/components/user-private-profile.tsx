@@ -14,7 +14,7 @@ export function UserPrivateProfile() {
             </div>
           </div>
           <CardTitle>Private Profile</CardTitle>
-          <CardDescription>This user's profile is set to private</CardDescription>
+          <CardDescription>This user\'s profile is set to private</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-center text-muted-foreground">

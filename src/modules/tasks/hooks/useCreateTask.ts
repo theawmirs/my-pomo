@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "../schema/task.schema";
+import { FormState } from "../actions/tasks.action";
 
 export const useCreateTask = (userId?: string) => {
   const {
@@ -18,7 +19,7 @@ export const useCreateTask = (userId?: string) => {
   const [activeTab, setActiveTab] = useState<"tasks" | "add">("tasks");
   const formRef = useRef<HTMLFormElement>(null);
 
-  const boundAction = (prevState: any, formData: FormData) => {
+  const boundAction = (prevState: FormState | any, formData: FormData) => {
     return createTaskAction(prevState, formData, userId!);
   };
 
@@ -33,7 +34,7 @@ export const useCreateTask = (userId?: string) => {
     if (state?.message && !state.success) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [state, reset]);
 
   const onSubmit = () => {
     startTransition(() => formAction(new FormData(formRef.current!)));

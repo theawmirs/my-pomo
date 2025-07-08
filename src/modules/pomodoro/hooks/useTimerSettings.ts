@@ -47,7 +47,7 @@ export const useTimerSettings = (userId: string) => {
     if (isTimerFinished) {
       handleTimerCompletion();
     }
-  }, [isTimerFinished]);
+  }, [isTimerFinished, handleTimerCompletion]);
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {

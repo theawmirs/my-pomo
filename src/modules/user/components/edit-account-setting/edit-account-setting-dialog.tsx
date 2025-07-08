@@ -43,7 +43,7 @@ export function EditAccountSettingDialog({ user }: Props) {
         setIsPublic(previousState);
         toast.error(res.message);
       }
-    } catch (error) {
+    } catch {
       setIsPublic(previousState);
       toast.error("An error occurred while changing profile visibility.");
     } finally {

@@ -4,6 +4,9 @@ import { verifyPassword } from "@/utils/password";
 import { getUserFromDb } from "../db/actions/user/user.actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       credentials: {

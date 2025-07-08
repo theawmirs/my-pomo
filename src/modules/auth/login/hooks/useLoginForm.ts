@@ -38,7 +38,7 @@ export const useLoginForm = () => {
     } else if (state?.message) {
       toast.error(state.message);
     }
-  }, [state, reset, router]);
+  }, [state, reset, router, setIsAuthenticated]);
 
   // Handle form submission with transition
   const onSubmit = () => {

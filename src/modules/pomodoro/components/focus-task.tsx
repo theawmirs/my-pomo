@@ -3,7 +3,6 @@
 import { Edit } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
-import { pomodoroStore } from "../store/pomodoro";
 import { taskStore } from "@/modules/tasks/store/task.store";
 
 export function FocusTask() {

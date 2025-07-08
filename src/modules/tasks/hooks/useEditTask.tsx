@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "../schema/task.schema";
+import { FormState } from "../actions/tasks.action";
 
 export const useEditTask = (taskId: string, setOpen: (open: boolean) => void) => {
   const {
@@ -17,7 +18,7 @@ export const useEditTask = (taskId: string, setOpen: (open: boolean) => void) =>
   });
   const formRef = useRef<HTMLFormElement>(null);
 
-  const boundAction = (prevState: any, formData: FormData) => {
+  const boundAction = (prevState: FormState | null, formData: FormData) => {
     return editTaskAction(prevState, formData, taskId);
   };
 
@@ -32,7 +33,7 @@ export const useEditTask = (taskId: string, setOpen: (open: boolean) => void) =>
     if (state?.message && !state.success) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [state, reset, setOpen]);
 
   const onSubmit = () => {
     startTransition(() => formAction(new FormData(formRef.current!)));

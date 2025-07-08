@@ -4,8 +4,19 @@ import { revalidatePath } from "next/cache";
 import { taskSchema } from "../schema/task.schema";
 import { changeTaskStatus, createTask, deleteTask, editTask } from "@/lib/db/actions/tasks/tasks.actions";
 
+export interface FormState {
+  success: boolean;
+  message: string;
+  errors?: {
+    title?: string[];
+    description?: string[];
+    priority?: string[];
+    dueDate?: string[];
+  };
+}
+
 //Create a new task
-export const createTaskAction = async (prevState: any, formData: FormData, userId: string) => {
+export const createTaskAction = async (prevState: FormState | undefined, formData: FormData, userId: string) => {
   const rawData = {
     title: formData.get("title"),
     description: formData.get("description"),
@@ -61,7 +72,7 @@ export const deleteTaskAction = async (taskId: string) => {
 };
 
 //Edit a task
-export const editTaskAction = async (prevState: any, formData: FormData, taskId: string) => {
+export const editTaskAction = async (prevState: FormState | null, formData: FormData, taskId: string) => {
   const rawData = {
     title: formData.get("title"),
     description: formData.get("description"),
