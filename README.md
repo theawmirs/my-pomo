@@ -2,6 +2,9 @@
 
 My Pomo is a modern and feature-rich Pomodoro timer application designed to help you stay focused and manage your tasks effectively. Built with Next.js and a powerful set of tools, it provides a seamless user experience with features like user authentication, task management, customizable themes, and performance tracking.
 
+![My Pomo Landing Page](./public/screenshots/landing-page.jpg)
+![My Pomo Pomodoro Timer](./public/screenshots/pomodoro-timer.jpg)
+
 ## ✨ Features
 
 - **Pomodoro Timer**: A customizable timer with focus, short break, and long break sessions.
