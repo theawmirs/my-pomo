@@ -2,7 +2,6 @@
 
 import { Button } from "@/modules/ui-components/shadcn/ui/button";
 import { CameraIcon, ImageIcon, Loader2, Upload, X } from "lucide-react";
-import Image from "next/image";
 import { useUploadImageProfile } from "../../hooks/useUploadImageProfile";
 
 interface Props {
@@ -24,15 +23,7 @@ export default function UploadImageProfile({ setUserImageUrl, setIsUploadingImag
         <h3 className="font-medium">Profile Image</h3>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 items-center">
-        <div className="relative h-32 w-32 rounded-full overflow-hidden bg-muted/50 flex items-center justify-center border border-muted">
-          {previewUrl ? (
-            <Image src={previewUrl} alt="Profile preview" fill className="object-cover" />
-          ) : (
-            <ImageIcon className="h-12 w-12 text-muted-foreground/40" />
-          )}
-        </div>
-
+      <div className="flex flex-col gap-4 items-center">
         <div className="flex flex-col gap-3 w-full">
           <div className="flex flex-wrap gap-2">
             <Button type="button" variant="outline" size="sm" onClick={() => inputFileRef.current?.click()}>
