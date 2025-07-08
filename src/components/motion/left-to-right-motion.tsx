@@ -7,14 +7,23 @@ interface Props {
   duration?: number;
   reverse?: boolean;
   fade?: boolean;
+  amount?: number;
 }
 
-export function LeftToRightMotion({ children, delay, className, duration = 0.5, reverse = false, fade = true }: Props) {
+export function LeftToRightMotion({
+  children,
+  delay,
+  className,
+  duration = 0.5,
+  reverse = false,
+  fade = true,
+  amount = 0.5,
+}: Props) {
   return (
     <motion.div
       initial={{ opacity: fade ? 0 : 1, x: reverse ? 50 : -50 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: amount }}
       transition={{ delay: delay, duration: duration }}
       className={className}
     >
