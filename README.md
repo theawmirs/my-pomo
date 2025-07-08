@@ -1,119 +1,128 @@
-# MyPomo - Boost Your Focus
+# My Pomo
 
-A modern, feature-rich Pomodoro timer application built with Next.js 15, TypeScript, Tailwind CSS, and Prisma.
-
-![MyPomo](public/og-image.png)
-
-## 📋 Overview
-
-MyPomo is a productivity tool based on the Pomodoro Technique, a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. This application helps users improve focus, manage distractions, and maintain productivity throughout their work sessions.
+My Pomo is a modern and feature-rich Pomodoro timer application designed to help you stay focused and manage your tasks effectively. Built with Next.js and a powerful set of tools, it provides a seamless user experience with features like user authentication, task management, customizable themes, and performance tracking.
 
 ## ✨ Features
 
-- **Customizable Timer Settings**: Adjust work and break durations to fit your workflow
-- **Session Tracking**: Track completed Pomodoro sessions with detailed statistics
-- **User Authentication**: Secure login and registration with NextAuth
-- **Responsive Design**: Works seamlessly across desktop and mobile devices
-- **Dark/Light Mode**: Choose your preferred theme for comfortable viewing
-- **Beautiful UI**: Modern, clean interface with smooth animations
-- **Session History**: View and analyze your past Pomodoro sessions
-- **Real-time Clock**: Keep track of the current time while using the timer
+- **Pomodoro Timer**: A customizable timer with focus, short break, and long break sessions.
+- **Task Management**: Create, read, update, and delete tasks. Filter and sort tasks to stay organized.
+- **User Authentication**: Secure user registration and login using NextAuth.js.
+- **User Profiles**: View and edit your profile, including uploading a profile picture.
+- **User Statistics**: Track your completed sessions and tasks over time.
+- **Customizable Wallpaper**: Personalize your workspace by changing the background wallpaper.
+- **Theme Switching**: Switch between light and dark modes.
+- **Responsive Design**: A fully responsive interface that works on all devices.
+- **Notifications**: Get notified when a session ends.
+
+### In-Depth Features
+
+#### Authentication System
+
+The application uses **NextAuth.js** for robust and secure user authentication.
+
+- **Credentials-Based Login**: Users can sign up with an email and password. Passwords are encrypted using `bcryptjs` before being stored in the database.
+- **Session Management**: NextAuth.js handles session management, keeping users logged in across browser sessions.
+- **Protected Routes**: Middleware is used to protect application routes, ensuring that only authenticated users can access the main Pomodoro timer and their personal data.
+
+#### User Profile and Settings
+
+Each user has a dedicated profile page where they can manage their account and track their progress.
+
+- **Public Profile Page**: Displays user's name, profile picture, and statistics like total Pomodoro sessions and completed tasks.
+- **Profile Editing**: Users can update their personal information, including their name and profile picture. Profile pictures are uploaded to Vercel Blob storage.
+- **Account Settings**: Users can manage their account settings, with the option to delete their account and all associated data.
+
+#### Customization
+
+My Pomo offers several options for users to personalize their experience.
+
+- **Wallpaper**: Users can choose from a selection of wallpapers to set as their background, creating a more pleasant and motivating workspace. Selections are saved to the database.
+- **Theme**: A theme toggle allows switching between a light and dark mode to suit user preference and reduce eye strain. The chosen theme is persisted across sessions using `next-themes`.
 
 ## 🚀 Tech Stack
 
-- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Backend**: Next.js API routes
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js
-- **State Management**: Zustand
-- **UI Components**: Radix UI, Shadcn UI
-- **Styling**: Tailwind CSS, CSS animations
-- **Form Handling**: React Hook Form with Zod validation
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with `shadcn/ui` for components.
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/)
+- **Database ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **File Uploads**: Vercel Blob
+- **UI Components**: Radix UI
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
 
-## 🛠️ Installation
+## 📂 Folder Structure
 
-1. Clone the repository:
+The project follows a modular, feature-sliced architecture to keep the codebase organized and scalable.
 
-   ```bash
-   git clone https://github.com/yourusername/my-pomo.git
-   cd my-pomo
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables:
-   Create a `.env` file in the root directory with the following variables:
-
-   ```
-   DATABASE_URL="postgresql://username:password@localhost:5432/mypomo"
-   NEXTAUTH_SECRET="your-nextauth-secret"
-   NEXTAUTH_URL="http://localhost:3000"
-   ```
-
-4. Set up the database:
-
-   ```bash
-   npx prisma db push
-   ```
-
-5. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## 📊 Database Schema
-
-The application uses PostgreSQL with Prisma ORM. The main models include:
-
-- **User**: Stores user information and authentication details
-- **Pomodoro**: Tracks completed Pomodoro sessions with duration and type
-
-## 📱 Usage
-
-1. **Register/Login**: Create an account or log in to track your Pomodoro sessions
-2. **Start a Session**: Choose your timer settings and start focusing
-3. **Take Breaks**: The app will notify you when it's time for a break
-4. **Track Progress**: View your productivity statistics and session history
-
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-npm test
+```
+src
+├── app/                  # Next.js App Router: Pages, Layouts, and API Routes
+│   ├── (app)/            # Main application routes (protected)
+│   ├── (home)/           # Landing page
+│   ├── api/              # API endpoints
+│   └── auth/             # Authentication pages (login/register)
+│
+├── components/           # Shared UI components (e.g., Button, Card)
+│
+├── lib/                  # Core libraries and utilities
+│   ├── auth/             # Authentication configuration
+│   ├── db/               # Database actions and schemas
+│   └── prisma.ts         # Prisma client instance
+│
+├── modules/              # Feature-based modules
+│   ├── auth/             # Authentication logic (forms, actions, state)
+│   ├── global/           # Global components (Navbar, ThemeProvider)
+│   ├── home/             # Components for the landing page
+│   ├── pomodoro/         # Pomodoro timer logic and components
+│   ├── tasks/            # Task management logic and components
+│   └── user/             # User profile and settings logic
+│
+└── middleware.ts         # Next.js middleware for route protection
 ```
 
-## 🚢 Deployment
+## 🌊 App Flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  **Landing Page**: New users are greeted with a landing page that showcases the app's features.
+2.  **Authentication**: Users can sign up for a new account or log in with their existing credentials. The session is managed by NextAuth.js.
+3.  **Pomodoro Timer**: After logging in, users are directed to the main Pomodoro timer. They can start a focus session, take short or long breaks, and receive notifications upon completion.
+4.  **Task Management**: Users can open a modal to view their tasks. They can add new tasks, edit existing ones, mark them as complete, or delete them. Tasks can be filtered and sorted based on different criteria.
+5.  **User Profile & Settings**: Users can access their profile page to view their statistics, such as completed Pomodoros and tasks. They can also edit their profile information and upload a new profile picture.
+6.  **Customization**: The app allows users to personalize their experience by changing the wallpaper and switching between light and dark themes.
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Getting Started
 
-## 📄 License
+To get a local copy up and running, follow these simple steps.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Prerequisites
 
-## 🤝 Contributing
+- Node.js (v20 or higher)
+- npm or yarn
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Installation
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1.  Clone the repo
+    ```sh
+    git clone https://github.com/your_username/my-pomo.git
+    ```
+2.  Install NPM packages
+    ```sh
+    npm install
+    ```
+3.  Set up your environment variables. Create a `.env.local` file in the root of your project and add the necessary variables (e.g., database URL, NextAuth secret).
+    ```env
+    DATABASE_URL="your_database_url"
+    AUTH_SECRET="your_nextauth_secret"
+    # ... other variables
+    ```
+4.  Push the Prisma schema to your database.
+    ```sh
+    npx prisma db push
+    ```
+5.  Run the development server.
+    ```sh
+    npm run dev
+    ```
 
-## 📞 Contact
-
-If you have any questions or feedback, please reach out to [your-email@example.com](mailto:your-email@example.com).
-
----
-
-Built with ❤️ using [Next.js](https://nextjs.org)
+The application should now be running on [http://localhost:3000](http://localhost:3000).
