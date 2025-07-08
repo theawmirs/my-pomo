@@ -11,12 +11,12 @@ export default function Home() {
       <div className="absolute -bottom-24 right-1/2 w-72 h-72 bg-secondary/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <LeftToRightMotion duration={1} amount={0}>
+        <LeftToRightMotion duration={1}>
           <HeroSection />
           <FeaturesSection />
         </LeftToRightMotion>
 
-        <UpToDownMotion duration={1}>
+        <UpToDownMotion duration={1} amount={0.1}>
           <BenefitsSection />
           <CTASection />
         </UpToDownMotion>
