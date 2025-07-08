@@ -24,11 +24,11 @@ export function FeatureCard({ icon: Icon, title, description, time }: FeatureCar
           <p className="text-muted-foreground mb-3">{description}</p>
         </FadeInMotion>
 
-        <LeftToRightMotion delay={0.6} duration={1}>
+        <FadeInMotion delay={0.6} duration={1}>
           <div className="flex justify-center">
             <div className="text-3xl font-mono font-bold text-foreground/70">{time}</div>
           </div>
-        </LeftToRightMotion>
+        </FadeInMotion>
       </div>
     </div>
   );
