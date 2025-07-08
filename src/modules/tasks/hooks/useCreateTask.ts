@@ -19,7 +19,7 @@ export const useCreateTask = (userId?: string) => {
   const [activeTab, setActiveTab] = useState<"tasks" | "add">("tasks");
   const formRef = useRef<HTMLFormElement>(null);
 
-  const boundAction = (prevState: FormState | any, formData: FormData) => {
+  const boundAction = (prevState: FormState | null, formData: FormData) => {
     return createTaskAction(prevState, formData, userId!);
   };
 

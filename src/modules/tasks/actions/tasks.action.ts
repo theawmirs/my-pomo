@@ -16,7 +16,7 @@ export interface FormState {
 }
 
 //Create a new task
-export const createTaskAction = async (prevState: FormState | undefined, formData: FormData, userId: string) => {
+export const createTaskAction = async (prevState: FormState | null, formData: FormData, userId: string) => {
   const rawData = {
     title: formData.get("title"),
     description: formData.get("description"),
@@ -40,7 +40,7 @@ export const createTaskAction = async (prevState: FormState | undefined, formDat
     await createTask(userId, title, description, priority, dueDate);
     revalidatePath("/pomodoro");
     return { success: true, message: "Task created successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to create task" };
   }
 };
@@ -53,7 +53,7 @@ export const changeTaskStatusAction = async (taskId: string) => {
     await changeTaskStatus(taskId);
     revalidatePath("/pomodoro");
     return { success: true, message: "Task completed successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to complete task" };
   }
 };
@@ -66,7 +66,7 @@ export const deleteTaskAction = async (taskId: string) => {
     await deleteTask(taskId);
     revalidatePath("/pomodoro");
     return { success: true, message: "Task deleted successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to delete task" };
   }
 };
@@ -96,7 +96,7 @@ export const editTaskAction = async (prevState: FormState | null, formData: Form
     await editTask(taskId, title, description, priority, dueDate);
     revalidatePath("/pomodoro");
     return { success: true, message: "Task edited successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to edit task" };
   }
 };
