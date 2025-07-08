@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskFormSchema } from "../schema/task.schema";
 import { FormState } from "../actions/tasks.action";
+import { TaskFormSchema } from "../schema/task.schema";
 
 export const useCreateTask = (userId?: string) => {
   const {
@@ -12,7 +13,7 @@ export const useCreateTask = (userId?: string) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<TaskFormSchema>({
     resolver: zodResolver(taskFormSchema),
     mode: "onChange",
   });
