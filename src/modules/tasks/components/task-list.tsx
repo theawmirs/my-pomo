@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SingleTask } from "./single-task";
-import { Input } from "@/modules/ui-components/shadcn/ui/input";
+import { Input } from "@/components/ui/input";
 import { SearchIcon, ListFilterIcon } from "lucide-react";
 import { Task } from "@prisma/client";
 import { TaskFilterTabs } from "./task-filter-tabs";

@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { EditIcon } from "lucide-react";
 import { useState } from "react";
 import EditTaskDialog from "./edit-task-dialog";

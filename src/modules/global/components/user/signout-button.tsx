@@ -1,7 +1,7 @@
 "use client";
 
 import { logout } from "@/modules/auth/login/actions/login.action";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { toast } from "sonner";
 

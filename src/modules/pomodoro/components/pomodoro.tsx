@@ -1,6 +1,6 @@
 "use client";
 import { Pause, Play, RotateCcw, StepForward } from "lucide-react";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { formatTime } from "@/utils/formatTime";
 import { FocusTask } from "./focus-task";
 import { usePomodoro } from "../hooks/usePomodoro";

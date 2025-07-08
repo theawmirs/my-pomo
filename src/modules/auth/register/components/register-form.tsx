@@ -1,16 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { Input } from "@/modules/ui-components/shadcn/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/modules/ui-components/shadcn/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-react";
 import { useRegisterForm } from "../hooks/useRegisterForm";
 

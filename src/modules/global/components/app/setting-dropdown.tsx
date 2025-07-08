@@ -4,9 +4,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../../../ui-components/shadcn/ui/dropdown-menu";
+} from "../../../../components/ui/dropdown-menu";
 import { Moon, Settings, WallpaperIcon } from "lucide-react";
-import { Button } from "../../../ui-components/shadcn/ui/button";
+import { Button } from "../../../../components/ui/button";
 import DarkmodeToggle from "../navbar/theme-toggle";
 import Link from "next/link";
 

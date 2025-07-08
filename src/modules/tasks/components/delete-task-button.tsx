@@ -1,4 +1,4 @@
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { Loader2, TrashIcon } from "lucide-react";
 import { deleteTaskAction } from "../actions/tasks.action";
 import { useTransition } from "react";

@@ -1,13 +1,7 @@
 "use client";
 
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/modules/ui-components/shadcn/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { useDeleteAccount } from "../../hooks/useDeleteAccount";
 

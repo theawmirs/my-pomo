@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
-import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Mail, Calendar, PenSquare } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";

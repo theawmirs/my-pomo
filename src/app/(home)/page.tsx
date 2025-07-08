@@ -1,4 +1,5 @@
 "use client";
+import { LeftToRightMotion, UpToDownMotion } from "@/components/motion";
 import { HeroSection, FeaturesSection, BenefitsSection, CTASection } from "@/modules/home/components";
 
 export default function Home() {
@@ -10,29 +11,16 @@ export default function Home() {
       <div className="absolute -bottom-24 right-1/2 w-72 h-72 bg-secondary/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <HeroSection />
-        <FeaturesSection />
-        <BenefitsSection />
-        <CTASection />
-      </div>
+        <LeftToRightMotion duration={1}>
+          <HeroSection />
+          <FeaturesSection />
+        </LeftToRightMotion>
 
-      {/* Add animation styles */}
-      <style jsx>{`
-        @keyframes float {
-          0% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
+        <UpToDownMotion duration={1}>
+          <BenefitsSection />
+          <CTASection />
+        </UpToDownMotion>
+      </div>
     </div>
   );
 }

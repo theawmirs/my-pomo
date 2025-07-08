@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users } from "lucide-react";
 
 export default function UserNotFound() {

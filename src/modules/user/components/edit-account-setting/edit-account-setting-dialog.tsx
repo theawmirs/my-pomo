@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/modules/ui-components/shadcn/ui/dialog";
-import { Dialog } from "@/modules/ui-components/shadcn/ui/dialog";
-import { Input } from "@/modules/ui-components/shadcn/ui/input";
-import { Label } from "@/modules/ui-components/shadcn/ui/label";
+import { Button } from "@/components/ui/button";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEditAccountDetails } from "../../hooks/useEditAccountDetails";
-import { Switch } from "@/modules/ui-components/shadcn/ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { LockIcon, MailIcon, EyeIcon, TrashIcon, Loader } from "lucide-react";
 import DeleteAccountDialog from "./delete-account-dialog";
 import { useState } from "react";

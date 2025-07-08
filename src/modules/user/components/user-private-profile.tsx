@@ -1,6 +1,6 @@
 import { LockKeyhole } from "lucide-react";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/modules/ui-components/shadcn/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export function UserPrivateProfile() {

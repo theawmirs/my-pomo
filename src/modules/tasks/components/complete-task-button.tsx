@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { Task } from "@prisma/client";
 import { changeTaskStatusAction } from "../actions/tasks.action";
 import { toast } from "sonner";

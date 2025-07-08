@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth/auth";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,10 +7,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/modules/ui-components/shadcn/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { LogIn, User, UserCog } from "lucide-react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/modules/ui-components/shadcn/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SignoutButton from "./signout-button";
 import { getUserById } from "@/lib/db/actions/user/user.actions";
 

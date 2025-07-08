@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { Input } from "@/modules/ui-components/shadcn/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { User } from "@prisma/client";
 import { useEditUserProfile } from "../../hooks/useEditUserProfile";
 import { UserIcon, AtSignIcon, Loader2 } from "lucide-react";
 import UploadImageProfile from "./upload-image-profile";
-import {  useState } from "react";
+import { useState } from "react";
 
 export function EditUserProfileForm({ user }: { user: User }) {
   const { register, handleSubmit, errors, isPending, handleCancelClick, formRef } = useEditUserProfile({

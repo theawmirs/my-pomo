@@ -1,8 +1,8 @@
 "use client";
 
 import { Clock, Maximize, Timer } from "lucide-react";
-import { Button } from "../../ui-components/shadcn/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui-components/shadcn/ui/tooltip";
+import { Button } from "../../../components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../../components/ui/tooltip";
 import { useTimerSettings } from "../hooks/useTimerSettings";
 
 interface Props {

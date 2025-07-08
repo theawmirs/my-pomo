@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import { CameraIcon, ImageIcon, Loader2, Upload, X } from "lucide-react";
 import { useUploadImageProfile } from "../../hooks/useUploadImageProfile";
 

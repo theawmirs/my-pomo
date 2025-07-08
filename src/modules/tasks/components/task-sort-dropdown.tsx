@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/modules/ui-components/shadcn/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon, ListFilterIcon } from "lucide-react";
 
 interface TaskSortDropdownProps {

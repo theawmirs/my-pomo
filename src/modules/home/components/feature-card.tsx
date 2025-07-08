@@ -1,3 +1,4 @@
+import { FadeInMotion, LeftToRightMotion, PopUpMotion } from "@/components/motion";
 import { LucideIcon } from "lucide-react";
 
 interface FeatureCardProps {
@@ -12,14 +13,22 @@ export function FeatureCard({ icon: Icon, title, description, time }: FeatureCar
     <div className="relative bg-card border shadow-sm rounded-xl overflow-hidden group hover:shadow-md transition-all duration-300">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="text-center p-8">
-        <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-          <Icon className="text-primary size-7" />
-        </div>
-        <h3 className="text-xl font-semibold mb-3 text-primary">{title}</h3>
-        <p className="text-muted-foreground mb-3">{description}</p>
-        <div className="flex justify-center">
-          <div className="text-3xl font-mono font-bold text-foreground/70">{time}</div>
-        </div>
+        <PopUpMotion delay={0.2} duration={1} scale={0.8}>
+          <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+            <Icon className="text-primary size-7" />
+          </div>
+        </PopUpMotion>
+
+        <FadeInMotion delay={0.4} duration={1}>
+          <h3 className="text-xl font-semibold mb-3 text-primary">{title}</h3>
+          <p className="text-muted-foreground mb-3">{description}</p>
+        </FadeInMotion>
+
+        <LeftToRightMotion delay={0.6} duration={1}>
+          <div className="flex justify-center">
+            <div className="text-3xl font-mono font-bold text-foreground/70">{time}</div>
+          </div>
+        </LeftToRightMotion>
       </div>
     </div>
   );

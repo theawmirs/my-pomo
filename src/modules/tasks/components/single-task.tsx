@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CardDescription } from "@/modules/ui-components/shadcn/ui/card";
-import { CardTitle } from "@/modules/ui-components/shadcn/ui/card";
-import { Button } from "@/modules/ui-components/shadcn/ui/button";
-import { Badge } from "@/modules/ui-components/shadcn/ui/badge";
+import { Card, CardDescription } from "@/components/ui/card";
+import { CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { CalendarIcon } from "lucide-react";
 import { Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
