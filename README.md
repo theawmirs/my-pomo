@@ -110,12 +110,14 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     npm install
     ```
-3.  Set up your environment variables. Create a `.env.local` file in the root of your project and add the necessary variables (e.g., database URL, NextAuth secret).
-    ```env
-    DATABASE_URL="your_database_url"
-    AUTH_SECRET="your_nextauth_secret"
-    # ... other variables
+3.  Set up your environment variables. Copy the `.env.example` file to a new file named `.env.local` and update the values for your environment.
+
+    ```sh
+    cp .env.example .env.local
     ```
+
+    After copying, open `.env.local` and fill in your actual secrets and configuration.
+
 4.  Push the Prisma schema to your database.
     ```sh
     npx prisma db push
