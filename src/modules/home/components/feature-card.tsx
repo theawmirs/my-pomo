@@ -1,4 +1,4 @@
-import { FadeInMotion, LeftToRightMotion, PopUpMotion } from "@/components/motion";
+import { FadeInMotion, PopUpMotion } from "@/components/motion";
 import { LucideIcon } from "lucide-react";
 
 interface FeatureCardProps {
