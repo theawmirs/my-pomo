@@ -7,14 +7,14 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Loader2, PlusIcon } from "lucide-react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { TaskSchema } from "../schema/task.schema";
+import { TaskFormSchema } from "../schema/task.schema";
 
 interface Props {
   formRef: React.RefObject<HTMLFormElement | null>;
   handleSubmit: () => void;
   isPending: boolean;
-  errors: FieldErrors<TaskSchema>;
-  register: UseFormRegister<TaskSchema>;
+  errors: FieldErrors<TaskFormSchema>;
+  register: UseFormRegister<TaskFormSchema>;
   setActiveTab: (tab: "tasks" | "add") => void;
 }
 export function CreateTaskForm({ formRef, handleSubmit, isPending, errors, register, setActiveTab }: Props) {
