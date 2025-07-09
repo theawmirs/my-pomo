@@ -15,8 +15,6 @@ export const useTimerSettings = (userId: string) => {
     incrementCompletedCycles,
     completedCycles,
     focusDuration,
-    shortBreakDuration,
-    longBreakDuration,
   } = pomodoroStore();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -31,8 +29,12 @@ export const useTimerSettings = (userId: string) => {
       }
       incrementCompletedCycles();
 
-      createPomodoro(userId, focusDuration / 60, "focus");
-      toast.success("Pomodoro completed");
+      if (userId) {
+        createPomodoro(userId, focusDuration / 60, "focus");
+        toast.success("Pomodoro completed");
+      } else {
+        toast.success("Pomodoro completed");
+      }
     } else {
       setActiveTab("focus");
     }
