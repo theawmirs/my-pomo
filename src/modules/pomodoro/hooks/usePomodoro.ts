@@ -6,7 +6,10 @@ export const usePomodoro = (userId: string) => {
   const {
     isCountdownActive,
     setCountdownStatus,
-    sessionDuration,
+    focusDuration,
+    shortBreakDuration,
+    longBreakDuration,
+    activeTab,
     setTimeLeft,
     timeLeft,
     isPaused,
@@ -27,8 +30,11 @@ export const usePomodoro = (userId: string) => {
 
   // Initial timer setup effect
   useEffect(() => {
-    setTimeLeft(sessionDuration);
-  }, [sessionDuration, setTimeLeft]);
+    const currentDuration =
+      activeTab === "focus" ? focusDuration : activeTab === "shortBreak" ? shortBreakDuration : longBreakDuration;
+
+    setTimeLeft(currentDuration);
+  }, [focusDuration, shortBreakDuration, longBreakDuration, activeTab, setTimeLeft]);
 
   // Main timer logic
   useEffect(() => {
@@ -98,37 +104,27 @@ export const usePomodoro = (userId: string) => {
   };
 
   const handlePause = () => {
-    // When pausing, remove end time and store remaining time
-    setEndTime(null);
     setIsPaused(true);
-
-    if (userId) {
-      setTimeout(() => {
-        setUserOnline(userId, false);
-      }, 1 * 60 * 1000);
-    }
+    setEndTime(null);
   };
 
   const handleResume = () => {
-    // Calculate new end time from current remaining time
     setEndTime(Date.now() + timeLeft * 1000);
     setIsPaused(false);
-
-    if (userId) {
-      setUserOnline(userId, true);
-    }
   };
 
   const handleReset = () => {
-    setEndTime(null);
-    setTimeLeft(sessionDuration);
-    setCountdownStatus(false);
     setIsPaused(false);
+    setCountdownStatus(false);
+    setEndTime(null);
+
+    const currentDuration =
+      activeTab === "focus" ? focusDuration : activeTab === "shortBreak" ? shortBreakDuration : longBreakDuration;
+
+    setTimeLeft(currentDuration);
 
     if (userId) {
-      setTimeout(() => {
-        setUserOnline(userId, false);
-      }, 1 * 60 * 1000);
+      setUserOnline(userId, false);
     }
   };
 

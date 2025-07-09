@@ -14,7 +14,9 @@ export const useTimerSettings = (userId: string) => {
     setActiveMode,
     incrementCompletedCycles,
     completedCycles,
-    sessionDuration,
+    focusDuration,
+    shortBreakDuration,
+    longBreakDuration,
   } = pomodoroStore();
 
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -29,7 +31,7 @@ export const useTimerSettings = (userId: string) => {
       }
       incrementCompletedCycles();
 
-      createPomodoro(userId, sessionDuration / 60, activeTab);
+      createPomodoro(userId, focusDuration / 60, "focus");
       toast.success("Pomodoro completed");
     } else {
       setActiveTab("focus");
@@ -47,7 +49,7 @@ export const useTimerSettings = (userId: string) => {
     if (isTimerFinished) {
       handleTimerCompletion();
     }
-  }, [isTimerFinished, handleTimerCompletion]);
+  }, [isTimerFinished]);
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
