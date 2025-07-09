@@ -8,13 +8,21 @@ interface Props {
   accountModal: React.ReactNode;
   wallpaperModal: React.ReactNode;
   tasksModal: React.ReactNode;
+  timerSettingModal: React.ReactNode;
 }
 
 export const metadata = {
   // title: "Focus - 25:00 | MyPomo",
 };
 
-export default function AppLayout({ children, authModal, accountModal, wallpaperModal, tasksModal }: Props) {
+export default function AppLayout({
+  children,
+  authModal,
+  accountModal,
+  wallpaperModal,
+  tasksModal,
+  timerSettingModal,
+}: Props) {
   return (
     <div>
       <Wallpaper />
@@ -27,6 +35,7 @@ export default function AppLayout({ children, authModal, accountModal, wallpaper
       {accountModal}
       {wallpaperModal}
       {tasksModal}
+      {timerSettingModal}
     </div>
   );
 }

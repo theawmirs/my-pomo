@@ -37,6 +37,14 @@ export default function SettingDropdown() {
             </div>
           </DropdownMenuItem>
         </Link>
+        <Link href="/timer-setting">
+          <DropdownMenuItem className="flex items-center justify-between cursor-pointer">
+            <div className="flex items-center gap-2">
+              <Settings />
+              <span>Timer Settings</span>
+            </div>
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
