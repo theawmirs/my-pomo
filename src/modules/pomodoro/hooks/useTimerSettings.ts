@@ -43,7 +43,9 @@ export const useTimerSettings = (userId: string) => {
 
     // Set user offline after 1 minute
     setTimeout(() => {
-      setUserOnline(userId, false);
+      if (userId) {
+        setUserOnline(userId, false);
+      }
     }, 1 * 60 * 1000);
   };
 
