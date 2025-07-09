@@ -7,15 +7,21 @@ import { TimerSettingForm } from "./timer-setting-form";
 export function TimerSettingDialog() {
   const router = useRouter();
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   return (
     <Dialog open={true} onOpenChange={() => router.back()}>
-      <DialogContent>
+      <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Timer Settings</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Timer Settings</DialogTitle>
+          <DialogDescription className="text-muted-foreground mt-2">
+            Customize your Pomodoro timer to match your productivity rhythm
+          </DialogDescription>
         </DialogHeader>
-        <DialogDescription>Customize your Pomodoro timer as you wish!</DialogDescription>
 
-        <TimerSettingForm />
+        <TimerSettingForm onCancel={handleCancel} />
       </DialogContent>
     </Dialog>
   );

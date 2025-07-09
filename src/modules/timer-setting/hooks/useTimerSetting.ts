@@ -50,9 +50,9 @@ export const useTimerSetting = () => {
 
   const onSubmit = (data: FormData) => {
     const { focus, shortBreak, longBreak } = data;
-    setFocusDuration(focus * 60);
-    setShortBreakDuration(shortBreak * 60);
-    setLongBreakDuration(longBreak * 60);
+    setFocusDuration(Number(focus * 60));
+    setShortBreakDuration(Number(shortBreak * 60));
+    setLongBreakDuration(Number(longBreak * 60));
     toast.success("Timer settings updated successfully");
     router.back();
   };
