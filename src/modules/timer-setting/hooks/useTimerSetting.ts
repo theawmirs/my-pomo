@@ -1,69 +1,52 @@
 "use client";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { timerSettingsSchema } from "../schemas/timer-settings.schema";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
-interface FormData {
-  focus: number;
-  shortBreak: number;
-  longBreak: number;
-}
+export default function useTimerSetting() {
+  const router = useRouter();
 
-export const useTimerSetting = () => {
   const {
-    setFocusDuration,
-    setShortBreakDuration,
-    setLongBreakDuration,
     focusDuration,
     shortBreakDuration,
     longBreakDuration,
+    setFocusDuration,
+    setShortBreakDuration,
+    setLongBreakDuration,
   } = pomodoroStore();
-
-  const defaultValues = {
-    focus: Number(focusDuration / 60),
-    shortBreak: Number(shortBreakDuration / 60),
-    longBreak: Number(longBreakDuration / 60),
-  };
-
-  const {
-    register,
-    setValue,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(timerSettingsSchema),
-    defaultValues,
+  const [timerConfig, setTimerConfig] = useState({
+    focus: focusDuration / 60,
+    shortBreak: shortBreakDuration / 60,
+    longBreak: longBreakDuration / 60,
   });
 
-  const router = useRouter();
-
-  const handleTimerIncrease = (timer: "focus" | "shortBreak" | "longBreak") => {
-    setValue(timer, watch(timer) + 1);
-  };
-  const handleTimerDecrease = (timer: "focus" | "shortBreak" | "longBreak") => {
-    setValue(timer, watch(timer) - 1);
+  const handleIncreaseTimer = (timerType: "focus" | "shortBreak" | "longBreak") => {
+    setTimerConfig({ ...timerConfig, [timerType]: timerConfig[timerType] + 5 });
   };
 
-  const onSubmit = (data: FormData) => {
-    const { focus, shortBreak, longBreak } = data;
-    setFocusDuration(Number(focus * 60));
-    setShortBreakDuration(Number(shortBreak * 60));
-    setLongBreakDuration(Number(longBreak * 60));
+  const handleDecreaseTimer = (timerType: "focus" | "shortBreak" | "longBreak") => {
+    if (timerConfig[timerType] <= 5) return;
+    setTimerConfig({ ...timerConfig, [timerType]: timerConfig[timerType] - 5 });
+  };
+
+  const handleSubmit = () => {
+    setFocusDuration(timerConfig.focus * 60);
+    setShortBreakDuration(timerConfig.shortBreak * 60);
+    setLongBreakDuration(timerConfig.longBreak * 60);
     toast.success("Timer settings updated successfully");
     router.back();
   };
 
-  return {
-    register,
-    setValue,
-    watch,
-    handleSubmit: handleSubmit(onSubmit),
-    errors,
-    handleTimerIncrease,
-    handleTimerDecrease,
+  const handleCancel = () => {
+    router.back();
   };
-};
+
+  return {
+    timerConfig,
+    handleIncreaseTimer,
+    handleDecreaseTimer,
+    handleSubmit,
+    handleCancel,
+  };
+}
