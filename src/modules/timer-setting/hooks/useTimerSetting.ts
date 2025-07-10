@@ -1,7 +1,7 @@
 "use client";
 import { pomodoroStore } from "@/modules/pomodoro/store/pomodoro";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function useTimerSetting() {
@@ -15,11 +15,22 @@ export default function useTimerSetting() {
     setShortBreakDuration,
     setLongBreakDuration,
   } = pomodoroStore();
+
+  // Initialize with default values
   const [timerConfig, setTimerConfig] = useState({
-    focus: focusDuration / 60,
-    shortBreak: shortBreakDuration / 60,
-    longBreak: longBreakDuration / 60,
+    focus: 25,
+    shortBreak: 5,
+    longBreak: 10,
   });
+
+  // Update state after component mounts to ensure client-side only
+  useEffect(() => {
+    setTimerConfig({
+      focus: focusDuration / 60,
+      shortBreak: shortBreakDuration / 60,
+      longBreak: longBreakDuration / 60,
+    });
+  }, [focusDuration, shortBreakDuration, longBreakDuration]);
 
   const handleIncreaseTimer = (timerType: "focus" | "shortBreak" | "longBreak") => {
     setTimerConfig({ ...timerConfig, [timerType]: timerConfig[timerType] + 5 });
